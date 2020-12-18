@@ -1,9 +1,45 @@
+<?php 
+include "../resources/php/sql.php";
+
+if (isset($_POST['addDate'])) {
+  $date = $_POST['date'];
+  $description = $_POST['description'];
+  $type =  $_POST['holiday_type'];
+
+  $date=explode(" ",$date);
+
+  $date_start = $date[0];
+  $date_end = $date[2];
+
+  $new_date_start1 = strtotime($date_start);
+  $new_date_start = date("Y-m-d", $new_date_start1);
+
+
+  $new_date_end1 = strtotime($date_end);
+  $new_date_end = date("Y-m-d", $new_date_end1);
+
+  addDate($type, $description, $new_date_start, $new_date_end);
+
+
+
+
+
+
+
+}
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>EDIT DATE</title>
+  <title>Register Date</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -22,100 +58,7 @@
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <!-- Site wrapper -->
 <div class="wrapper">
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="admin.php" class="nav-link">HOME</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="class.php" class="nav-link">CLASS</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="adminteacher.php" class="nav-link">TEACHER</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="attendance.php" class="nav-link">ATTENDANCE</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="date.php" class="nav-link">EDIT DATE</a>
-      </li>
-    </ul>
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Messages Dropdown Menu -->
-      
-      <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link elevation-4">
-      <span class="brand-text font-weight-light">ONLINE ATTENDANCE</span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">ADMIN</a>
-        </div>
-      </div>
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="index.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v1</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index2.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v2</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v3</p>
-                </a>
-              </li>
-            </ul>   
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+  <?php  include "navAdmin.php"; ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -128,7 +71,7 @@
 
           <div class="col-sm-6">
 
-            <h1>Register Date</h1>
+            <h1>Holidat Registration</h1>
 
           </div>
 
@@ -143,39 +86,43 @@
         <div class="card-header" style="padding: 0;">
           
         </div>
-        <div class="card-body">    
-          <div class="form-group">
-            <label>Date range:</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <i class="far fa-calendar-alt"></i>
-                </span>
-              </div>
-              <input type="text" class="form-control float-right" id="reservation">
-            </div>
+        <form method="post" action="registerDate.php">
+          <div class="card-body">    
             <div class="form-group">
-              <label for="exampleInputEmail1">Description</label>
-              <input type="desc" class="form-control" id="Description" placeholder="Enter Description">
+              <label>Date range:</label>
+              <div class="input-group" style="width: 40%;">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="far fa-calendar-alt"></i>
+                  </span>
+                </div>
+                <input type="text" name="date" class="form-control float-right" id="reservation" required>
+              </div>
+              <div style="margin-top: 10px;" class="form-group">
+                  <label>Type</label>
+                  <select class="form-control " name="holiday_type"  data-placeholder="Select" style="width: 40%;">
+                    <option value="National Holiday">National Holiday</option>
+                    <option value="State Holiday">State Holiday</option>
+                    <option value="Holidays by Declaration">Holidays by Declaration</option>
+                  </select>
+              </div>
+              <div style="margin-top: 10px;" class="form-group" style="width: 40%;">
+                <label for="exampleInputEmail1">Description</label>
+                <input type="desc" name="description" class="form-control" id="Description" placeholder="Enter Description" required>
+              </div>
+              <div>
+                <button type="submit" name="addDate" class="btn btn-primary">Submit</button>
+              </div>     
             </div>
-            <div>
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </div>     
           </div>
-        </div>  
+        </form>  
       </div>
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.0.5
-    </div>
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
-    reserved.
-  </footer>
+  <?php  include "footer.php"; ?>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

@@ -1,11 +1,5 @@
 
 
-
-
-
-
-
-
 <?php
 require 'PHPMailerAutoload.php';
 
@@ -463,3 +457,14 @@ function sendEmail($parentEmail,$parentName, $student_name, $student_class, $dat
 
 
 ?>
+
+
+
+
+
+
+
+
+
+
+

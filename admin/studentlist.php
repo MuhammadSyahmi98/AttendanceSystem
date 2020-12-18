@@ -1,9 +1,12 @@
+<?php include "../resources/php/sql.php"; session_start(); ?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>CLASS</title>
+  <title>Student List</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -19,99 +22,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-   <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="admin.php" class="nav-link">HOME</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="class.php" class="nav-link">CLASS</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">TEACHER</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="attendance.php" class="nav-link">ATTENDANCE</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="date.php" class="nav-link">EDIT DATE</a>
-      </li>
-    </ul>
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Messages Dropdown Menu -->
-      
-      <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link elevation-4">
-      <span class="brand-text font-weight-light">HI ADMIN</span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">TEACHER</a>
-        </div>
-      </div>
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="index.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v1</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index2.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v2</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v3</p>
-                </a>
-              </li>
-            </ul>   
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+  <?php  include "navAdmin.php"; ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -120,7 +31,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>STUDENT LIST</h1>
+            <?php 
+            $class_id1=$_SESSION['class_id'];
+            $result = displayClassByID($class_id1);
+             $row = mysqli_fetch_assoc($result);
+
+            ?>
+            <h1>Student List of <?php echo $row['class_name']; ?></h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -154,211 +71,52 @@
                 <table class="table table-head-fixed text-nowrap">
                   <thead>
                     <tr>
-                      <th>#</th>
+                      <th>ID</th>
                       <th>Name</th>
                       <th>IC NUMBER</th>
-                      <th></th>
+                      <th>Parent Name</th>
+                      <th>Parent Contact Number</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
+                    <?php 
+
+                    $class_id1=$_SESSION['class_id'];
+                    $result = displayStudentByClass($class_id1);
+                    $i = 1;
+                    while ($row = mysqli_fetch_assoc($result)) {
+        
+                    
+                    ?>
                     <tr>
-                      <td>1</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
+                      <td><?php echo $row['student_id'] ?></td>
+                      <td><?php echo $row['student_name']; ?></td>
+                      <td><?php echo $row['student_ic']; ?></td>
+                      <td><?php echo $row['parent_name']; ?></td>
+                      <td><?php echo $row['parent_contact']; ?></td>
                       <td>
-                          <a class="btn btn-primary btn-sm" href="#">
+                        <form method="POST">
+
+                          <input type="hidden" name="id$i" value="<?php echo $row['student_id'] ?>">
+
+                          <button class="btn btn-primary btn-sm" name="viewDetailStudent">
                               <i class="fas fa-folder">
                               </i>
                               View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
+                          </button>
+                          <button class="btn btn-info btn-sm" name="editDetailStudent">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
+                          </button>
+                          
+                         </form>
                       </td>
                     </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
+
+                  <?php $i=$i+1;} ?>
+                    
                   </tbody>
                 </table>
               </div>
@@ -374,13 +132,7 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.0.5
-    </div>
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
-    reserved.
-  </footer>
+  <?php  include "footer.php"; ?>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -400,3 +152,32 @@
 <script src="../dist/js/demo.js"></script>
 </body>
 </html>
+
+
+<?php 
+if (isset($_POST['viewDetailStudent'])) {
+  $_SESSION['student_id'] = $_POST['id$i'];
+  echo "<script>window.location.assign('viewStudent.php')</script>";
+  
+}
+
+?>
+
+<?php 
+if (isset($_POST['editDetailStudent'])) {
+  $_SESSION['student_id'] = $_POST['id$i'];
+   $_SESSION['pageStudentList'] = 2;
+  echo "<script>window.location.assign('editStudent.php')</script>";
+  
+}
+
+?>
+
+
+<?php 
+if (isset($_POST['deleteDetailStudent'])) {
+  $student_id = $_POST['id$i'];
+  deleteStudent($student_id);
+}
+
+?>

@@ -1,9 +1,19 @@
+
+
+<!-- Refresh the page and will resit the UIDContainer to empty. The RFID will show nothing -->
+<?php
+  include "../resources/php/sql.php"; session_start();
+  $Write="<?php $" . "UIDresult=''; " . "echo $" . "UIDresult;" . " ?>";
+  file_put_contents('../UIDContainer.php',$Write);
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>TEACHER</title>
+  <title>Register Student</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -14,105 +24,28 @@
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <!-- JS-RFID -->
+
+  <script src="jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+         $("#getUID").load("../UIDContainer.php");
+        setInterval(function() {
+          $("#getUID").load("../UIDContainer.php");
+        }, 500);
+      });
+    </script>
+
+  <!-- /.JS-RFID -->
+
+
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-   <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="admin.php" class="nav-link">HOME</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="class.php" class="nav-link">CLASS</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">TEACHER</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="attendance.php" class="nav-link">ATTENDANCE</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="date.php" class="nav-link">EDIT DATE</a>
-      </li>
-    </ul>
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Messages Dropdown Menu -->
-      
-      <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <!-- /.navbar -->
-
-
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link elevation-4">
-      <span class="brand-text font-weight-light">HI TEACHER</span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">TEACHER</a>
-        </div>
-      </div>
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="index.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v1</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index2.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v2</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v3</p>
-                </a>
-              </li>
-            </ul>   
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+  <?php  include "navAdmin.php"; ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -121,7 +54,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>REGSITER STUDENT</h1>
+            <h1>Student Registration</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -135,25 +68,45 @@
               
               <!-- /.card-header -->
               <div>
-              <form role="form">
+              <form role="form" method="POST" action="registerStudent.php">
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputrfid">RFID NUMBER</label>
-                    <input type="rfid" class="form-control" id="exampleInputrfid" placeholder="Scan RFID Card" disabled="disabled">
+                    <textarea style="resize: none; height: 40px;" name="student_id" class="form-control" id="getUID" required placeholder="Scan RFID Card"></textarea>  
                   </div>
                   <div class="form-group">
                     <label for="exampleInputName">Name</label>
-                    <input type="name" class="form-control" id="exampleInputname" placeholder="Enter name">
+                    <input type="name" name="student_name" class="form-control"  placeholder="Enter name" required>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputICNumber">IC NUMBER</label>
-                    <input type="icnumber" class="form-control" id="exampleInputIcnumber" placeholder="Enter IcNumber">
+                    <input class="form-control" name="student_ic"  placeholder="Enter Ic Number" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputICNumber">PARENT NAME</label>
+                    <input class="form-control" name="parent_name" placeholder="Enter Parent Name" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputICNumber">EMAIL</label>
+                    <input type="email" name="parent_email" class="form-control"  placeholder="Enter Parent Email" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputICNumber">PARENT CONTACT NUMBER</label>
+                    <input class="form-control" name="parent_contact" placeholder="Enter Parent Contact Number" required>
+                  </div>
+                  <div class="form-group">
+                    <?php 
+                    $class_id1=$_SESSION['class_id'];
+                    $result = displayClassForAddStudent($class_id1);
+                    $row = mysqli_fetch_assoc($result); ?>
+                    <label for="exampleInputICNumber">Class</label>
+                    <input type="class" name="class_id" class="form-control"  required value="<?php echo $row['class_name']?>">
                   </div>
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" name="addStudent" class="btn btn-primary">Submit</button>
                 </div>
               </form>
 
@@ -173,13 +126,7 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.0.5
-    </div>
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
-    reserved.
-  </footer>
+ <?php  include "footer.php"; ?>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -193,9 +140,24 @@
 <script src="../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../dist/js/adminlte.min.js"></script>
+
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 </body>
 </html>
+
+
+<?php 
+if (isset($_POST['addStudent'])) {
+  $student_id = $_POST['student_id'];
+  $student_name = $_POST['student_name'];
+  $student_ic = $_POST['student_ic'];
+  $parent_name = $_POST['parent_name'];
+  $parent_email = $_POST['parent_email'];
+  $parent_contact = $_POST['parent_contact'];
+  $class_id = $_SESSION['class_id'];
+
+  addStudent($student_id, $student_name, $student_ic, $parent_name, $parent_email, $parent_contact, $class_id);
+}
+
+?>

@@ -11,6 +11,7 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
+
 </head>
 <body>
 	<!-- Navbar -->
@@ -44,7 +45,7 @@
     <a href="admin.php" class="brand-link">
       <img src="../resources/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light" style="font-size: 97%;">ONLINE ATTENDANCE</span>
+      <span class="brand-text font-weight-light" style="font-size: 97%;">MyAttendance</span>
     </a>
 
     <!-- Sidebar -->
@@ -60,13 +61,28 @@
       </div>
 
       <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <nav class="mt-2" >
+        <ul id="myDIV" class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
+          <?php  
+            if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')   
+                 $url = "https://";   
+            else  
+                 $url = "http://";   
+            // Append the host(domain name, ip) to the URL.   
+            $url.= $_SERVER['HTTP_HOST'];   
+            
+            // Append the requested resource location to the URL   
+            $url.= $_SERVER['REQUEST_URI'];    
+              
+            
+          ?>   
+
+
           <li class="nav-item has-treeview">
-            <a href="admin.php" class="nav-link">
+            <a href="admin.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/admin.php")) {echo "active";} ?> ">
               <i class="nav-icon fas fa-home"></i>
               <p>
                 HOME
@@ -74,18 +90,24 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="class.php" class="nav-link"><p>
+            <a href="class.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/class.php")  || ($url === "http://localhost/AttendanceSystem/admin/editClass.php")) {echo "active";} ?> "><p>
                 CLASS
               </p></a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="adminTeacher.php" class="nav-link">
+            <a href="adminTeacher.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/adminTeacher.php") || ($url === "http://localhost/AttendanceSystem/admin/editTeacher.php")) {echo "active";} ?> ">
               <p>
                 TEACHER
               </p></a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="date.php" class="nav-link"><p>
+            <a href="allStudentList.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/allStudentList.php") || ($url === "http://localhost/AttendanceSystem/admin/viewStudent.php") || ($url === "http://localhost/AttendanceSystem/admin/studentlist.php") || ($url === "http://localhost/AttendanceSystem/admin/editStudent.php"))  {echo "active";} ?> ">
+              <p>
+                STUDENT
+              </p></a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="date.php" class="nav-link <?php if($url === "http://localhost/AttendanceSystem/admin/date.php") {echo "active";} ?>"><p>
                 HOLIDAY
               </p></a>
           </li>
@@ -99,19 +121,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="attendance.php" class="nav-link">
+                <a href="attendance.php" class="nav-link <?php if($url === "http://localhost/AttendanceSystem/admin/attendance.php") {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>BY DAY</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index2.html" class="nav-link">
+                <a href="index2.html" class="nav-link <?php if($url === "http://localhost/AttendanceSystem/admin/.php") {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>BY MONTH</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index3.html" class="nav-link">
+                <a href="index3.html" class="nav-link <?php if($url === "http://localhost/AttendanceSystem/admin/.php") {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>BY YEAR</p>
                 </a>
@@ -136,5 +158,7 @@
 <script src="../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
+<script>
+</script>
 </body>
 </html>
