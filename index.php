@@ -42,7 +42,7 @@ if (isset($_POST['login'])) {
   } else {
     $test = verifyAdmin($email, $password);
     if ($test === 9985) {
-      echo "<script>alert('WELCOME ADMIN');
+      echo "<script>
               window.location.href='admin/admin.php';
               </script>";
     } else {
@@ -56,7 +56,7 @@ if (isset($_POST['login'])) {
           $_SESSION['class_id'] = $data['class_id'];
 
 
-          echo "<script>alert('WELCOME TEACHER');
+          echo "<script>
               window.location.href='teacher/Teacher.php';
               </script>";
 

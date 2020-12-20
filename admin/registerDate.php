@@ -96,7 +96,7 @@ if (isset($_POST['addDate'])) {
                     <i class="far fa-calendar-alt"></i>
                   </span>
                 </div>
-                <input type="text" name="date" class="form-control float-right" id="reservation" required>
+                <input type="text" name="date" class="form-control float-right" id="reservation" required autocomplete="off">
               </div>
               <div style="margin-top: 10px;" class="form-group">
                   <label>Type</label>
