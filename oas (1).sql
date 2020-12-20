@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2020 at 01:41 PM
+-- Generation Time: Dec 20, 2020 at 08:22 AM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -33,6 +33,13 @@ CREATE TABLE `admin` (
   `admin_password` varchar(9999) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`admin_id`, `admin_name`, `admin_email`, `admin_password`) VALUES
+(1, 'Admin 1', 'admin@gmail.com', '12345678');
+
 -- --------------------------------------------------------
 
 --
@@ -42,6 +49,7 @@ CREATE TABLE `admin` (
 CREATE TABLE `attendance` (
   `attendance_id` int(11) NOT NULL,
   `time_in` time NOT NULL,
+  `time_out` time DEFAULT NULL,
   `dates` date NOT NULL,
   `attend_status` varchar(30) NOT NULL,
   `student_id` varchar(767) NOT NULL
@@ -51,8 +59,8 @@ CREATE TABLE `attendance` (
 -- Dumping data for table `attendance`
 --
 
-INSERT INTO `attendance` (`attendance_id`, `time_in`, `dates`, `attend_status`, `student_id`) VALUES
-(34, '18:00:36', '2020-12-11', 'Attend', '1ACD7D19');
+INSERT INTO `attendance` (`attendance_id`, `time_in`, `time_out`, `dates`, `attend_status`, `student_id`) VALUES
+(34, '18:00:36', NULL, '2020-12-11', 'Attend', '1ACD7D19');
 
 -- --------------------------------------------------------
 
@@ -71,8 +79,8 @@ CREATE TABLE `class` (
 
 INSERT INTO `class` (`class_id`, `class_name`) VALUES
 (1, '5 Delima'),
-(2, '1 pintar'),
-(5, '3 Farabi');
+(2, '3 Pintar'),
+(5, '1 Pintar');
 
 -- --------------------------------------------------------
 
@@ -137,7 +145,8 @@ CREATE TABLE `student` (
 
 INSERT INTO `student` (`student_id`, `student_name`, `student_ic`, `parent_name`, `parent_email`, `parent_contact`, `class_id`) VALUES
 ('12314', 'Hafizi Bin Abu Bakar Sedak', '990523092344', 'Abu Bakar Sedak', 'hafizi@gmail.com', '1234567890', 1),
-('123456', 'Syafiqah Binti Abdul Jalil', '1234567890', 'Abdul Jalil', 'aprjo_32@gmail.com', '1234567890', 5),
+('12345', 'test student', '34567890', 'Atan Bin Abdul Abu', 'test1@gmail.com', '1234567890', 1),
+('12345678', 'Syafiqah Binti Abdul Jalil', '12345678901', 'Abdul Jalil', 'aprjo_32@gmail.com', '1234567890', 1),
 ('1ACD7D19', 'Muhammad Syahmi', '990422025095', 'Abdul Jalil Bin M.Amdan', 'syahmijalil12@gmail.com', '0196399925', 2),
 ('8F6CCACC', 'Alia Syahirah', '990212018093', 'Ahmad Tarmizo', 'attendancesystem.my@gmail.com', '0196399925', 1);
 
@@ -161,7 +170,7 @@ CREATE TABLE `teacher` (
 --
 
 INSERT INTO `teacher` (`teacher_id`, `teacher_name`, `teacher_email`, `teacher_contact`, `teacher_password`, `class_id`) VALUES
-(3, 'Aqilah Shahirah', 'qilah43@gmail.com', '12345678901', '12345', NULL),
+(3, 'Shahirah', 'shirah43@gmail.com', '12345678901', '12345', 5),
 (4, 'Ku Afnan', 'Atan@gmail.com', '1234567890', '123', 1),
 (5, 'Tengku Hazim', 'hazim2@gmail.com', '1234567890', '1234', 2);
 
@@ -222,7 +231,7 @@ ALTER TABLE `teacher`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `attendance`
 --
