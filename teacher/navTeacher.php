@@ -30,7 +30,7 @@
       <!-- Messages Dropdown Menu -->
       
       <li class="nav-item">
-        <a class="nav-link"  href="#" role="button">
+        <a class="nav-link"  href="../admin/logout.php" role="button">
           <p>LOG OUT</p>
         </a>
       </li>
@@ -110,7 +110,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="teacherstudattend.php" class="nav-link <?php if($url === "http://localhost/AttendanceSystem/teacher/teacherstudattend.php") {echo "active";} ?>">
+                <a href="" class="nav-link <?php if($url === "") {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>BY DAY</p>
                 </a>

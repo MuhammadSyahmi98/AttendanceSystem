@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	 <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
@@ -15,8 +15,7 @@
 </head>
 <body>
 	<!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">    <!-- Left navbar links -->
    <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
@@ -53,7 +52,7 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="../resources/img/12.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="admin.php" class="d-block">ADMIN</a>
@@ -127,7 +126,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index2.html" class="nav-link <?php if($url === "http://localhost/AttendanceSystem/admin/.php") {echo "active";} ?>">
+                <a href="reportByMonth.php" class="nav-link <?php if($url === "http://localhost/AttendanceSystem/admin/reportByMonth.php") {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>BY MONTH</p>
                 </a>
@@ -158,7 +157,6 @@
 <script src="../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
-<script>
-</script>
+
 </body>
 </html>

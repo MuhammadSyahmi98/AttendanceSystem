@@ -1,6 +1,7 @@
 <?php   include "../resources/php/sql.php"; session_start(); ?>
 <?php $_SESSION['teacher_id'] = $_SESSION['teacher_id'];
       $_SESSION['class_id'] = $_SESSION['class_id'];
+      $_SESSION['date'] = "";
 
 ?>
 

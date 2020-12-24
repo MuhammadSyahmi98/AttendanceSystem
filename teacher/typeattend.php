@@ -1,3 +1,4 @@
+<?php   include "../resources/php/sql.php"; session_start(); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +28,7 @@
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
   
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
@@ -56,39 +58,49 @@
               
               <!-- /.card-header -->
               <div>
-                <form role="form">
+                <form method="POST" enctype="multipart/form-data">
+
+                  <?php 
+                   $attendance_id = $_SESSION['attendance_id'];
+                   $student_id = $_SESSION['student_id'];
+                   $date = $_SESSION['date'];
+
+
+                    $result = displaystudentAttendanceByID($student_id, $attendance_id);
+                    $row = mysqli_fetch_assoc($result);
+
+                  ?>
+
+
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputName">Name</label>
-                    <input type="name" class="form-control" id="exampleInputname" placeholder="Enter name" disabled="disabled">
+                    <input type="name" class="form-control" id="exampleInputname" value="<?php echo $row['student_name']; ?>" readonly>
                   </div>                
                   <div class="form-group">
                     <label for="exampleInputFile">File upload</label>
                     <div class="input-group">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                        <input id="image" name="image" type="file" class="custom-file-input"  >
+                        <label class="custom-file-label" for="customFile">Choose File If MC</label>
                       </div>
-                      <div class="input-group-append">
-                        <span class="input-group-text" id="">Upload</span>
-                      </div>
+                      
                     </div>
                   </div>
                 <div class="form-group">
                   <label>Reason</label>
-                  <select class="form-control select2" data-placeholder="Select" style="width: 100%;">
-                    <option>-</option>
-                    <option>MC</option>
-                    <option>Late</option>
+                  <select class="form-control select2" id="option" name="option" data-placeholder="Select" style="width: 100%;">
+                    <option value="Medical Leave">Medical Leave</option>
+                    <option value="Attend Late">Attend Late</option>
                   </select>
                 </div>
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button id="insert" name="insert" type="submit" class="btn btn-primary">Submit</button>
                 </div>
-              </form
+              </form>
 
                
               </div>
@@ -100,7 +112,32 @@
   
       </div>
     </section>
-    
+
+
+
+    <!-- DISPLAY IMAGE -->
+<!-- 
+    <section class="content">
+      <?php 
+// Include the database configuration file  
+      require '/../connectDB.php';
+
+ 
+// Get image data from database 
+$result = $conn->query("SELECT * FROM attendance WHERE attendance_id = 50"); 
+?>
+
+<?php if($result->num_rows > 0){ ?> 
+    <div class="gallery"> 
+        <?php while($row = $result->fetch_assoc()){ ?> 
+            <img style="height: 100px; width: 100px;" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['attendance_img']); ?>" /> 
+        <?php } ?> 
+    </div> 
+<?php }else{ ?> 
+    <p class="status error">Image(s) not found...</p> 
+<?php } ?>
+    </section>
+     -->
 
     <!-- /.content -->
   </div>
@@ -116,100 +153,100 @@
 </div>
 <!-- ./wrapper -->
 
-<script src="plugins/jquery/jquery.min.js"></script>
+<!-- jQuery -->
+<script src="../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- Select2 -->
-<script src="plugins/select2/js/select2.full.min.js"></script>
-<!-- Bootstrap4 Duallistbox -->
-<script src="plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
-<!-- InputMask -->
-<script src="../plugins/moment/moment.min.js"></script>
-<script src="../plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
-<!-- date-range-picker -->
-<script src="../plugins/daterangepicker/daterangepicker.js"></script>
-<!-- bootstrap color picker -->
-<script src="../plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Bootstrap Switch -->
-<script src="../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-
+<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- bs-custom-file-input -->
+<script src="../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
-<!-- Page script -->
-<script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
-
-    //Initialize Select2 Elements
-    $('.select2bs4').select2({
-      theme: 'bootstrap4'
-    })
-
-    //Datemask dd/mm/yyyy
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    //Money Euro
-    $('[data-mask]').inputmask()
-
-    //Date range picker
-    $('#reservationdate').datetimepicker({
-        format: 'L'
-    });
-    //Date range picker
-    $('#reservation').daterangepicker()
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({
-      timePicker: true,
-      timePickerIncrement: 30,
-      locale: {
-        format: 'MM/DD/YYYY hh:mm A'
-      }
-    })
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-      {
-        ranges   : {
-          'Today'       : [moment(), moment()],
-          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        startDate: moment().subtract(29, 'days'),
-        endDate  : moment()
-      },
-      function (start, end) {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-      }
-    )
-
-    //Timepicker
-    $('#timepicker').datetimepicker({
-      format: 'LT'
-    })
-    
-    //Bootstrap Duallistbox
-    $('.duallistbox').bootstrapDualListbox()
-
-    //Colorpicker
-    $('.my-colorpicker1').colorpicker()
-    //color picker with addon
-    $('.my-colorpicker2').colorpicker()
-
-    $('.my-colorpicker2').on('colorpickerChange', function(event) {
-      $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
-    });
-
-    $("input[data-bootstrap-switch]").each(function(){
-      $(this).bootstrapSwitch('state', $(this).prop('checked'));
-    });
-
-  })
-</script>
 </body>
 </html>
+
+
+
+
+ <script type="text/javascript">
+$(document).ready(function () {
+  bsCustomFileInput.init();
+});
+</script>
+
+<script>  
+ $(document).ready(function(){  
+      $('#insert').click(function(){
+        var option = $('#option').val();
+           if (option == 'Medical Leave') {
+              var image_name = $('#image').val();  
+           if(image_name == '')  
+           {  
+                alert("Please Select Image");  
+                return false;  
+           }  
+           else  
+           {  
+                var extension = $('#image').val().split('.').pop().toLowerCase();  
+                if(jQuery.inArray(extension, ['gif','png','jpg','jpeg']) == -1)  
+                {  
+                     alert('Invalid Image File');  
+                     $('#image').val('');  
+                     return false;  
+                }  
+           } 
+           } else {
+              var image_name = $('#image').val(); 
+              if (image_name != '') {
+                alert("Attend Late Cant Have Image");
+                return false; 
+              }
+           }  
+            
+      });  
+ });  
+ </script> 
+
+
+ <?php 
+if (isset($_POST['insert'])) {
+  
+   require '/../connectDB.php';
+   $option = $_POST['option'];
+
+   $student_id = $_SESSION['student_id'];
+
+   if ($option==="Medical Leave") {
+
+    $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"])); 
+
+    $query = "UPDATE attendance SET attendance_img = '$file', attend_status = 'Medical Leave' WHERE attendance_id = ". $attendance_id;
+    if(mysqli_query($conn, $query))  
+      {  
+           echo "<script>alert('Successfully Update Student Attendance');window.location.href='teacherstudattend.php';</script>";  
+      }  
+      else
+      {
+        echo '<script>alert("Failed To Update The Attendance")</script>';  
+      }
+
+   
+     
+   } else if($option==="Attend Late") {
+
+     $query = "UPDATE attendance SET attend_status = 'Attend Late' WHERE attendance_id = ". $attendance_id;
+     if(mysqli_query($conn, $query))  
+      {   
+           echo "<script>alert('Successfully Update Student Attendance');
+            window.location.href='teacherstudattend.php';
+            </script>";
+      }  
+      else
+      {
+       echo '<script>alert("Failed To Update The Attendance")</script>';  
+      }
+   } 
+}
+
+ ?>

@@ -1,6 +1,6 @@
 <?php   include "../resources/php/sql.php"; session_start();
-  $data = $_SESSION['class_id'];
- ?>
+  $class_id = $_SESSION['class_id'];
+  ?>
 
 
 <!DOCTYPE html>
@@ -33,7 +33,7 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" <?php
-  if (empty($data)) {
+  if (empty($class_id)) {
     
     ?> style="visibility: hidden;"  <?php
   }
@@ -46,20 +46,69 @@
         </div>
         <div class="card-body">    
           <div class="form-group">
-            <div class="form-group">
-              <label>Date:</label>
-                <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
-                    <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                    </div>
-                </div>
-            </div>
-            <div>
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </div>     
+            <form method="POST" autocomplete="off">
+              <div class="form-group">
+                <?php 
+
+                 $date = $_SESSION['date'];
+                 if (empty($date)) {
+                   $date = date('Y-m-d');
+                }
+
+
+                 ?>
+
+                <label>Date: <?php echo $date; ?></label>
+                  <div style="width: 30%;" class="input-group date" id="reservationdate" data-target-input="nearest">
+                      <input name="date" type="text" class="form-control datetimepicker-input" data-target="#reservationdate" required="">
+                      <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                      </div>
+                  </div>
+              </div>
+              <div>
+                <button name="searchNewDate" type="submit" class="btn btn-primary">Submit</button>
+              </div>  
+            </form>   
           </div>
         </div>
+
+
+
+
+<?php 
+
+$result6 = displayDateAttendance($date, $class_id); 
+$row2 = mysqli_fetch_assoc($result6);
+
+if (empty($row2['student_name'])) { ?>
+  
+    <section class="content-header"> 
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 style="color: red;">Data Doesnt Exist. Please Choose Other Date. Thank You</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<?php
+
+}
+
+
+
+ ?>
+     
+  
+    
+
+
+    
+
+
+
              <div class="container-fluid">
             <div class="row">
           <div class="col-12">
@@ -80,223 +129,61 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0" style="height: 500px;">
                 <table class="table table-head-fixed text-nowrap">
+
                   <thead>
                     <tr>
-                      <th>#</th>
+                      <th>No.</th>
                       <th>Name</th>
                       <th>IC NUMBER</th>
-                      <th>Attendance</th>
-                      <th></th>
+                      <th>STATUS</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
+                   
+
+                    <?php 
+                    $result5 = displayDateAttendance($date, $class_id); 
+                     $i = 1;
+                    while ($row1 = mysqli_fetch_assoc($result5)) {
+        
+                    
+                    ?>
+
+
                     <tr>
-                      <td>1</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td>Hadir</td>
+                      <td><?php echo $i; ?></td>
+                      <td><?php echo $row1['student_name']; ?></td>
+                      <td><?php echo $row1['student_ic']; ?></td>
+                      <td style="<?php if ($row1['attend_status']==="Absent") { echo "color: red;";
+                        
+                      } ?>"><?php echo $row1['attend_status']; ?></td>
                       <td>
-                          <a class="btn btn-primary btn-sm" href="#">
+                        <form method="POST">
+                          <input type="hidden" name="date1" value="<?php echo $date; ?>">
+                          <input type="hidden" name="attendance_id" value="<?php echo $row1['attendance_id']; ?>">
+                          <input type="hidden" name="student_id" value="<?php echo $row1['student_id']; ?>">
+                          <input type="hidden" name="status" value="<?php echo $row1['attend_status']; ?>">
+
+
+                          <button name="viewStudent" class="btn btn-primary btn-sm">
                               <i class="fas fa-folder">
                               </i>
                               View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="typeattend.php">
+                          </button>
+                          <button name="editStudentAttendance" class="btn btn-info btn-sm">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
+                          </button>
+                         
+                        </form>
                       </td>
                     </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td>Hadir</td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="typeattend.php">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td>Hadir</td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="typeattend.php">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td>Hadir</td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td>Hadir</td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td>Hadir</td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td>Hadir</td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td>Hadir</td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td>Hadir</td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
+
+
+                    <?php $i=$i+1;} ?>
+             
                   </tbody>
                 </table>
               </div>
@@ -325,7 +212,10 @@
   </aside>
   <!-- /.control-sidebar -->
 </div>
-<!-- ./wrapper -->
+
+
+
+</body>
 
 <!-- jQuery -->
 <script src="../plugins/jquery/jquery.min.js"></script>
@@ -419,6 +309,72 @@
 
   })
 </script>
-
-</body>
 </html>
+
+
+<?php 
+if (isset($_POST['searchNewDate'])) {
+  
+  $date = $_POST['date'];
+
+  $new_date_start1 = strtotime($date);
+  $newDate = date("Y-m-d", $new_date_start1);
+
+
+  $_SESSION['date'] = $newDate;
+
+  echo "<script>window.location.assign('teacherstudattend.php')</script>";
+}
+
+
+?>
+
+
+<?php 
+if (isset($_POST['viewStudent'])) {
+
+  $date = $_POST['date1'];
+
+  $attendance_id = $_POST['attendance_id'];
+  $student_id = $_POST['student_id'];
+
+
+  $_SESSION['attendance_id'] = $attendance_id;
+  $_SESSION['student_id'] = $student_id;
+  $_SESSION['date'] = $date;
+
+
+  echo "<script>window.location.assign('viewStudentAttendance.php')</script>";
+
+}
+?>
+
+
+<?php 
+if (isset($_POST['editStudentAttendance'])) {
+
+
+
+
+  $status = $_POST['status'];
+  if ($status != "Absent") {
+    echo "<script>alert('Only Absent');
+            window.location.href='teacherstudattend.php';
+            </script>";
+  } else {
+
+    $date = $_POST['date1'];
+
+    $attendance_id = $_POST['attendance_id'];
+    $student_id = $_POST['student_id'];
+
+    $_SESSION['attendance_id'] = $attendance_id;
+    $_SESSION['student_id'] = $student_id;
+    $_SESSION['date'] = $date;
+
+    echo "<script>window.location.assign('typeattend.php')</script>";
+  }
+}
+
+
+?>

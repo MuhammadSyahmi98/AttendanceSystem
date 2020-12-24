@@ -1,5 +1,19 @@
 <?php include "../resources/php/sql.php"; ?>
-<?php session_start();?>
+<?php 
+session_start();
+?>
+
+<?php
+$loggedIn = $_SESSION['loggedIn'];
+
+if ($loggedIn!=893247348) {
+  echo "<script>alert('PLEASE TRY AGAIN');
+              window.location.href='../index.php';
+              </script>";
+}
+  
+
+ ?>
 
 <!DOCTYPE html>
 <html>
@@ -77,14 +91,21 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+
+                <?php 
+                $result = countTeacher(); 
+                $row = mysqli_fetch_assoc($result);
+                ?>
+
+
+                <h3><?php echo $row['numberOfTeacher']; ?></h3>
 
                 <p>Teachers</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="adminTeacher.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -92,98 +113,39 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3 style="color: black;">65</h3>
+                <?php 
+                $result = countStudent(); 
+                $row = mysqli_fetch_assoc($result);
+                ?>
+                <h3 style="color: black;"><?php echo $row['numberOfStudent']; ?></h3>
 
                 <p>Students</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="allStudentList.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
         </div>
 
 
+  
 
-      <div class="row">
-          <div class="col-12">
-            <div class="card" >
-              <div class="card-header">
-                <h3 class="card-title">Daily Log: <b> <?php echo date("d-m-Y"); ?></b></h3>
+         <div id="refresh"></div>
+        <script type="text/javascript" src="jQuery.js"></script>
+        <script type="text/javascript">
+          $(document).ready(function() {
+            setInterval(function () {
+              $('#refresh').load('realtimeAttendance.php')
+            }, 3000000000000000000);
+          });
+        </script>
+      
 
 
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
-
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                      <button type="submit" class="btn btn-primary" style="margin-left: 10px;" onclick="location.href='registerclass.php';">Add</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body table-responsive p-0" style="height: 500px;" >
-                <table class="table table-head-fixed text-nowrap">
-                  <thead>
-                      <tr>
-                      <th>
-                          ID
-                      </th>
-                      <th>
-                          Name
-                      </th>
-
-                      <th>
-                          Class
-                      </th>
-                      <th>
-                        Time-in
-                      </th>
-                      <th>
-                        Time-out
-                      </th> 
-                      <th>Status</th>
-                  </tr>   
-                  </thead>
-                  <tbody>
-                    <?php $result = displayClass(); 
-                     $i = 1;
-                    while ($row = mysqli_fetch_assoc($result)) {
-        
-                    
-                    ?>
-
-                    <tr>
-                      <td><?php echo $i; ?></td>
-                      <td><?php echo $row['class_name']; ?></td>
-                      <td></td>
-                      <td></td>
-                      <td><span class="tag tag-success"><?php if(empty($row['teacher_name'])){
-                        echo " - ";
-                      } else {echo $row['teacher_name'];}  ?></span></td>
-                      <td>Attend</td>
-                      
-                    </tr>
-                    
-                    <?php $i=$i+1;} ?>
-                   
-                    
-                  </tbody>
-                  
-                </table>
-                
-              </div>
-              <!-- /.card-header -->
-
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-        </div>
         </div>
    
     </section>

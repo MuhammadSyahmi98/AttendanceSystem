@@ -17,6 +17,17 @@
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <!-- Site wrapper -->
@@ -47,15 +58,15 @@
                 <h3 class="card-title"></h3>
 
                 <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                  <div class="input-group input-group-sm" style="width: 260px;">
+                    <input id="myInput" type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
                     <div class="input-group-append">
                       <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
                     </div>
                     <div class="input-group-append">
                       
-                      <button type="submit" class="btn btn-primary" style="margin-left: 10px;" onclick="location.href='registerstudent.php';">Add</button>
+                      <button type="submit" class="btn btn-primary" style="margin-left: 10px;" onclick="location.href='registerstudent2.php';">Add</button>
                     </div>
                   </div>
                 </div>
@@ -75,7 +86,7 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="myTable">
                     <?php 
 
             
@@ -98,7 +109,7 @@
 
                        ?>
 
-                      <td><?php echo $row1['class_name']; ?></td>
+                      <td><?php if(empty($row1['class_name'])) {echo "-";} else {echo $row1['class_name'];} ?></td>
                       <td><?php echo $row['student_ic']; ?></td>
                       <td><?php echo $row['parent_name']; ?></td>
                       <td><?php echo $row['parent_contact']; ?></td>
@@ -107,6 +118,7 @@
                         <form method="POST">
 
                           <input type="hidden" name="id$i" value="<?php echo $row['student_id'] ?>">
+                          <input type="hidden" name="ids$i" value="<?php echo $row['class_id'] ?>">
 
                           <button class="btn btn-primary btn-sm" name="viewDetailStudent">
                               <i class="fas fa-folder">
@@ -164,7 +176,8 @@
 <?php 
 if (isset($_POST['viewDetailStudent'])) {
   $_SESSION['student_id'] = $_POST['id$i'];
-  echo "<script>window.location.assign('viewStudent.php')</script>";
+  $_SESSION['class_id'] = $_POST['ids$i'];
+  echo "<script>window.location.assign('viewStudent2.php')</script>";
   
 }
 
@@ -174,6 +187,7 @@ if (isset($_POST['viewDetailStudent'])) {
 if (isset($_POST['editDetailStudent'])) {
   $_SESSION['student_id'] = $_POST['id$i'];
   $_SESSION['pageStudentList'] = 1;
+  $_SESSION['class_id'] = $_POST['ids$i'];
 
   echo "<script>window.location.assign('editStudent.php')</script>";
   

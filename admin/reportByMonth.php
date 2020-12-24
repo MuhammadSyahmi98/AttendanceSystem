@@ -32,20 +32,7 @@
           <h3 class="card-title">Student Attendance By Day</h3>
         </div>
         <div class="card-body">    
-          <div class="form-group">
-            <div class="form-group">
-              <label>Date:</label>
-                <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                    <input type="text" class="form-control datepicker-input" data-target="#reservationdate"/>
-                    <div class="input-group-append" data-target="#reservationdate" data-toggle="datepicker">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                    </div>
-                </div>
-            </div>
-            <div>
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </div>     
-          </div>
+          
         </div>
              <div class="container-fluid">
             <div class="row">

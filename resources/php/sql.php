@@ -91,6 +91,8 @@ function addClass($class_name){
 	}
 }
 
+
+
 // Record Student Details
 function addStudent($student_id, $student_name, $student_ic, $parent_name, $parent_email, $parent_contact, $class_id){
 	require '/../../connectDB.php';
@@ -123,6 +125,50 @@ function addStudent($student_id, $student_name, $student_ic, $parent_name, $pare
 		        mysqli_stmt_execute($result);
 		        echo "<script>alert('Success Add New Student');
 		        window.location.href='studentlist.php';
+		        </script>";
+		    }
+
+        }
+        else {
+        	echo "<script>alert('RFID already registered');
+		         
+		        </script>";
+        }
+	}
+
+}
+
+function addStudent2($student_id, $student_name, $student_ic, $parent_name, $parent_email, $parent_contact, $class_id){
+	require '/../../connectDB.php';
+
+	$sql = "SELECT * FROM student WHERE student_id = ?";
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_ADD_STUDENT_DATA');
+		        window.location.href='studentlist.php';
+		        </script>";
+    } 
+    else { 
+    	mysqli_stmt_bind_param($result, "s", $student_id);
+        mysqli_stmt_execute($result);
+        $resultl = mysqli_stmt_get_result($result);
+
+        // If the details not redundent
+        if (!$row = mysqli_fetch_assoc($resultl)){
+        	$sql = "INSERT INTO student (student_id, student_name, student_ic, parent_name, parent_email, parent_contact, class_id) VALUES (?,?,?,?,?, ?,?)";
+
+        	$result = mysqli_stmt_init($conn);
+			if (!mysqli_stmt_prepare($result, $sql)) {
+				echo "<script>alert('SQL_Error_INSERT_STUDENT_DATA');
+		         
+		        </script>";
+		    }
+		    else {
+				// Execute the sql statement
+		        mysqli_stmt_bind_param($result, 'ssssssi' , $student_id, $student_name, $student_ic, $parent_name, $parent_email, $parent_contact, $class_id);
+		        mysqli_stmt_execute($result);
+		        echo "<script>alert('Success Add New Student');
+		        window.location.href='allStudentList.php';
 		        </script>";
 		    }
 
@@ -184,6 +230,47 @@ function addStudentFromTeacher($student_id, $student_name, $student_ic, $parent_
 }
 
 
+function displayStudentAttendanceByClassAttend($class_id, $dates){
+	require '/../../connectDB.php';
+
+	$sql = "SELECT student.student_id AS id, student.student_name AS name, class.class_name AS class, attendance.attend_status AS status FROM attendance RIGHT JOIN student ON attendance.student_id = student.student_id JOIN class ON student.class_id = class.class_id WHERE class.class_id = ? AND attendance.dates = ? AND attendance.attend_status = ?";
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_ADD_STUDENT_DATA');
+		        window.location.href='teacherstudlist.php';
+		        </script>";
+    } 
+    else { 
+    	$attend_status = "Attend";
+    	mysqli_stmt_bind_param($result, "iss", $class_id, $dates, $attend_status);
+        mysqli_stmt_execute($result);
+        $resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+}
+}
+
+
+
+
+function displayStudentAttendanceByClassAbsent($class_id, $dates){
+	require '/../../connectDB.php';
+
+	$sql = "SELECT student.student_id AS id, student.student_name AS name, class.class_name AS class, attendance.attend_status AS status FROM attendance RIGHT JOIN student ON attendance.student_id = student.student_id JOIN class ON student.class_id = class.class_id WHERE class.class_id = ? AND attendance.dates = ? AND attendance.attend_status = ?";
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_ADD_STUDENT_DATA');
+		        window.location.href='teacherstudlist.php';
+		        </script>";
+    } 
+    else { 
+    	$attend_status = "Absent";
+    	mysqli_stmt_bind_param($result, "iss", $class_id, $dates, $attend_status);
+        mysqli_stmt_execute($result);
+        $resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+}
+}
+
 
 
 
@@ -229,6 +316,73 @@ function addTeacher($teacher_name, $teacher_email, $teacher_contact, $password_1
 
 
 
+function displayCurrentDateAttendance($dates) {
+
+	require '/../../connectDB.php';
+
+	$sql = "SELECT * FROM attendance INNER JOIN student ON attendance.student_id = student.student_id WHERE dates =? AND time_in != '' ORDER BY time_in DESC";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_DISPLAY_Attendance_DATA');
+		        window.location.href='date.php';
+		        </script>";
+    } else {
+		mysqli_stmt_bind_param($result, 's' , $dates);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+
+}
+
+
+
+
+function displayDateAttendance($dates, $class_id){
+	require '/../../connectDB.php';
+
+	$sql = "SELECT attendance.attendance_id AS attendance_id, attendance.attend_status AS attend_status, student.student_id AS student_id, student.student_name AS student_name, student.student_ic AS student_ic FROM attendance INNER JOIN student ON attendance.student_id = student.student_id WHERE student.class_id = ? AND attendance.dates = ?";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_DISPLAY_Attendance_DATA');
+		        window.location.href='date.php';
+		        </script>";
+    } else {
+		mysqli_stmt_bind_param($result, 'is' , $class_id, $dates);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+
+}
+
+function displaystudentAttendanceByID($student_id, $attendance_id){
+	require '/../../connectDB.php';
+
+	$sql = "SELECT * FROM student INNER JOIN attendance ON student.student_id = attendance.student_id WHERE attendance.attendance_id = ?";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_DISPLAY_Attendance_DATA');
+		        window.location.href='date.php';
+		        </script>";
+    } else {
+		mysqli_stmt_bind_param($result, 'i' , $attendance_id);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+
+}
+
+
+
+
 
 function displayHoliday(){
 	require '/../../connectDB.php';
@@ -270,6 +424,26 @@ function displaySpecificHoliday($date_id){
     }
 
 
+}
+
+
+function displayAllClass() {
+	require '/../../connectDB.php';
+
+	$sql = "SELECT * FROM class";
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_DISPLAY_CLASS_DATA');
+		        window.location.href='class.php';
+		        </script>";
+    } else {
+
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+	
 }
 
 
@@ -342,7 +516,7 @@ function displayClassForAddStudent($class_id) {
 function displayStudent() {
 	require '/../../connectDB.php';
 
-	$sql = "SELECT * FROM student";
+	$sql = "SELECT * FROM student ORDER BY student_name ASC";
 
 	// Connection to database
 	$result = mysqli_stmt_init($conn);
@@ -364,7 +538,7 @@ function displayStudent() {
 function displayStudentByClass($class_id) {
 	require '/../../connectDB.php';
 
-	$sql = "SELECT * FROM student WHERE class_id = ?";
+	$sql = "SELECT * FROM student WHERE class_id = ? ORDER BY student_name ASC";
 
 	// Connection to database
 	$result = mysqli_stmt_init($conn);
@@ -398,6 +572,28 @@ function displayStudentByID($student_id){
         $resultl = mysqli_stmt_get_result($result);
         return $resultl;
 	}
+
+}
+
+
+function displayStudentWithAttendance($attendance_id, $student_id) {
+	require '/../../connectDB.php';
+
+	$sql = "SELECT FROM student INNER JOIN attendance ON student.student_id = attendance.student_id WHERE attendance_id = ?";
+	
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_DISPLAY_CLASS_AVAILABLE_DATA');
+		        window.location.href='adminteacher.php';
+		        </script>";
+    } else { 
+    	mysqli_stmt_bind_param($result, "i", $attendance_id);
+        mysqli_stmt_execute($result);
+        $resultl = mysqli_stmt_get_result($result);
+        return $resultl;
+	}
+
 
 }
 
@@ -611,7 +807,13 @@ function updateTeacher($teacher_id, $teacher_name, $teacher_email, $teacher_cont
 function updateStudent($student_id, $student_name, $student_ic, $class_id, $page) {
 	require '/../../connectDB.php';
 
-	$sql = "UPDATE student SET student_name = ?, student_ic = ?, class_id = ? WHERE student_id =?";
+
+	if (empty($class_id)) {
+		$sql = "UPDATE student SET student_name = ?, student_ic = ?, class_id = NULL WHERE student_id =?";
+	} else {
+		$sql = "UPDATE student SET student_name = ?, student_ic = ?, class_id = ? WHERE student_id =?";
+	}
+
 
 	// Connection to database
 	$result = mysqli_stmt_init($conn);
@@ -620,7 +822,13 @@ function updateStudent($student_id, $student_name, $student_ic, $class_id, $page
 		        window.location.href='studentlist.php';
 		        </script>";
     } else { 
-    	mysqli_stmt_bind_param($result, "ssis", $student_name, $student_ic, $class_id, $student_id);
+
+    	if (empty($class_id)) {
+    		mysqli_stmt_bind_param($result, "sss", $student_name, $student_ic, $student_id);
+    	} else {
+    		mysqli_stmt_bind_param($result, "ssis", $student_name, $student_ic, $class_id, $student_id);
+    	}
+    	
         mysqli_stmt_execute($result);
 
         if ($page ===1) {
@@ -901,6 +1109,29 @@ function deleteStudent($student_id) {
 
 
 
+function deleteDate($holiday_id) {
+	require '/../../connectDB.php';
+	 $sql = "DELETE FROM holiday_date WHERE holiday_id = ?";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+	echo "<script>alert('SQL_Error_DELETE_HOLIDAY_DATA');
+		window.location.href='studentlist.php';
+		</script>";
+	} else { 
+		mysqli_stmt_bind_param($result, "i", $holiday_id);
+		mysqli_stmt_execute($result);
+		echo "<script>alert('Successfully Delete Date');
+		window.location.href='date.php';
+		</script>";
+			        
+	}
+}
+
+
+
+
 
 
 
@@ -967,6 +1198,137 @@ function verifyTeacher($teacher_email, $teacher_password) {
 
 
 
+
+
+
+
+function countTeacher(){
+	require '/../../connectDB.php';
+
+	$sql = "SELECT COUNT(teacher_id) AS numberOfTeacher FROM teacher";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_STUDENT_CLASS_DATA');
+		       window.location.href='class.php';
+		       </script>";
+    } else {
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+}
+
+function countStudent(){
+	require '/../../connectDB.php';
+
+	$sql = "SELECT COUNT(student_id) AS numberOfStudent FROM student";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_STUDENT_CLASS_DATA');
+		       window.location.href='class.php';
+		       </script>";
+    } else {
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+}
+
+
+function countStudentByClass($class_id){
+	require '/../../connectDB.php';
+
+	$sql = "SELECT COUNT(*) AS numberOfStudent FROM student WHERE class_id = ?";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_STUDENT_CLASS_DATA');
+		       window.location.href='class.php';
+		       </script>";
+    } else {
+    	mysqli_stmt_bind_param($result, "i", $class_id);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+}
+
+
+
+
+function countAttendStudentByClassAttend($class_id, $dates){
+	require '/../../connectDB.php';
+
+	$sql = "SELECT COUNT(*) AS 'totalAttend' FROM attendance JOIN student ON attendance.student_id = student.student_id WHERE student.class_id = ? AND attendance.dates = ? AND attendance.attend_status = ?";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_STUDENT_CLASS_DATA');
+		       window.location.href='class.php';
+		       </script>";
+    } else {
+    	$attend_status = "Attend";
+ 		mysqli_stmt_bind_param($result, "iss", $class_id, $dates, $attend_status);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+}
+
+
+
+function countAttendStudentByClassAbsent($class_id, $dates){
+	require '/../../connectDB.php';
+
+	$sql = "SELECT COUNT(*) AS 'totalAttend' FROM attendance JOIN student ON attendance.student_id = student.student_id WHERE student.class_id = ? AND attendance.dates = ? AND attendance.attend_status = ?";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_STUDENT_CLASS_DATA');
+		       window.location.href='class.php';
+		       </script>";
+    } else {
+    	$attend_status = "Absent";
+ 		mysqli_stmt_bind_param($result, "iss", $class_id, $dates, $attend_status);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+}
+
+
+
+function updateMC($attendance_img) {
+	require '/../../connectDB.php';
+
+	$sql = "UPDATE attendance SET attendance_img = ? WHERE  attendance_id = ?";
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_IMG_DATA');
+		       window.location.href='teacherstudattend.php';
+		       </script>";
+    } else {
+ $attendance_id= 49;
+ 		mysqli_stmt_bind_param($result, "bi", $attendance_img, $attendance_id);
+    	mysqli_stmt_execute($result);
+    	 echo "<script>alert('SUCCESSS!!!');
+		       window.location.href='teacherstudattend.php';
+		       </script>";
+    }
+}
+
+
+
+
 ?>
+
 
 
