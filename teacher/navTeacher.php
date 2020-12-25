@@ -110,7 +110,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link <?php if($url === "") {echo "active";} ?>">
+                <a href="reportByDate.php" class="nav-link <?php if($url === "") {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>BY DAY</p>
                 </a>

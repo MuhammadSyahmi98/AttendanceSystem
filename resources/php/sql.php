@@ -233,7 +233,7 @@ function addStudentFromTeacher($student_id, $student_name, $student_ic, $parent_
 function displayStudentAttendanceByClassAttend($class_id, $dates){
 	require '/../../connectDB.php';
 
-	$sql = "SELECT student.student_id AS id, student.student_name AS name, class.class_name AS class, attendance.attend_status AS status FROM attendance RIGHT JOIN student ON attendance.student_id = student.student_id JOIN class ON student.class_id = class.class_id WHERE class.class_id = ? AND attendance.dates = ? AND attendance.attend_status = ?";
+	$sql = "SELECT student.student_id AS id, student.student_name AS name, class.class_name AS class, attendance.attend_status AS status FROM attendance RIGHT JOIN student ON attendance.student_id = student.student_id JOIN class ON student.class_id = class.class_id WHERE class.class_id = ? AND attendance.dates = ? AND attendance.attend_status != ?";
 	$result = mysqli_stmt_init($conn);
 	if (!mysqli_stmt_prepare($result, $sql)) {
         echo "<script>alert('SQL_Error_ADD_STUDENT_DATA');
@@ -241,7 +241,7 @@ function displayStudentAttendanceByClassAttend($class_id, $dates){
 		        </script>";
     } 
     else { 
-    	$attend_status = "Attend";
+    	$attend_status = "Absent";
     	mysqli_stmt_bind_param($result, "iss", $class_id, $dates, $attend_status);
         mysqli_stmt_execute($result);
         $resultl = mysqli_stmt_get_result($result);
@@ -1274,6 +1274,49 @@ function countAttendStudentByClassAttend($class_id, $dates){
 		       </script>";
     } else {
     	$attend_status = "Attend";
+ 		mysqli_stmt_bind_param($result, "iss", $class_id, $dates, $attend_status);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+}
+
+
+
+function countMedicalLeaveStudentByClassAttend($class_id, $dates){
+	require '/../../connectDB.php';
+
+	$sql = "SELECT COUNT(*) AS 'totalMedicalLeave' FROM attendance JOIN student ON attendance.student_id = student.student_id WHERE student.class_id = ? AND attendance.dates = ? AND attendance.attend_status = ?";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_STUDENT_CLASS_DATA');
+		       window.location.href='class.php';
+		       </script>";
+    } else {
+    	$attend_status = "Medical Leave";
+ 		mysqli_stmt_bind_param($result, "iss", $class_id, $dates, $attend_status);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+}
+
+
+function countAttendLateStudentByClassAttend($class_id, $dates){
+	require '/../../connectDB.php';
+
+	$sql = "SELECT COUNT(*) AS 'totalAttendLate' FROM attendance JOIN student ON attendance.student_id = student.student_id WHERE student.class_id = ? AND attendance.dates = ? AND attendance.attend_status = ?";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_STUDENT_CLASS_DATA');
+		       window.location.href='class.php';
+		       </script>";
+    } else {
+    	$attend_status = "Attend Late";
  		mysqli_stmt_bind_param($result, "iss", $class_id, $dates, $attend_status);
     	mysqli_stmt_execute($result);
     	$resultl = mysqli_stmt_get_result($result);

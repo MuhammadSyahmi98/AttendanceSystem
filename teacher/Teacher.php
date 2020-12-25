@@ -2,6 +2,7 @@
 <?php $_SESSION['teacher_id'] = $_SESSION['teacher_id'];
       $_SESSION['class_id'] = $_SESSION['class_id'];
       $_SESSION['date'] = "";
+      $_SESSION['code_type_attend'] = "";
 
 ?>
 

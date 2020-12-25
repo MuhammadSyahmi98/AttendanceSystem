@@ -71,7 +71,7 @@ if (isset($_POST['addDate'])) {
 
           <div class="col-sm-6">
 
-            <h1>Holidat Registration</h1>
+            <h1>Holiday Registration</h1>
 
           </div>
 
@@ -108,7 +108,7 @@ if (isset($_POST['addDate'])) {
               </div>
               <div style="margin-top: 10px;" class="form-group" style="width: 40%;">
                 <label for="exampleInputEmail1">Description</label>
-                <input type="desc" name="description" class="form-control" id="Description" placeholder="Enter Description" required>
+                <input type="desc" name="description" class="form-control" id="Description" placeholder="Enter Description" required style="width: 40%;">
               </div>
               <div>
                 <button type="submit" name="addDate" class="btn btn-primary">Submit</button>
@@ -171,16 +171,16 @@ if (isset($_POST['addDate'])) {
 
     //Date range picker
     $('#reservationdate').datetimepicker({
-        format: 'L'
+        format: 'DD-MM-Y'
     });
     //Date range picker
-    $('#reservation').daterangepicker()
+    $('#reservation').daterangepicker({locale: { format: 'DD-MM-YYYY'}});
     //Date range picker with time picker
     $('#reservationtime').daterangepicker({
       timePicker: true,
       timePickerIncrement: 30,
       locale: {
-        format: 'MM/DD/YYYY hh:mm A'
+        format: 'DD-MM-YYYY hh:mm A'
       }
     })
     //Date range as a button

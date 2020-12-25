@@ -90,6 +90,7 @@
                 <div class="form-group">
                   <label>Reason</label>
                   <select class="form-control select2" id="option" name="option" data-placeholder="Select" style="width: 100%;">
+                    <option value="Absent">Absent</option>
                     <option value="Medical Leave">Medical Leave</option>
                     <option value="Attend Late">Attend Late</option>
                   </select>
@@ -98,7 +99,7 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button id="insert" name="insert" type="submit" class="btn btn-primary">Submit</button>
+                  <button id="insert" name="insert" type="submit" class="btn btn-primary" OnClick="return confirm('Confirm to update the data?');">Submit</button>
                 </div>
               </form>
 
@@ -235,7 +236,7 @@ if (isset($_POST['insert'])) {
      
    } else if($option==="Attend Late") {
 
-     $query = "UPDATE attendance SET attend_status = 'Attend Late' WHERE attendance_id = ". $attendance_id;
+     $query = "UPDATE attendance SET attend_status = 'Attend Late', attendance_img = '' WHERE attendance_id = ". $attendance_id;
      if(mysqli_query($conn, $query))  
       {   
            echo "<script>alert('Successfully Update Student Attendance');
@@ -247,6 +248,20 @@ if (isset($_POST['insert'])) {
        echo '<script>alert("Failed To Update The Attendance")</script>';  
       }
    } 
+
+   else if($option==="Absent") {
+      $query = "UPDATE attendance SET attend_status = 'Absent', attendance_img = '' WHERE attendance_id = ". $attendance_id;
+     if(mysqli_query($conn, $query))  
+      {   
+           echo "<script>alert('Successfully Update Student Attendance');
+            window.location.href='teacherstudattend.php';
+            </script>";
+      }  
+      else
+      {
+       echo '<script>alert("Failed To Update The Attendance")</script>';  
+      }
+   }
 }
 
  ?>

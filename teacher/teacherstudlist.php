@@ -1,4 +1,5 @@
 <?php   include "../resources/php/sql.php"; session_start(); ?>
+<?php $_SESSION['code_type_attend'] = "";?>
 
 <!DOCTYPE html>
 <html>

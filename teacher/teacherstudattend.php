@@ -1,5 +1,6 @@
 <?php   include "../resources/php/sql.php"; session_start();
   $class_id = $_SESSION['class_id'];
+  $_SESSION['code_type_attend'] = "";
   ?>
 
 
@@ -52,13 +53,19 @@
 
                  $date = $_SESSION['date'];
                  if (empty($date)) {
-                   $date = date('Y-m-d');
+                   $date = date('d-m-Y');
                 }
 
 
                  ?>
 
-                <label>Date: <?php echo $date; ?></label>
+                <label>Date: <?php 
+
+                $new_date_start1 = strtotime($date);
+                $date2 = date("d-m-Y", $new_date_start1);
+
+
+                echo $date2; ?></label>
                   <div style="width: 30%;" class="input-group date" id="reservationdate" data-target-input="nearest">
                       <input name="date" type="text" class="form-control datetimepicker-input" data-target="#reservationdate" required="">
                       <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
@@ -255,7 +262,8 @@ if (empty($row2['student_name'])) { ?>
 
     //Date range picker
     $('#reservationdate').datetimepicker({
-        format: 'L'
+        format: 'DD-MM-Y',
+        maxDate:new Date()
     });
     //Date range picker
     $('#reservation').daterangepicker()
@@ -357,8 +365,8 @@ if (isset($_POST['editStudentAttendance'])) {
 
 
   $status = $_POST['status'];
-  if ($status != "Absent") {
-    echo "<script>alert('Only Absent');
+  if ($status === "Attend") {
+    echo "<script>alert('Attend Status Cant Be Changed');
             window.location.href='teacherstudattend.php';
             </script>";
   } else {
