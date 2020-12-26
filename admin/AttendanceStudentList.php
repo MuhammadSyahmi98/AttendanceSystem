@@ -1,7 +1,7 @@
 <?php include "../resources/php/sql.php"; session_start(); ?>
 <?php $db=mysqli_connect('localhost', 'root', '', 'oas'); ?>
 
-<?php $_SESSION['code_type_attend1'] = "";  ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -33,13 +33,7 @@
       google.charts.setOnLoadCallback(drawChart);
 
       <?php 
-
-      if (empty($_SESSION['code_type_attend'])) {
-        $dates = date('d-m-Y');
-      }else {
-        $dates = $_SESSION['date'];
-      }
-      
+      $dates = $_SESSION['date'];
 
 
       $timestamp = strtotime($dates);
@@ -48,41 +42,19 @@
 
 
       $class_id = $_SESSION['class_id'];
-
-      // Status = "Attend"
       $result = countAttendStudentByClassAttend($class_id, $dates);
       $row = mysqli_fetch_assoc($result);
       $totalAttend = $row['totalAttend'];
 
 
-      // Status = "Medical Leave"
-      $result3 = countMedicalLeaveStudentByClassAttend($class_id, $dates);
-      $row3 = mysqli_fetch_assoc($result3);
-      $totalMedicalLeave = $row3['totalMedicalLeave'];
-
-
-      // Status = "Attend Late"
-      $result4 = countAttendLateStudentByClassAttend($class_id, $dates);
-      $row4 = mysqli_fetch_assoc($result4);
-      $totalAttendLate = $row4['totalAttendLate'];
-
-
-
-      // Total Student
       $result1 = countStudentByClass($class_id);
       $row1 = mysqli_fetch_assoc($result1);
       $totalStudent = $row1['numberOfStudent'];
 
-
-
-
-
-
-
       if (empty($totalAttend)) {
         $absent = 0;
       } else {
-        $absent = $totalStudent - $totalAttend - $totalMedicalLeave - $totalAttendLate;
+        $absent = $totalStudent - $totalAttend;
       }
       
 
@@ -94,15 +66,12 @@
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
           ['Attend',     <?php echo $totalAttend; ?>],
-          ['Medical Leave',     <?php echo $totalMedicalLeave; ?>],
-          ['Attend Late',     <?php echo $totalAttendLate; ?>],
           ['Absend',      <?php echo $absent; ?>]
         ]);
 
         var options = {
           title: 'Attendance Percentange',
           is3D: true,
-          colors: ['#36c', '#f90', '#9610b2', '#dc3912'],
           backgroundColor: '#f4f6f9',
         };
 
@@ -122,7 +91,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar -->
-  <?php  include "navTeacher.php"; ?>
+  <?php  include "navAdmin.php"; ?>
 	
 	<div class="content-wrapper">
 
@@ -132,13 +101,12 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Report   By Day</h1>
-            <form name="contact-form" method="POST" style="margin-top: 10px;" autocomplete="off" onclick="submitForm()">
+            <form method="POST" style="margin-top: 10px;">
               <div class="form-group">
               <div class="form-group">
        
                 <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                    <input id="element" name="inputDate" type="text" class="form-control datetimepicker-input" data-target="#reservationdate">
-                   
+                    <input name="inputDate" type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
                     <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
@@ -387,11 +355,7 @@
 
     //Date range picker
     $('#reservationdate').datetimepicker({
-        format: 'DD-MM-Y',
-        autoclose:true,
-        maxDate: new Date()
-        
-
+        format: 'L'
     });
     //Date range picker
     $('#reservation').daterangepicker()
@@ -445,12 +409,6 @@
 
   })
 </script>
-<script>
-$(document).ready(function(){
-    $("#element").val("");
-});
-</script>
-
 </body>
 </html>
 
@@ -475,17 +433,16 @@ if (isset($_POST['displayNewDate'])) {
     $_SESSION['date'] = $new_date2;
   echo "<script>
   alert('Weekend. Please Choose Other Date');
-  window.location.assign('#')
+  window.location.assign('AttendanceStudentList.php')
   </script>";
 
   } 
 
   else {
-    $_SESSION['code_type_attend'] = "asdassda";
     $new_date2 = $new_date1;
      $_SESSION['date'] = $new_date2;
      echo "<script>
-    window.location.assign('reportByDate.php')</script>";
+    window.location.assign('AttendanceStudentList.php')</script>";
   }
 
 

@@ -3,6 +3,7 @@
       $_SESSION['class_id'] = $_SESSION['class_id'];
       $_SESSION['date'] = "";
       $_SESSION['code_type_attend'] = "";
+      $_SESSION['code_type_attend1'] = "";
 
 ?>
 

@@ -29,86 +29,37 @@
 
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
+      google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
 
-      <?php 
-
-      if (empty($_SESSION['code_type_attend'])) {
-        $dates = date('d-m-Y');
-      }else {
-        $dates = $_SESSION['date'];
-      }
-      
-
-
-      $timestamp = strtotime($dates);
-
-      $day = date('D', $timestamp);
-
-
-      $class_id = $_SESSION['class_id'];
-
-      // Status = "Attend"
-      $result = countAttendStudentByClassAttend($class_id, $dates);
-      $row = mysqli_fetch_assoc($result);
-      $totalAttend = $row['totalAttend'];
-
-
-      // Status = "Medical Leave"
-      $result3 = countMedicalLeaveStudentByClassAttend($class_id, $dates);
-      $row3 = mysqli_fetch_assoc($result3);
-      $totalMedicalLeave = $row3['totalMedicalLeave'];
-
-
-      // Status = "Attend Late"
-      $result4 = countAttendLateStudentByClassAttend($class_id, $dates);
-      $row4 = mysqli_fetch_assoc($result4);
-      $totalAttendLate = $row4['totalAttendLate'];
-
-
-
-      // Total Student
-      $result1 = countStudentByClass($class_id);
-      $row1 = mysqli_fetch_assoc($result1);
-      $totalStudent = $row1['numberOfStudent'];
-
-
-
-
-
-
-
-      if (empty($totalAttend)) {
-        $absent = 0;
-      } else {
-        $absent = $totalStudent - $totalAttend - $totalMedicalLeave - $totalAttendLate;
-      }
-      
-
-      ?>
-
       function drawChart() {
-
-
         var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Attend',     <?php echo $totalAttend; ?>],
-          ['Medical Leave',     <?php echo $totalMedicalLeave; ?>],
-          ['Attend Late',     <?php echo $totalAttendLate; ?>],
-          ['Absend',      <?php echo $absent; ?>]
+          ['Year', 'Sales', 'Expenses', 'Profit'],
+          ['2014', 100, 40, 20],
+          ['2015', 11, 46, 25],
+          ['2016', 66, 11, 30],
+          ['2014', 100, 40, 20],
+          ['2015', 97, 46, 25],
+          ['2016', 66, 12, 30],
+          ['2014', 100, 40, 20],
+          ['2015', 70, 40, 25],
+          ['2016', 60, 10, 30],
+          ['2014', 10, 40, 20],
+          ['2015', 10, 60, 20],
+          ['2016', 60, 20, 30],
+          ['2017', 10, 54, 35]
         ]);
 
         var options = {
-          title: 'Attendance Percentange',
-          is3D: true,
-          colors: ['#36c', '#f90', '#9610b2', '#dc3912'],
-          backgroundColor: '#f4f6f9',
+          chart: {
+            title: 'Attendance Performance',
+            subtitle: 'Attend, Attent Late, Absent, Medical Leave',
+          }
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
 
-        chart.draw(data, options);
+        chart.draw(data, google.charts.Bar.convertOptions(options));
       }
     </script>
 
@@ -126,76 +77,9 @@
 	
 	<div class="content-wrapper">
 
-
-   <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Report   By Day</h1>
-            <form name="contact-form" method="POST" style="margin-top: 10px;" autocomplete="off" onclick="submitForm()">
-              <div class="form-group">
-              <div class="form-group">
-       
-                <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                    <input id="element" name="inputDate" type="text" class="form-control datetimepicker-input" data-target="#reservationdate">
-                   
-                    <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                    </div>
-                </div>
-                </div>
-                <div>
-                   <button name="displayNewDate" type="submit" class="btn btn-primary">Submit</button>
-                </div>     
-              </div>
-            </form>
-            
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-      
-    </section>
-
-
-    
-     
-    
-
-    <section class="content-header"> 
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 style="text-decoration: underline;">Report Date: <?php 
-              $new_date = strtotime($dates);
-              $new_date1 = date("d-m-Y", $new_date);
-            echo $new_date1; ?></h1>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
-
-    <?php
-    if ($absent === 0 && empty($totalAttend)) { ?>
-      <section class="content-header"> 
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 style="color: red;">Data Doesnt Exist. Please Choose Other Date. Thank You</h1>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-    <?php
-    }
-
-
-    ?> 
-
-
     <!-- Chart Section -->
     <section class="content">
-      <div id="piechart_3d" style="width: 100%; height: 500px; <?php if($absent === 0 && empty($totalAttend)){ echo "visibility: hidden;";} ?>"></div>
+      <div id="columnchart_material" style="width: 100%; height: 500px;""></div>
     </section>
 
  
@@ -203,7 +87,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>List Of Students</h1>
+            <h1>Report By Month</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -244,7 +128,7 @@
                     </tr>
                   </thead>
                   <tbody id="myTable">
-                    <?php 
+                    <!-- <?php 
 
                     $class_id = $_SESSION['class_id'];
                     $result1 = displayStudentAttendanceByClassAbsent($class_id,$dates);
@@ -284,7 +168,7 @@
                     </tr>
 
                   <?php $i=$i+1;} ?>
-                    
+                     -->
                   </tbody>
                 </table>
               </div>

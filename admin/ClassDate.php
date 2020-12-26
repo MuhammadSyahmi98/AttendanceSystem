@@ -1,13 +1,12 @@
-<?php   include "../resources/php/sql.php"; session_start(); ?>
-<?php $_SESSION['code_type_attend'] = "";
-$_SESSION['code_type_attend1'] = "";?>
+<?php include "../resources/php/sql.php"; ?>
+<?php session_start();?>
 
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>STUDENT LIST</title>
+  <title>Attendance</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -22,8 +21,7 @@ $_SESSION['code_type_attend1'] = "";?>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <!-- Site wrapper -->
 <div class="wrapper">
-  <!-- Navbar -->
-   <?php include "navTeacher.php"; ?>
+   <?php include "navAdmin.php"; ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -32,121 +30,111 @@ $_SESSION['code_type_attend1'] = "";?>
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <?php 
-            $class_id1=$_SESSION['class_id'];
-            $result = displayClassByID($class_id1);
-             $row = mysqli_fetch_assoc($result);
-
-            ?>
-
-            <?php 
-            if (empty($row['class_name'])) { 
-
-              ?><h1 style="color: red;"><?php echo "Please Contact Administrator to Assign Classroom"; ?></h1> <?php 
-
-            } else {
-              ?><h1>Student List of <?php echo $row['class_name']; ?></h1><?php
-            }
-              
-          ?>
-
-            
-            
+            <h1>Choose Classes</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
-    
+
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-            <div class="row">
+      <div class="row">
           <div class="col-12">
-            <div class="card">
+            <div class="card" >
               <div class="card-header">
                 <h3 class="card-title"></h3>
+
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
+
                     <div class="input-group-append">
                       <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                    </div>
-                      <div class="input-group-append">
-                      
-                      <button type="submit" class="btn btn-primary" style="margin-left: 10px;" onclick="location.href='registerstudent.php';">Add</button>
+                      <button type="submit" class="btn btn-primary" style="margin-left: 10px;" onclick="location.href='registerclass.php';">Add</button>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0" style="height: 500px;">
+              <div class="card-body table-responsive p-0" style="height: 500px;" >
                 <table class="table table-head-fixed text-nowrap">
                   <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>IC NUMBER</th>
-                      <th>Parent Name</th>
-                      <th>Parent Contact Number</th>
-                      <th>Action</th>
-                    </tr>
+                      <tr>
+                      <th>
+                          No.
+                      </th>
+                      <th>
+                          Class
+                      </th>
+                      <th>
+                          Teacher
+                      </th>
+                      <th>
+                        Action
+                      </th>   
+                  </tr>   
                   </thead>
                   <tbody>
-                    <?php 
-
-                    $class_id1=$_SESSION['class_id'];
-                    $result = displayStudentByClass($class_id1);
-                    $i = 1;
+                    <?php $result = displayClass(); 
+                     $i = 1;
                     while ($row = mysqli_fetch_assoc($result)) {
         
                     
                     ?>
+
                     <tr>
-                      <td><?php echo $row['student_id'] ?></td>
-                      <td><?php echo $row['student_name']; ?></td>
-                      <td><?php echo $row['student_ic']; ?></td>
-                      <td><?php echo $row['parent_name']; ?></td>
-                      <td><?php echo $row['parent_contact']; ?></td>
+                      <td><?php echo $i; ?></td>
+                      <td><?php echo $row['class_name']; ?></td>
+                      <td><span class="tag tag-success"><?php if(empty($row['teacher_name'])){
+                        echo " - ";
+                      } else {echo $row['teacher_name'];}  ?></span></td>
                       <td>
-                        <form method="POST">
+                        <form method="post" action="ClassDate.php">
 
-                          <input type="hidden" name="id$i" value="<?php echo $row['student_id'] ?>">
+                          <input type="hidden" name="teacherData" value="<?php echo $row['teacher_name']; ?>"> 
+                          <input type="hidden" name="id$i" value="<?php echo $row['class_id']; ?>"> 
 
-                          <button class="btn btn-primary btn-sm" name="viewDetailStudent">
-                              <i class="fas fa-folder">
+                          <button class="btn btn-primary btn-sm" name="viewClassAttendance">
+                            <i class="fas fa-folder">
                               </i>
                               View
-                          </button>
-                          <button class="btn btn-info btn-sm" name="editDetailStudent">
-                              <i class="fas fa-pencil-alt">
+                          </button> 
+                              
+                          
+                          <button class="btn btn-info btn-sm" name="editClass">
+                              <i class="fas fa-pencil-alt" >
                               </i>
                               Edit
                           </button>
-                          
-                         </form>
+                
+                        </form>
                       </td>
                     </tr>
-
-                  <?php $i=$i+1;} ?>
+                    
+                    <?php $i=$i+1;} ?>
+                   
                     
                   </tbody>
+                  
                 </table>
+                
               </div>
+              <!-- /.card-header -->
+
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
           </div>
         </div>
-  
-      </div>
+        </div>
+   
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
- <?php include "footer.php"; ?>
+<?php include "footer.php"; ?>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -161,22 +149,41 @@ $_SESSION['code_type_attend1'] = "";?>
 <!-- Bootstrap 4 -->
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 </body>
 </html>
 
 
-<?php  
-if (isset($_POST['editDetailStudent'])) {
-   $_SESSION['student_id'] = $_POST['id$i'];
-    echo "<script>window.location.assign('editStudent.php')</script>";
+<?php 
+if (isset($_POST['viewClassAttendance'])) {
+    $_SESSION['class_id']=$_POST['id$i'];
+    $_SESSION['date'] = date('Y-m-d');
+    echo "<script>window.location.assign('AttendanceStudentList.php')</script>";
 }
 
-if (isset($_POST['viewDetailStudent'])){
-    $_SESSION['student_id'] = $_POST['id$i'];
-  echo "<script>window.location.assign('viewStudent.php')</script>";
+?>
 
+<?php
+if (isset($_POST['editClass'])) {
+    $_SESSION['class_id']=$_POST['id$i'];
+    echo "<script>window.location.assign('editClass.php')</script>";
 }
+
+?>
+
+
+<?php
+if (isset($_POST['deleteClass'])) {
+   $class_id=number_format($_POST['id$i']);
+
+   if (empty($_POST['teacherData'])) {
+     deleteClass($class_id);
+
+   } else
+   deleteClassWithEditTeacher($class_id);
+
+ } 
 
 ?>

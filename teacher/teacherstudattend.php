@@ -52,7 +52,7 @@
                 <?php 
 
                  $date = $_SESSION['date'];
-                 if (empty($date)) {
+                 if (empty($_SESSION['code_type_attend1'])) {
                    $date = date('d-m-Y');
                 }
 
@@ -67,7 +67,7 @@
 
                 echo $date2; ?></label>
                   <div style="width: 30%;" class="input-group date" id="reservationdate" data-target-input="nearest">
-                      <input name="date" type="text" class="form-control datetimepicker-input" data-target="#reservationdate" required="">
+                      <input id="element" name="date" type="text" class="form-control datetimepicker-input" data-target="#reservationdate" required="">
                       <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                       <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                       </div>
@@ -317,6 +317,12 @@ if (empty($row2['student_name'])) { ?>
 
   })
 </script>
+<script>
+$(document).ready(function(){
+    $("#element").val("");
+});
+</script>
+
 </html>
 
 
@@ -330,6 +336,7 @@ if (isset($_POST['searchNewDate'])) {
 
 
   $_SESSION['date'] = $newDate;
+  $_SESSION['code_type_attend1'] = "asaaf";
 
   echo "<script>window.location.assign('teacherstudattend.php')</script>";
 }
