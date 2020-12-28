@@ -83,14 +83,22 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+
+                <?php 
+                $class_id = $_SESSION['class_id'];
+                $result = countStudentByClass($class_id);
+                $row = mysqli_fetch_assoc($result);
+                $numberOfStudent = $row['numberOfStudent'];
+
+                ?>
+                <h3><?php echo $numberOfStudent; ?></h3>
 
                 <p>Students</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="teacherstudlist.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           
@@ -135,7 +143,7 @@
                   </tr>   
                   </thead>
                   <tbody>
-                    <?php $result = displayClass(); 
+                   <!--  <?php $result = displayClass(); 
                      $i = 1;
                     while ($row = mysqli_fetch_assoc($result)) {
         
@@ -177,7 +185,7 @@
                     
                     <?php $i=$i+1;} ?>
                    
-                    
+                     -->
                   </tbody>
                   
                 </table>

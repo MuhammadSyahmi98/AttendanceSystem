@@ -152,6 +152,7 @@
               </div>
 
                 <div class="card-footer">
+                  <button type="submit" id="cancel" name="cancel" class="btn btn-primary">Cancel</button>
                   <button type="submit" name="updateClass" class="btn btn-primary">Update</button>
                 </div>
               </form>
@@ -220,6 +221,8 @@
 
 <!-- Select2 -->
 <script src="../plugins/select2/js/select2.full.min.js"></script>
+ 
+
 </body>
 
 </html>
@@ -240,6 +243,14 @@ if (isset($_POST['updateClass'])) {
 
 
   
+}
+
+?>
+
+
+<?php 
+if (isset($_POST['cancel'])) {
+   echo "<script>window.location.assign('class.php')</script>";
 }
 
 ?>

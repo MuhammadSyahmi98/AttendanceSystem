@@ -106,6 +106,7 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
+                  <button type="submit" id="cancel" name="cancel" class="btn btn-primary">Cancel</button>
                   <button type="submit" name="addStudent" class="btn btn-primary">Submit</button>
                 </div>
               </form>
@@ -161,3 +162,15 @@ if (isset($_POST['addStudent'])) {
 }
 
 ?>
+
+
+<script>  
+ $(document).ready(function(){  
+      $('#cancel').click(function(){
+        window.location.assign('teacherstudlist.php'); 
+            
+      });  
+ });  
+ </script> 
+
+

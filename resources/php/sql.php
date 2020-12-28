@@ -1260,6 +1260,28 @@ function countStudentByClass($class_id){
 
 
 
+function countStudentInAttendanceByClass($class_id){
+	require '/../../connectDB.php';
+
+	$sql = "SELECT COUNT(*) AS numberOfStudent FROM attendance INNER JOIN student ON attendance.student_id = student.student_id WHERE MONTH(dates) = 12 AND student.class_id = ?";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_STUDENT_CLASS_DATA');
+		       window.location.href='class.php';
+		       </script>";
+    } else {
+    	mysqli_stmt_bind_param($result, "i", $class_id);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+}
+
+
+
+
 
 function countAttendStudentByClassAttend($class_id, $dates){
 	require '/../../connectDB.php';
@@ -1348,6 +1370,176 @@ function countAttendStudentByClassAbsent($class_id, $dates){
 
 
 
+function countAttendStatusByMonth($month,$year, $class_id) {
+	require '/../../connectDB.php';
+
+	$sql = "SELECT attend_status, COUNT(attend_status) AS Status FROM attendance INNER JOIN student ON student.student_id = attendance.student_id WHERE Month(attendance.dates) = ? AND YEAR(attendance.dates) = ? AND student.class_id = ? GROUP BY attendance.attend_status ORDER BY attendance.attend_status DESC";
+
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_STUDENT_CLASS_DATA');
+		       window.location.href='class.php';
+		       </script>";
+    } else {
+ 		mysqli_stmt_bind_param($result, "iii", $month, $year, $class_id);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+
+
+}
+
+
+function countDayByMonthAndClass($class_id, $month){
+	require '/../../connectDB.php';
+
+	$sql = "SELECT COUNT(DISTINCT dates) AS numberOfDayByMonth FROM attendance INNER JOIN student ON attendance.student_id = student.student_id WHERE MONTH(dates) = ? AND student.class_id = ? GROUP BY MONTH(dates)";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_STUDENT_CLASS_DATA');
+		       window.location.href='class.php';
+		       </script>";
+    } else {
+    	 mysqli_stmt_bind_param($result, "ii", $month, $class_id);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+
+
+}
+
+
+
+function countTotalAttentByMonthAndClass($class_id, $month){
+	require '/../../connectDB.php';
+
+	$sql = "SELECT COUNT(*) AS numberOfAttendStudent FROM attendance INNER JOIN student ON attendance.student_id = student.student_id WHERE MONTH(dates) = ? AND student.class_id = ? AND attendance.attend_status = 'Attend'";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_STUDENT_CLASS_DATA');
+		       window.location.href='class.php';
+		       </script>";
+    } else {
+    	 mysqli_stmt_bind_param($result, "ii", $month, $class_id);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+
+}
+
+
+function countTotalAttentLateByMonthAndClass($class_id, $month){
+	require '/../../connectDB.php';
+
+	$sql = "SELECT COUNT(*) AS numberOfAttendLateStudent FROM attendance INNER JOIN student ON attendance.student_id = student.student_id WHERE MONTH(dates) = ? AND student.class_id = ? AND attendance.attend_status = 'Attend Late'";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_STUDENT_CLASS_DATA');
+		       window.location.href='class.php';
+		       </script>";
+    } else {
+    	 mysqli_stmt_bind_param($result, "ii", $month, $class_id);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+
+}
+
+
+function countTotalMedicalLeaveByMonthAndClass($class_id, $month){
+	require '/../../connectDB.php';
+
+	$sql = "SELECT COUNT(*) AS numberOfMedicalLeaveStudent FROM attendance INNER JOIN student ON attendance.student_id = student.student_id WHERE MONTH(dates) = ? AND student.class_id = ? AND attendance.attend_status = 'Medical Leave'";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_STUDENT_CLASS_DATA');
+		       window.location.href='class.php';
+		       </script>";
+    } else {
+    	 mysqli_stmt_bind_param($result, "ii", $month, $class_id);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+
+}
+
+
+function countTotalAbsentByMonthAndClass($class_id, $month){
+	require '/../../connectDB.php';
+
+	$sql = "SELECT COUNT(*) AS numberOfAbsentStudent FROM attendance INNER JOIN student ON attendance.student_id = student.student_id WHERE MONTH(dates) = ? AND student.class_id = ? AND attendance.attend_status = 'Absent'";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_STUDENT_CLASS_DATA');
+		       window.location.href='class.php';
+		       </script>";
+    } else {
+    	 mysqli_stmt_bind_param($result, "ii", $month, $class_id);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+
+}
+
+
+
+function countTotalAttendanceByMonthAndClass($class_id, $month){
+	require '/../../connectDB.php';
+
+	$sql = "SELECT COUNT(*) AS numberOfAttendaceStudent FROM attendance INNER JOIN student ON attendance.student_id = student.student_id WHERE MONTH(dates) = ? AND student.class_id = ?";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_STUDENT_CLASS_DATA');
+		       window.location.href='class.php';
+		       </script>";
+    } else {
+    	mysqli_stmt_bind_param($result, "ii", $month, $class_id);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function updateMC($attendance_img) {
 	require '/../../connectDB.php';
 
@@ -1367,6 +1559,10 @@ function updateMC($attendance_img) {
 		       </script>";
     }
 }
+
+
+
+
 
 
 

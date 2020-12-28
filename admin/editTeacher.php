@@ -102,6 +102,7 @@
                 
                 </div>
                  <div class="card-footer">
+                  <button type="submit" name="cancel" class="btn btn-primary">Cancel</button>
                   <button type="submit" name="updateTeacher" class="btn btn-primary">Update</button>
                 </div>
               </form>
@@ -163,3 +164,11 @@ if (isset($_POST['updateTeacher'])) {
 
 
 ?>
+
+<?php
+if (isset($_POST['cancel'])) {
+  echo "<script>window.location.assign('adminTeacher.php')</script>";
+}
+
+ ?>
+

@@ -106,6 +106,7 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
+                  <button type="submit" name="cancel" id="cancel" class="btn btn-primary">Cancel</button>
                   <button type="submit" name="addStudent" class="btn btn-primary">Submit</button>
                 </div>
               </form>
@@ -143,6 +144,14 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
+<script>  
+ $(document).ready(function(){  
+      $('#cancel').click(function(){
+        window.location.assign('studentlist.php'); 
+            
+      });  
+ });  
+ </script> 
 </body>
 </html>
 

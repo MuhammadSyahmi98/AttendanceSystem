@@ -31,7 +31,7 @@
       
       <li class="nav-item">
         <a class="nav-link"  href="logout.php" role="button">
-          <p>LOG OUT</p>
+          <p style="color: red;">LOG OUT</p>
         </a>
       </li>
     </ul>

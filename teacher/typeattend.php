@@ -99,6 +99,7 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
+                  <button name="Cancel" type="submit" class="btn btn-primary">Cancel</button>
                   <button id="insert" name="insert" type="submit" class="btn btn-primary" OnClick="return confirm('Confirm to update the data?');">Submit</button>
                 </div>
               </form>
@@ -265,3 +266,12 @@ if (isset($_POST['insert'])) {
 }
 
  ?>
+
+
+ <?php
+if (isset($_POST['Cancel'])) {
+  echo "<script>
+            window.location.href='teacherstudattend.php';
+            </script>";
+}
+  ?>

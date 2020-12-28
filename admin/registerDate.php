@@ -2,14 +2,15 @@
 include "../resources/php/sql.php";
 
 if (isset($_POST['addDate'])) {
-  $date = $_POST['date'];
+  $startDate = $_POST['startDate'];
+  $endDate = $_POST['endDate'];
   $description = $_POST['description'];
   $type =  $_POST['holiday_type'];
 
-  $date=explode(" ",$date);
+  
 
-  $date_start = $date[0];
-  $date_end = $date[2];
+  $date_start = $startDate;
+  $date_end = $endDate;
 
   $new_date_start1 = strtotime($date_start);
   $new_date_start = date("Y-m-d", $new_date_start1);
@@ -82,22 +83,29 @@ if (isset($_POST['addDate'])) {
     </section>
 
     <section class="content">
-      <div>
+      <div class="card">
         <div class="card-header" style="padding: 0;">
           
         </div>
         <form method="post" action="registerDate.php">
           <div class="card-body">    
             <div class="form-group">
-              <label>Date range:</label>
-              <div class="input-group" style="width: 40%;">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="far fa-calendar-alt"></i>
-                  </span>
+              <label>Start Date:</label>
+              <div class="input-group date" id="reservationdate" data-target-input="nearest" style="width: 40%;">
+                    <input id="element" name="startDate" type="text" class="form-control datetimepicker-input" data-target="#reservationdate">
+                   
+                    <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
                 </div>
-                <input type="text" name="date" class="form-control float-right" id="reservation" required autocomplete="off">
-              </div>
+              <label style="margin-top: 10px;">End Date:</label>
+              <div class="input-group date" id="reservationdate1" data-target-input="nearest" style="width: 40%;">
+                    <input id="element" name="endDate" type="text" class="form-control datetimepicker-input" data-target="#reservationdate1">
+                   
+                    <div class="input-group-append" data-target="#reservationdate1" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
               <div style="margin-top: 10px;" class="form-group">
                   <label>Type</label>
                   <select class="form-control " name="holiday_type"  data-placeholder="Select" style="width: 40%;">
@@ -110,11 +118,14 @@ if (isset($_POST['addDate'])) {
                 <label for="exampleInputEmail1">Description</label>
                 <input type="desc" name="description" class="form-control" id="Description" placeholder="Enter Description" required style="width: 40%;">
               </div>
-              <div>
-                <button type="submit" name="addDate" class="btn btn-primary">Submit</button>
-              </div>     
+                  
             </div>
+
           </div>
+          <div class="card-footer">
+                <button type="submit" name="cancel" id="cancel" class="btn btn-primary">Cancel</button>
+                <button type="submit" name="addDate" class="btn btn-primary">Submit</button>
+              </div> 
         </form>  
       </div>
     </section>
@@ -152,6 +163,19 @@ if (isset($_POST['addDate'])) {
 <script src="../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
+<script>  
+ $(document).ready(function(){  
+      $('#cancel').click(function(){
+        window.location.assign('date.php'); 
+            
+      });  
+ });  
+ </script> 
+ <script>
+$(document).ready(function(){
+    $("#element").val("");
+});
+</script>
 <script>
   $(function () {
     //Initialize Select2 Elements
@@ -171,8 +195,19 @@ if (isset($_POST['addDate'])) {
 
     //Date range picker
     $('#reservationdate').datetimepicker({
-        format: 'DD-MM-Y'
+        format: 'DD-MM-Y',
+        minDate:new Date()
     });
+
+
+    //Date range picker
+    $('#reservationdate1').datetimepicker({
+        format: 'DD-MM-Y',
+        minDate:new Date()
+        
+    });
+
+
     //Date range picker
     $('#reservation').daterangepicker({locale: { format: 'DD-MM-YYYY'}});
     //Date range picker with time picker
@@ -204,7 +239,9 @@ if (isset($_POST['addDate'])) {
 
     //Timepicker
     $('#timepicker').datetimepicker({
-      format: 'LT'
+      format: 'DD-MM-Y',
+        autoclose:true,
+        minDate: new Date()
     })
     
     //Bootstrap Duallistbox

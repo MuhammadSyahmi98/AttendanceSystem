@@ -154,6 +154,7 @@ $Write="<?php $" . "UIDresult=''; " . "echo $" . "UIDresult;" . " ?>";
                 <!-- /.card-body -->
 
                 <div class="card-footer">
+                  <button type="submit" id="cancel" name="cancel" class="btn btn-primary">Cancel</button>
                   <button type="submit" name="updateStudent" class="btn btn-primary">Update</button>
                 </div>
               </form>
@@ -211,6 +212,13 @@ if (isset($_POST['updateStudent'])) {
       updateStudentNewStudentID($student_id, $new_student_id, $student_name, $student_ic, $class_id, $page);
   } 
  
+}
+
+?>
+
+<?php 
+if (isset($_POST['cancel'])) {
+  echo "<script>window.location.assign('teacherstudlist.php')</script>";
 }
 
 ?>

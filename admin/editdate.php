@@ -115,7 +115,8 @@
                 <input type="desc" name="description" class="form-control" id="Description" value="<?php echo $row['holiday_description']; ?>" placeholder="Enter Description" required>
               </div>
             <div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" id="cancel" name="cancel" class="btn btn-primary">Cancel</button>
+              <button type="submit" class="btn btn-primary">Update</button>
             </div>     
           </div>
         </div>  
@@ -153,6 +154,14 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
+<script>  
+ $(document).ready(function(){  
+      $('#cancel').click(function(){
+        window.location.assign('date.php'); 
+            
+      });  
+ });  
+ </script> 
 <script>
   $(function () {
     //Initialize Select2 Elements

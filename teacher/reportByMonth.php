@@ -25,6 +25,250 @@
 </head>
 
 
+  <?php 
+  $year = 2020;
+  $class_id = $_SESSION['class_id'];
+
+  $nameOfMonth = array("mockup", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December",);
+
+
+  $absent = $absent2 = $absent3 = $absent4 = $absent5 = $absent6 = $absent7 = $absent8 = $absent9 = $absent10 = $absent11 = $absent12 = 0; 
+
+  $attend = $attend2 = $attend3 = $attend4 = $attend5 = $attend6 = $attend7 = $attend8 = $attend9 = $attend10 = $attend11 = $attend12 = 0;
+
+  $attend_late = $attend_late2 = $attend_late3 = $attend_late4 = $attend_late5 = $attend_late6 = $attend_late7 = $attend_late8 = $attend_late9 = $attend_late10 = $attend_late11 = $attend_late12 = 0;
+
+  $medical_leave = $medical_leave2 = $medical_leave3 = $medical_leave4 = $medical_leave5 = $medical_leave6 = $medical_leave7 = $medical_leave8 = $medical_leave9 = $medical_leave10 = $medical_leave11 = $medical_leave12 = 0; 
+
+
+
+
+
+
+
+  $result = countAttendStatusByMonth(1,$year, $class_id);
+  while ($row = mysqli_fetch_assoc($result)) {
+    if ($row['attend_status']==="Absent") {
+      $absent = $row['Status'];
+
+    } else if ($row['attend_status']==="Attend") {
+      $attend = $row['Status'];
+      
+    } else if ($row['attend_status']==="Attend Late") {
+      $attend_late = $row['Status'];
+      
+    } else if ($row['attend_status']==="Medical Leave") {
+      $medical_leave = $row['Status'];
+      
+    }
+  }
+
+
+  $result2 = countAttendStatusByMonth(2,$year, $class_id);
+  while ($row2 = mysqli_fetch_assoc($result2)) {
+    if ($row2['attend_status']==="Absent") {
+      $absent2 = $row2['Status'];
+
+    } else if ($row2['attend_status']==="Attend") {
+      $attend2 = $row2['Status'];
+      
+    } else if ($row2['attend_status']==="Attend Late") {
+      $attend_late2 = $row2['Status'];
+      
+    } else if ($row2['attend_status']==="Medical Leave") {
+      $medical_leave2 = $row2['Status'];
+      
+    }
+  }
+
+  $result3 = countAttendStatusByMonth(3,$year, $class_id);
+
+  while ($row3 = mysqli_fetch_assoc($result3)) {
+    if ($row3['attend_status']==="Absent") {
+      $absent3 = $row3['Status'];
+
+    } else if ($row3['attend_status']==="Attend") {
+      $attend3 = $row3['Status'];
+      
+    } else if ($row3['attend_status']==="Attend Late") {
+      $attend_late3 = $row3['Status'];
+      
+    } else if ($row3['attend_status']==="Medical Leave") {
+      $medical_leave3 = $row3['Status'];
+      
+    }
+  }
+
+  $result4 = countAttendStatusByMonth(4,$year, $class_id);
+
+  while ($row4 = mysqli_fetch_assoc($result4)) {
+    if ($row4['attend_status']==="Absent") {
+      $absent4 = $row4['Status'];
+
+    } else if ($row4['attend_status']==="Attend") {
+      $attend4 = $row4['Status'];
+      
+    } else if ($row4['attend_status']==="Attend Late") {
+      $attend_late4 = $row4['Status'];
+      
+    } else if ($row['attend_status']==="Medical Leave") {
+      $medical_leave4 = $row4['Status'];
+      
+    }
+  }
+
+  $result5 = countAttendStatusByMonth(5,$year, $class_id);
+
+  while ($row5 = mysqli_fetch_assoc($result5)) {
+    if ($row5['attend_status']==="Absent") {
+      $absent5 = $row5['Status'];
+
+    } else if ($row5['attend_status']==="Attend") {
+      $attend5 = $row5['Status'];
+      
+    } else if ($row5['attend_status']==="Attend Late") {
+      $attend_late5 = $row5['Status'];
+      
+    } else if ($row5['attend_status']==="Medical Leave") {
+      $medical_leave5 = $row5['Status'];
+      
+    }
+  }
+
+  $result6 = countAttendStatusByMonth(6,$year, $class_id);
+
+  while ($row6 = mysqli_fetch_assoc($result6)) {
+    if ($row6['attend_status']==="Absent") {
+      $absent6 = $row6['Status'];
+
+    } else if ($row6['attend_status']==="Attend") {
+      $attend6 = $row6['Status'];
+      
+    } else if ($row6['attend_status']==="Attend Late") {
+      $attend_late6 = $row6['Status'];
+      
+    } else if ($row6['attend_status']==="Medical Leave") {
+      $medical_leave6 = $row6['Status'];
+      
+    }
+  }
+
+  $result7 = countAttendStatusByMonth(7,$year, $class_id);
+
+  while ($row7 = mysqli_fetch_assoc($result7)) {
+    if ($row7['attend_status']==="Absent") {
+      $absent7 = $row7['Status'];
+
+    } else if ($row7['attend_status']==="Attend") {
+      $attend7 = $row7['Status'];
+      
+    } else if ($row7['attend_status']==="Attend Late") {
+      $attend_late7 = $row7['Status'];
+      
+    } else if ($row7['attend_status']==="Medical Leave") {
+      $medical_leave7 = $row7['Status'];
+      
+    }
+  }
+
+  $result8 = countAttendStatusByMonth(8,$year, $class_id);
+
+  while ($row8 = mysqli_fetch_assoc($result8)) {
+    if ($row8['attend_status']==="Absent") {
+      $absent8 = $row8['Status'];
+
+    } else if ($row8['attend_status']==="Attend") {
+      $attend8 = $row8['Status'];
+      
+    } else if ($row8['attend_status']==="Attend Late") {
+      $attend_late8 = $row8['Status'];
+      
+    } else if ($row8['attend_status']==="Medical Leave") {
+      $medical_leave8 = $row8['Status'];
+      
+    }
+  }
+
+  $result9 = countAttendStatusByMonth(9,$year, $class_id);
+
+  while ($row9 = mysqli_fetch_assoc($result9)) {
+    if ($row9['attend_status']==="Absent") {
+      $absent9 = $row9['Status'];
+
+    } else if ($row9['attend_status']==="Attend") {
+      $attend9 = $row9['Status'];
+      
+    } else if ($row9['attend_status']==="Attend Late") {
+      $attend_late9 = $row9['Status'];
+      
+    } else if ($row9['attend_status']==="Medical Leave") {
+      $medical_leave9 = $row9['Status'];
+      
+    }
+  }
+
+  $result10 = countAttendStatusByMonth(10,$year, $class_id);
+
+  while ($row10 = mysqli_fetch_assoc($result10)) {
+    if ($row10['attend_status']==="Absent") {
+      $absent10 = $row10['Status'];
+
+    } else if ($row10['attend_status']==="Attend") {
+      $attend10 = $row10['Status'];
+      
+    } else if ($row10['attend_status']==="Attend Late") {
+      $attend_late10 = $row10['Status'];
+      
+    } else if ($row10['attend_status']==="Medical Leave") {
+      $medical_leave10 = $row10['Status'];
+      
+    }
+  }
+
+  $result11 = countAttendStatusByMonth(11,$year, $class_id);
+
+  while ($row11 = mysqli_fetch_assoc($result11)) {
+    if ($row11['attend_status']==="Absent") {
+      $absent11 = $row11['Status'];
+
+    } else if ($row11['attend_status']==="Attend") {
+      $attend11 = $row11['Status'];
+      
+    } else if ($row11['attend_status']==="Attend Late") {
+      $attend_late11 = $row11['Status'];
+      
+    } else if ($row11['attend_status']==="Medical Leave") {
+      $medical_leave11 = $row11['Status'];
+      
+    }
+  }
+
+  $result12 = countAttendStatusByMonth(12,$year, $class_id);
+  
+  while ($row12 = mysqli_fetch_assoc($result12)) {
+    if ($row12['attend_status']==="Absent") {
+      $absent12 = $row12['Status'];
+
+    } else if ($row12['attend_status']==="Attend") {
+      $attend12 = $row12['Status'];
+      
+    } else if ($row12['attend_status']==="Attend Late") {
+      $attend_late12 = $row12['Status'];
+      
+    } else if ($row12['attend_status']==="Medical Leave") {
+      $medical_leave12 = $row12['Status'];
+      
+    }
+  }
+
+  $result13 = countStudentInAttendanceByClass($class_id);
+  $row13 = mysqli_fetch_assoc($result13);
+  $totalStudent = $row13['numberOfStudent'];
+
+  
+
+
+  ?>
 
 
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -34,27 +278,48 @@
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses', 'Profit'],
-          ['2014', 100, 40, 20],
-          ['2015', 11, 46, 25],
-          ['2016', 66, 11, 30],
-          ['2014', 100, 40, 20],
-          ['2015', 97, 46, 25],
-          ['2016', 66, 12, 30],
-          ['2014', 100, 40, 20],
-          ['2015', 70, 40, 25],
-          ['2016', 60, 10, 30],
-          ['2014', 10, 40, 20],
-          ['2015', 10, 60, 20],
-          ['2016', 60, 20, 30],
-          ['2017', 10, 54, 35]
+          ['Month', 'Absent', 'Attend', 'Attend Late', 'Medical Leave'],
+          ['January', <?php echo $absent/$totalStudent*100; ?>, <?php echo $attend/$totalStudent*100; ?>, <?php echo $attend_late/$totalStudent*100; ?>, <?php echo $medical_leave/$totalStudent*100; ?>],
+
+          ['February', <?php echo $absent2/$totalStudent*100; ?>, <?php echo $attend2/$totalStudent*100; ?>, <?php echo $attend_late2/$totalStudent*100; ?>, <?php echo $medical_leave2/$totalStudent*100; ?>],
+
+          ['March', <?php echo $absent3/$totalStudent*100; ?>, <?php echo $attend3/$totalStudent*100; ?>, <?php echo $attend_late3/$totalStudent*100; ?>, <?php echo $medical_leave3/$totalStudent*100; ?>],
+
+          ['April', <?php echo $absent4/$totalStudent*100; ?>, <?php echo $attend4/$totalStudent*100; ?>, <?php echo $attend_late4/$totalStudent*100; ?>, <?php echo $medical_leave4/$totalStudent*100; ?>],
+
+          ['May', <?php echo $absent5/$totalStudent*100; ?>, <?php echo $attend5/$totalStudent*100; ?>, <?php echo $attend_late5/$totalStudent*100; ?>, <?php echo $medical_leave5/$totalStudent*100; ?>],
+
+          ['June',<?php echo $absent6/$totalStudent*100/$totalStudent*100; ?>, <?php echo $attend6/$totalStudent*100; ?>, <?php echo $attend_late6/$totalStudent*100; ?>, <?php echo $medical_leave6/$totalStudent*100; ?>],
+
+          ['July', <?php echo $absent7/$totalStudent*100; ?>, <?php echo $attend7/$totalStudent*100; ?>, <?php echo $attend_late7/$totalStudent*100; ?>, <?php echo $medical_leave7/$totalStudent*100; ?>],
+
+          ['August', <?php echo $absent8/$totalStudent*100; ?>, <?php echo $attend8/$totalStudent*100; ?>, <?php echo $attend_late8/$totalStudent*100; ?>, <?php echo $medical_leave8/$totalStudent*100; ?>],
+
+          ['September', <?php echo $absent9/$totalStudent*100; ?>, <?php echo $attend9/$totalStudent*100; ?>, <?php echo $attend_late9/$totalStudent*100; ?>, <?php echo $medical_leave9/$totalStudent*100; ?>],
+
+          ['October', <?php echo $absent10/$totalStudent*100; ?>, <?php echo $attend10/$totalStudent*100; ?>, <?php echo $attend_late10/$totalStudent*100; ?>, <?php echo $medical_leave10/$totalStudent*100; ?>],
+
+          ['November', <?php echo $absent11/$totalStudent*100; ?>, <?php echo $attend11/$totalStudent*100; ?>, <?php echo $attend_late11/$totalStudent*100; ?>, <?php echo $medical_leave11/$totalStudent*100; ?>],
+
+          ['December', <?php echo (($absent12/$totalStudent)*100); ?>, <?php echo (($attend12/$totalStudent)*100); ?>, <?php echo (($attend_late12/$totalStudent)*100); ?>, <?php echo (($medical_leave12/$totalStudent)*100); ?>]
         ]);
 
         var options = {
           chart: {
             title: 'Attendance Performance',
             subtitle: 'Attend, Attent Late, Absent, Medical Leave',
-          }
+
+            
+          },
+          backgroundColor: '#f4f6f9',
+          chartArea: {
+            backgroundColor: {
+            fill: '#f4f6f9'
+            },
+        },
+        vAxis: {
+    format: "#'%'"
+}
         };
 
         var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
@@ -74,15 +339,8 @@
 <div class="wrapper">
   <!-- Navbar -->
   <?php  include "navTeacher.php"; ?>
-	
 	<div class="content-wrapper">
 
-    <!-- Chart Section -->
-    <section class="content">
-      <div id="columnchart_material" style="width: 100%; height: 500px;""></div>
-    </section>
-
- 
     <section class="content-header"> 
       <div class="container-fluid">
         <div class="row mb-2">
@@ -92,6 +350,29 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
+
+    <!-- Chart Section -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div id="columnchart_material" style="width: 100%; height: 500px;"></div>
+          </div>
+        </div>
+      </div>
+      
+    </section>
+
+  <section class="content-header"> 
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1></h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    
 
     <!-- Main content -->
     <section class="content">
@@ -114,61 +395,137 @@
                 </div>
               </div>
               <!-- /.card-header -->
-              <div class="card-body table-responsive p-0" style="height: 500px;">
+              <div class="card-body table-responsive p-0" style="height: 730px;">
                 <table class="table table-head-fixed text-nowrap">
                   <thead>
                     <tr>
-                      <th>No.</th>
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Status</th>
+                      <th>MONTH</th>
+                      <th>TOTAL DAY</th>
+                      <th>TOTAL ATTEND</th>
+                      <th>TOTAL ATTEND LATE</th>
+                      <th>TOTAL MEDICAL LEAVE</th>
+                      <th>TOTAL ABSENT</th>
+                      <th>TOTAL ATTENDANCE</th>
+                      <th>PERCENTAGE(%)</th>
+                      <th>ACTION</th>
+                      
                       
 
                    
                     </tr>
                   </thead>
                   <tbody id="myTable">
-                    <!-- <?php 
 
-                    $class_id = $_SESSION['class_id'];
-                    $result1 = displayStudentAttendanceByClassAbsent($class_id,$dates);
-                    $i = 1;
-                    while ($row2 = mysqli_fetch_assoc($result1)) {
-
+                  <?php
                     
-                    ?>
-                    <tr>
-                      <td><?php echo $i; ?></td>
-                      <td><?php echo $row2['id']; ?></td>
-                      <td ><?php echo $row2['name']; ?></td>
-                      <td style="color: red;"><?php echo $row2['status']; ?></td>
-                     
-          
-                    
-                    </tr>
 
-                  <?php $i=$i+1;} ?>
 
-                    <?php 
+                    for($i=1;$i<=12;$i++) {
 
-        
-                    $result2 = displayStudentAttendanceByClassAttend($class_id,$dates);
-                    while ($row3 = mysqli_fetch_assoc($result2)) {
+                      $data = countDayByMonthAndClass($class_id, $i);
+                      $row14 = mysqli_fetch_assoc($data);
 
-                    
-                    ?>
-                    <tr>
-                      <td><?php echo $i; ?></td>
-                      <td><?php echo $row3['id']; ?></td>
-                      <td ><?php echo $row3['name']; ?></td>
-                      <td><?php echo $row3['status']; ?></td>
-                     
-          
-                    
-                    </tr>
+                      $data2 = countTotalAttentByMonthAndClass($class_id, $i);
+                      $row15 = mysqli_fetch_assoc($data2);
 
-                  <?php $i=$i+1;} ?>
-                     -->
+                      $data3 = countTotalAttentLateByMonthAndClass($class_id, $i);
+                      $row16 = mysqli_fetch_assoc($data3);
+
+                      $data4 = countTotalMedicalLeaveByMonthAndClass($class_id, $i);
+                      $row17 = mysqli_fetch_assoc($data4);
+
+                      $data5 = countTotalAbsentByMonthAndClass($class_id, $i);
+                      $row18 = mysqli_fetch_assoc($data5);
+
+                      $data6 = countTotalAttendanceByMonthAndClass($class_id, $i);
+                      $row19 = mysqli_fetch_assoc($data6);
+
+
+                      ?>
+                     <tr>
+                       <td><?php echo $nameOfMonth[$i]; ?></td>
+                       <td><?php if (empty($row14['numberOfDayByMonth'])) {
+                         echo "-";
+                       } else {echo $row14['numberOfDayByMonth'];} ?></td>
+
+                       <td><?php if (empty($row15['numberOfAttendStudent'])) {
+                         echo "-";
+                       } else {echo $row15['numberOfAttendStudent'];} ?></td>
+
+
+                       <td><?php if (empty($row16['numberOfAttendLateStudent'])) {
+                         echo "-";
+                       } else {echo $row16['numberOfAttendLateStudent'];} ?></td>
+
+                       <td><?php if (empty($row17['numberOfMedicalLeaveStudent'])) {
+                         echo "-";
+                       } else {echo $row17['numberOfMedicalLeaveStudent'];} ?></td>
+                       
+
+                       <td><?php if (empty($row18['numberOfAbsentStudent'])) {
+                         echo "-";
+                       } else {echo $row18['numberOfAbsentStudent'];} ?></td>
+
+
+                       <td><?php if (empty($row19['numberOfAttendaceStudent'])) {
+                         echo "-";
+                       } else {echo $row19['numberOfAttendaceStudent'];} ?></td>
+
+
+
+
+
+                       <?php
+
+                       if (empty($row15['numberOfAttendStudent'])) {
+                         $totalAttend = 0;
+                       } else {
+                          $totalAttend = $row15['numberOfAttendStudent'];
+                       }
+
+
+                       if (empty($row16['numberOfAttendLateStudent'])) {
+                         $totalAttendLate = 0;
+                       } else {
+                          $totalAttendLate = $row16['numberOfAttendLateStudent'];
+                       }
+
+                       $totalAttendance = $row19['numberOfAttendaceStudent'];
+
+                       if (!empty($totalAttendance)) {
+                         $percentAttendance = (($totalAttend+$totalAttendLate)/$totalAttendance)*100;
+                       }
+
+
+
+
+
+                        ?>
+
+
+                       <td><?php if (empty($percentAttendance)) {
+                         echo "-";
+                       } else {echo round($percentAttendance);} ?></td>
+
+
+
+
+
+
+                       <td> <button class="btn btn-primary btn-sm" name="viewClass">
+                            <i class="fas fa-folder">
+                              </i>
+                              View
+                          </button> 
+                              </td>
+                     </tr> <?php
+                      
+                    }
+
+                   ?>
+
+
+                   
                   </tbody>
                 </table>
               </div>
@@ -184,44 +541,6 @@
 
  
   </div>
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   <?php  include "footer.php"; ?>
 

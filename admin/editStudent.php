@@ -154,6 +154,7 @@ $Write="<?php $" . "UIDresult=''; " . "echo $" . "UIDresult;" . " ?>";
                 <!-- /.card-body -->
 
                 <div class="card-footer">
+                  <button type="submit" name="cancel" id="cancel" class="btn btn-primary">Cancel</button>
                   <button type="submit" name="updateStudent" class="btn btn-primary">Update</button>
                 </div>
               </form>
@@ -190,6 +191,7 @@ $Write="<?php $" . "UIDresult=''; " . "echo $" . "UIDresult;" . " ?>";
 
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
+
 </body>
 </html>
 
@@ -214,3 +216,10 @@ if (isset($_POST['updateStudent'])) {
 }
 
 ?>
+
+<?php 
+
+if (isset($_POST['cancel'])) {
+  
+  echo "<script>window.location.assign('allStudentList.php')</script>";
+}

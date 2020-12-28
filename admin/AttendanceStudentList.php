@@ -101,12 +101,12 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Report   By Day</h1>
-            <form method="POST" style="margin-top: 10px;">
+            <form method="POST" style="margin-top: 10px;" autocomplete="off">
               <div class="form-group">
               <div class="form-group">
        
                 <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                    <input name="inputDate" type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
+                    <input id="element" name="inputDate" type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
                     <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
@@ -355,7 +355,9 @@
 
     //Date range picker
     $('#reservationdate').datetimepicker({
-        format: 'L'
+        format: 'DD-MM-Y',
+        autoclose:true,
+        maxDate: new Date()
     });
     //Date range picker
     $('#reservation').daterangepicker()
@@ -409,6 +411,18 @@
 
   })
 </script>
+<script>
+$(document).ready(function(){
+    $("#element").val("");
+});
+</script>
+
+
+
+
+
+
+
 </body>
 </html>
 

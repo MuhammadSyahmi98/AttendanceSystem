@@ -49,27 +49,27 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Teacher Name</label>
-                    <input type="name" name="teacher_name" class="form-control"  placeholder="Enter Teacher Name">
+                    <input type="name" name="teacher_name" class="form-control"  placeholder="Enter Teacher Name" required>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Email</label>
-                    <input type="email" name="teacher_email" class="form-control"  placeholder="Enter Teacher Email">
+                    <input type="email" name="teacher_email" class="form-control"  placeholder="Enter Teacher Email" required>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Contact Number</label>
-                    <input type="name" name="teacher_contact" class="form-control"  placeholder="Enter Phone Number">
+                    <input type="name" name="teacher_contact" class="form-control"  placeholder="Enter Phone Number" required>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
-                    <input type="password" name="password_1" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <input type="password" name="password_1" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword2">Re-Password</label>
-                    <input type="password" name="password_2" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <input type="password" name="password_2" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
                   </div>
                   <div class="form-group">
                   <label>Class</label>
-                  <select class="form-control select2" name="class_id"  data-placeholder="Select" style="width: 100%;">
+                  <select class="form-control select2" name="class_id"  data-placeholder="Select" style="width: 100%;" >
 
                     <option value=""></option>
                     <?php  $resultl = displayAvailableClass(); 
@@ -91,6 +91,7 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
+                  <button type="submit" name="cancel" id="cancel" class="btn btn-primary">Cancel</button>
                   <button type="submit" name="addTeacher" class="btn btn-primary">Submit</button>
                 </div>
               </form>
@@ -127,6 +128,14 @@
 <script src="../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
+<script>  
+ $(document).ready(function(){  
+      $('#cancel').click(function(){
+        window.location.assign('adminTeacher.php'); 
+            
+      });  
+ });  
+ </script> 
 </body>
 </html>
 

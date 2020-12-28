@@ -114,6 +114,7 @@ if (isset($_POST['submit'])) {
               </div>
 
                 <div class="card-footer">
+                  <button type="submit" id="cancel" name="cancel" class="btn btn-primary">Cancel</button>
                   <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                 </div>
               </form>
@@ -183,6 +184,22 @@ if (isset($_POST['submit'])) {
 
 <!-- Select2 -->
 <script src="../plugins/select2/js/select2.full.min.js"></script>
+<script>  
+ $(document).ready(function(){  
+      $('#cancel').click(function(){
+        window.location.assign('class.php'); 
+            
+      });  
+ });  
+ </script> 
+
 </body>
 
 </html>
+
+<?php 
+if (isset($_POST['cancel'])) {
+  echo "<script>window.location.assign('teacherstudlist.php')</script>";
+}
+
+?>
