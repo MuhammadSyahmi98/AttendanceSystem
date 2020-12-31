@@ -28,6 +28,7 @@
   <!-- JS-RFID -->
 
   <script src="jquery.min.js"></script>
+  
     <script>
       $(document).ready(function(){
          $("#getUID").load("../UIDContainer.php");
@@ -139,6 +140,7 @@
 
 <!-- jQuery -->
 <script src="../plugins/jquery/jquery.min.js"></script>
+
 <!-- Bootstrap 4 -->
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 

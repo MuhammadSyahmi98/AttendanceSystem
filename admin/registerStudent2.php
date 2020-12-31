@@ -96,7 +96,7 @@
                   </div>
                   <div class="form-group">
                     <label>Class</label>
-                    <select class="form-control select2" name="class_id1"  data-placeholder="Select" style="width: 100%;">
+                    <select class="form-control select2" name="ids"  data-placeholder="Select" style="width: 100%;">
 
                       <option value="">No class</option>
                       <?php 
@@ -178,7 +178,7 @@ if (isset($_POST['addStudent'])) {
   $parent_name = $_POST['parent_name'];
   $parent_email = $_POST['parent_email'];
   $parent_contact = $_POST['parent_contact'];
-  $class_id = $_POST['class_id1'];
+  $class_id = $_POST['ids'];
 
   addStudent2($student_id, $student_name, $student_ic, $parent_name, $parent_email, $parent_contact, $class_id);
 }

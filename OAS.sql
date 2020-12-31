@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 5.0.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 25, 2020 at 01:52 PM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Generation Time: Dec 31, 2020 at 05:30 PM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -38,7 +39,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`admin_id`, `admin_name`, `admin_email`, `admin_password`) VALUES
-(1, 'Admin 1', 'admin@gmail.com', '12345678');
+(1, 'Admin 1', 'admin@gmail.com', '123412');
 
 -- --------------------------------------------------------
 
@@ -51,7 +52,7 @@ CREATE TABLE `attendance` (
   `time_in` time DEFAULT NULL,
   `dates` date NOT NULL,
   `attend_status` varchar(30) NOT NULL,
-  `attendance_img` longblob,
+  `attendance_img` longblob DEFAULT NULL,
   `attendance_description` varchar(9999) DEFAULT NULL,
   `student_id` varchar(767) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -75,7 +76,19 @@ INSERT INTO `attendance` (`attendance_id`, `time_in`, `dates`, `attend_status`, 
 (67, NULL, '2020-12-21', 'Absent', '', '0', '21345879'),
 (68, NULL, '2020-12-21', 'Attend', NULL, '0', '32435675869'),
 (69, NULL, '2020-12-21', 'Attend', NULL, '0', '324567'),
-(70, NULL, '2020-12-21', 'Absent', NULL, '0', 'asdfgvs');
+(70, NULL, '2020-12-21', 'Absent', NULL, '0', 'asdfgvs'),
+(71, NULL, '2020-12-29', 'Absent', NULL, NULL, '098765432'),
+(72, NULL, '2020-12-29', 'Absent', NULL, NULL, '21342356'),
+(73, NULL, '2020-12-29', 'Absent', NULL, NULL, '2134567'),
+(74, NULL, '2020-12-29', 'Absent', NULL, NULL, '213456879'),
+(75, NULL, '2020-12-29', 'Absent', NULL, NULL, '21345879'),
+(76, NULL, '2020-12-29', 'Absent', NULL, NULL, '32435675869'),
+(77, NULL, '2020-12-29', 'Absent', NULL, NULL, '324567'),
+(78, NULL, '2020-12-29', 'Absent', NULL, NULL, 'A5456F2'),
+(79, NULL, '2020-12-29', 'Absent', NULL, NULL, 'asdfgvs'),
+(80, NULL, '2020-12-29', 'Absent', NULL, NULL, 'D54324A2'),
+(81, NULL, '2020-12-29', 'Absent', NULL, NULL, 'TEST'),
+(82, NULL, '2020-12-29', 'Absent', NULL, NULL, 'TEST1');
 
 -- --------------------------------------------------------
 
@@ -95,6 +108,26 @@ CREATE TABLE `class` (
 INSERT INTO `class` (`class_id`, `class_name`) VALUES
 (1, '5 Delimas'),
 (2, '3 Pintar');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `class_history`
+--
+
+CREATE TABLE `class_history` (
+  `classHistory_id` int(11) NOT NULL,
+  `classHistory_date` date NOT NULL,
+  `class_id` int(11) NOT NULL,
+  `teacher_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `class_history`
+--
+
+INSERT INTO `class_history` (`classHistory_id`, `classHistory_date`, `class_id`, `teacher_id`) VALUES
+(1, '2020-12-30', 2, 6);
 
 -- --------------------------------------------------------
 
@@ -196,7 +229,7 @@ INSERT INTO `student` (`student_id`, `student_name`, `student_ic`, `parent_name`
 CREATE TABLE `teacher` (
   `teacher_id` int(11) NOT NULL,
   `teacher_name` varchar(100) NOT NULL,
-  `teacher_email` varchar(100) NOT NULL,
+  `teacher_email` varchar(255) NOT NULL,
   `teacher_password` varchar(9999) NOT NULL,
   `teacher_contact` varchar(9999) NOT NULL,
   `class_id` int(11) DEFAULT NULL
@@ -207,7 +240,7 @@ CREATE TABLE `teacher` (
 --
 
 INSERT INTO `teacher` (`teacher_id`, `teacher_name`, `teacher_email`, `teacher_password`, `teacher_contact`, `class_id`) VALUES
-(6, 'Fatimah Binti Ali', 'fatimahAli@gmail.com', '123456', '1234567890', 1);
+(6, 'Fatimah Binti Ali', 'syahmijalil12@gmail.com', '123456', '1234567890', 2);
 
 --
 -- Indexes for dumped tables
@@ -231,6 +264,14 @@ ALTER TABLE `attendance`
 --
 ALTER TABLE `class`
   ADD PRIMARY KEY (`class_id`);
+
+--
+-- Indexes for table `class_history`
+--
+ALTER TABLE `class_history`
+  ADD PRIMARY KEY (`classHistory_id`),
+  ADD KEY `class_id` (`class_id`),
+  ADD KEY `teacher_id` (`teacher_id`);
 
 --
 -- Indexes for table `device_mode`
@@ -274,36 +315,49 @@ ALTER TABLE `teacher`
 --
 ALTER TABLE `admin`
   MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+
 --
 -- AUTO_INCREMENT for table `class`
 --
 ALTER TABLE `class`
   MODIFY `class_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `class_history`
+--
+ALTER TABLE `class_history`
+  MODIFY `classHistory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `device_mode`
 --
 ALTER TABLE `device_mode`
   MODIFY `device_mode_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `holiday_date`
 --
 ALTER TABLE `holiday_date`
   MODIFY `holiday_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
 --
 -- AUTO_INCREMENT for table `parent`
 --
 ALTER TABLE `parent`
   MODIFY `parent_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `teacher`
 --
 ALTER TABLE `teacher`
   MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- Constraints for dumped tables
 --
@@ -313,6 +367,13 @@ ALTER TABLE `teacher`
 --
 ALTER TABLE `attendance`
   ADD CONSTRAINT `fk_foreign_key_name1` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`);
+
+--
+-- Constraints for table `class_history`
+--
+ALTER TABLE `class_history`
+  ADD CONSTRAINT `class_history_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`),
+  ADD CONSTRAINT `class_history_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`teacher_id`);
 
 --
 -- Constraints for table `student`
@@ -326,6 +387,7 @@ ALTER TABLE `student`
 --
 ALTER TABLE `teacher`
   ADD CONSTRAINT `fk_foreign_key_name2` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

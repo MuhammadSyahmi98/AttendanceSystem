@@ -98,6 +98,7 @@
                     
   
                   </select>
+                  <input type="hidden" name="current_classId" value="<?php echo  $row1['class_id'];?>">
                 </div>
                 
                 </div>
@@ -150,11 +151,18 @@ if (isset($_POST['updateTeacher'])) {
   $teacher_email = $_POST['teacher_email'];
   $teacher_contact = $_POST['teacher_contact'];
   $class_id = $_POST['class_id1'];
+  $current_classId = $_POST['current_classId'];
 
   if ($class_id === "") {
     updateTeacherEmpty($teacher_id, $teacher_name, $teacher_email, $teacher_contact);
   } else {
     updateTeacher($teacher_id, $teacher_name, $teacher_email, $teacher_contact, $class_id);
+    if ($class_id!=$current_classId) {
+      if (!empty($class_id)) {
+        $d = date("Y-m-d");
+        addClasHistory($class_id, $teacher_id, $d);
+      }
+    }
   }
 
 

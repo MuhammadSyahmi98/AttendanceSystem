@@ -69,7 +69,7 @@
                   </div>
                   <div class="form-group">
                   <label>Class</label>
-                  <select class="form-control select2" name="class_id"  data-placeholder="Select" style="width: 100%;" >
+                  <select class="form-control select2" name="class_id2" style="width: 100%;" >
 
                     <option value=""></option>
                     <?php  $resultl = displayAvailableClass(); 
@@ -148,10 +148,18 @@ if (isset($_POST['addTeacher'])) {
   $password_1 = $_POST['password_1'];
   $password_2 = $_POST['password_2'];
   $teacher_contact = $_POST['teacher_contact'];
-  $class_id = number_format($_POST['class_id']);
+  $class_id = $_POST['class_id2'];
 
   if ($password_1 === $password_2) {
-    addTeacher($teacher_name, $teacher_email, $teacher_contact, $password_1, $class_id);
+    $set = addTeacher($teacher_name, $teacher_email, $teacher_contact, $password_1, $class_id);
+    if (!empty($class_id)) {
+
+      $result2 = getTeacherID($class_id);
+      $row4 = mysqli_fetch_assoc($result2);
+      $teacher_id = $row4['teacher_id'];
+      $d = date("Y-m-d");
+      addClasHistory($class_id, $teacher_id, $d);
+    }
   } else {
     echo "FAIL";
   }

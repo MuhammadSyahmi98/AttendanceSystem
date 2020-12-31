@@ -230,6 +230,7 @@
 
 <?php
 if (isset($_POST['updateClass'])) {
+
   $class_id=$_SESSION['class_id'];
   $class_name = $_POST['class_name'];
   $teacher_id = $_POST['teacher_id'];
@@ -238,7 +239,15 @@ if (isset($_POST['updateClass'])) {
   if ($teacher_id === "") {
     updateClassEmpty($class_name, $teacher_id_moke, $class_id);
   } else {
+    updatePreviousTeacher($teacher_id_moke);
     updateClass($class_name, $teacher_id, $class_id);
+
+
+
+
+    $d = date("Y-m-d");
+    addClasHistory($class_id, $teacher_id, $d);
+
   }
 
 
@@ -254,3 +263,5 @@ if (isset($_POST['cancel'])) {
 }
 
 ?>
+
+

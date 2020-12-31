@@ -48,9 +48,6 @@
                       <th>
                         Time-in
                       </th>
-                      <th>
-                        Time-out
-                      </th> 
                       <th>Status</th>
                   </tr>   
                   </thead>
@@ -76,12 +73,7 @@
 
                       <td><?php echo $row9['class_name']; ?></td>
                       <td><?php echo $row['time_in']; ?></td>
-                      <td><?php if(empty($row['time_out'])){
-                        echo "-";
-                      } else {
-                        echo $row['time_out'];
-                      } ?></td>
-                      <td>Attend</td>
+                      <td><?php echo $row['attend_status']; ?></td>
                       
                     </tr>
                     

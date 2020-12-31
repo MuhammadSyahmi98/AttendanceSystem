@@ -63,25 +63,10 @@ if ($loggedIn!=893247348) {
               <div class="inner">
                 <h3>89<sup style="font-size: 20px">%</sup></h3>
 
-                <p>Overall Attendance</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
-
                 <p>Today Attendance</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="ion ion-pie-graph"></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -108,6 +93,27 @@ if ($loggedIn!=893247348) {
               <a href="adminTeacher.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+
+                <?php 
+                $result = countClass(); 
+                $row = mysqli_fetch_assoc($result);
+                ?>
+
+                <h3><?php echo $row['numberOfClass']; ?></h3>
+
+                <p>Class</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="class.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
