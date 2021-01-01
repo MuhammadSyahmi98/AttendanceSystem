@@ -88,13 +88,8 @@ $class_id =  $_SESSION['class_id'];
                       <td><?php echo $i; ?></td>
                       <td><?php echo $row['teacher_name']; ?></td>
 
-                     <?php 
-                     $date_start = $row['classHistory_date'];
-                     $new_date_start1 = strtotime($date_start);
-                     $new_date_start = date("d-m-Y", $new_date_start1);
-                     ?>
 
-                      <td><?php echo $new_date_start; ?></td>
+                      <td><?php echo $row['classHistory_date']; ?></td>
                       
                     </tr>
                     

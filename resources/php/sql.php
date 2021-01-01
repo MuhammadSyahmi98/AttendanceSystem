@@ -1,11 +1,8 @@
-
-
-
 <?php
 
 // Record Holiday Date
 function addDate($type, $description, $new_date_start, $new_date_end){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	// Check database if the date or description already been added
 	$sql = "SELECT * FROM holiday_date WHERE holiday_description = ? || (holiday_start = ? && holiday_end = ?)";
@@ -52,7 +49,7 @@ function addDate($type, $description, $new_date_start, $new_date_end){
 
 // Record Class Details
 function addClass($class_name){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	// Check database if the class already been added
 	$sql = "SELECT * FROM class WHERE class_name = ?";
@@ -98,7 +95,7 @@ function addClass($class_name){
 
 
 function addClasHistory($class_id, $teacher_id, $d){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 	$sql = "INSERT INTO class_history (classHistory_date, class_id, teacher_id) VALUES (?, ?, ?)";
 
 	// Connection to database
@@ -125,7 +122,7 @@ function addClasHistory($class_id, $teacher_id, $d){
 
 // Record Student Details
 function addStudent($student_id, $student_name, $student_ic, $parent_name, $parent_email, $parent_contact, $class_id){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT * FROM student WHERE student_id = ?";
 	$result = mysqli_stmt_init($conn);
@@ -169,7 +166,7 @@ function addStudent($student_id, $student_name, $student_ic, $parent_name, $pare
 }
 
 function addStudent2($student_id, $student_name, $student_ic, $parent_name, $parent_email, $parent_contact, $class_id){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT * FROM student WHERE student_id = ?";
 	$result = mysqli_stmt_init($conn);
@@ -216,7 +213,7 @@ function addStudent2($student_id, $student_name, $student_ic, $parent_name, $par
 
 
 function addStudentFromTeacher($student_id, $student_name, $student_ic, $parent_name, $parent_email, $parent_contact, $class_id){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT * FROM student WHERE student_id = ?";
 	$result = mysqli_stmt_init($conn);
@@ -261,7 +258,7 @@ function addStudentFromTeacher($student_id, $student_name, $student_ic, $parent_
 
 
 function displayStudentAttendanceByClassAttend($class_id, $dates){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT student.student_id AS id, student.student_name AS name, class.class_name AS class, attendance.attend_status AS status FROM attendance RIGHT JOIN student ON attendance.student_id = student.student_id JOIN class ON student.class_id = class.class_id WHERE class.class_id = ? AND attendance.dates = ? AND attendance.attend_status != ?";
 	$result = mysqli_stmt_init($conn);
@@ -283,7 +280,7 @@ function displayStudentAttendanceByClassAttend($class_id, $dates){
 
 
 function displayStudentAttendanceByClassAbsent($class_id, $dates){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT student.student_id AS id, student.student_name AS name, class.class_name AS class, attendance.attend_status AS status FROM attendance RIGHT JOIN student ON attendance.student_id = student.student_id JOIN class ON student.class_id = class.class_id WHERE class.class_id = ? AND attendance.dates = ? AND attendance.attend_status = ?";
 	$result = mysqli_stmt_init($conn);
@@ -305,7 +302,7 @@ function displayStudentAttendanceByClassAbsent($class_id, $dates){
 
 
 function addTeacher($teacher_name, $teacher_email, $teacher_contact, $password_1, $class_id) {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT * FROM teacher WHERE teacher_name = ?";
 	$result = mysqli_stmt_init($conn);
@@ -347,7 +344,7 @@ function addTeacher($teacher_name, $teacher_email, $teacher_contact, $password_1
 
 
 function displayClassHistoryByID($class_id){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT * FROM class_history INNER JOIN teacher ON class_history.teacher_id = teacher.teacher_id WHERE class_history.class_id = ?";
 
@@ -375,7 +372,7 @@ function displayClassHistoryByID($class_id){
 
 function displayCurrentDateAttendance($dates) {
 
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT * FROM attendance INNER JOIN student ON attendance.student_id = student.student_id WHERE dates =? AND time_in != '' ORDER BY time_in DESC";
 
@@ -398,7 +395,7 @@ function displayCurrentDateAttendance($dates) {
 
 
 function displayDateAttendance($dates, $class_id){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT attendance.attendance_id AS attendance_id, attendance.attend_status AS attend_status, student.student_id AS student_id, student.student_name AS student_name, student.student_ic AS student_ic FROM attendance INNER JOIN student ON attendance.student_id = student.student_id WHERE student.class_id = ? AND attendance.dates = ?";
 
@@ -418,7 +415,7 @@ function displayDateAttendance($dates, $class_id){
 }
 
 function displaystudentAttendanceByID($student_id, $attendance_id){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT * FROM student INNER JOIN attendance ON student.student_id = attendance.student_id WHERE attendance.attendance_id = ?";
 
@@ -442,7 +439,7 @@ function displaystudentAttendanceByID($student_id, $attendance_id){
 
 
 function displayHoliday(){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT * FROM holiday_date";
 
@@ -464,7 +461,7 @@ function displayHoliday(){
 
 
 function displaySpecificHoliday($date_id){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 	$sql = "SELECT * FROM holiday_date WHERE holiday_id = ?";
 
 	// Connection to database
@@ -485,7 +482,7 @@ function displaySpecificHoliday($date_id){
 
 
 function displayAllClass() {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT * FROM class";
 	// Connection to database
@@ -506,7 +503,7 @@ function displayAllClass() {
 
 
 function displayClass() {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT class.class_name AS class_name, class.class_id AS class_id, teacher.teacher_name AS teacher_name FROM class LEFT JOIN teacher ON class.class_id = teacher.class_id ORDER BY class.class_name";
 
@@ -529,7 +526,7 @@ function displayClass() {
 
 
 function displayClassByID($class_id){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 	$sql = "SELECT * FROM class WHERE class_id=?";
 
 	// Connection to database
@@ -552,7 +549,7 @@ function displayClassByID($class_id){
 
 
 function displayClassForAddStudent($class_id) {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 	$sql = "SELECT * FROM class WHERE class_id = ?";
 	// Connection to database
 	$result = mysqli_stmt_init($conn);
@@ -571,7 +568,7 @@ function displayClassForAddStudent($class_id) {
 
 
 function displayStudent() {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT * FROM student ORDER BY student_name ASC";
 
@@ -593,7 +590,7 @@ function displayStudent() {
 
 
 function displayStudentByClass($class_id) {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT * FROM student WHERE class_id = ? ORDER BY student_name ASC";
 
@@ -614,7 +611,7 @@ function displayStudentByClass($class_id) {
 
 
 function displayStudentByID($student_id){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 	$sql = "SELECT * FROM student WHERE student_id = ?";
 
 	// Connection to database
@@ -634,7 +631,7 @@ function displayStudentByID($student_id){
 
 
 function displayStudentWithAttendance($attendance_id, $student_id) {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT FROM student INNER JOIN attendance ON student.student_id = attendance.student_id WHERE attendance_id = ?";
 	
@@ -658,7 +655,7 @@ function displayStudentWithAttendance($attendance_id, $student_id) {
 
 
 function displayAvailableClass() {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT class.class_id AS class_id, class.class_name AS class_name FROM class LEFT JOIN teacher ON class.class_id = teacher.class_id WHERE teacher_name IS NULL ORDER BY class.class_name";
 
@@ -677,7 +674,7 @@ function displayAvailableClass() {
 
 
 function displayClassExceptOneRow($class_id) {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT * FROM class WHERE class_id != ?";
 	// Connection to database
@@ -697,7 +694,7 @@ function displayClassExceptOneRow($class_id) {
 
 
 function displayAvailableClassTeacher() {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT class.class_id AS class_id , class.class_name AS class_name FROM class LEFT JOIN teacher ON class.class_id = teacher.class_id WHERE teacher_name IS NULL ORDER BY class.class_name";
 
@@ -717,7 +714,7 @@ function displayAvailableClassTeacher() {
 
 
 function displayTeacher() {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT * FROM teacher LEFT JOIN class ON teacher.class_id = class.class_id";
 
@@ -736,7 +733,7 @@ function displayTeacher() {
 }
 
 function displayAvailableTeacher(){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 	$sql = "SELECT * FROM teacher WHERE class_id IS NULL";
 
 	// Connection to database
@@ -754,7 +751,7 @@ function displayAvailableTeacher(){
 
 
 function displaySpecificTeacher($class_id){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 	$sql = "SELECT * FROM teacher WHERE class_id=?";
 
 	// Connection to database
@@ -772,7 +769,7 @@ function displaySpecificTeacher($class_id){
 }
 
 function displayTeacherByID($teacher_id) {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 	$sql = "SELECT * FROM teacher WHERE teacher_id=?";
 
 	// Connection to database
@@ -792,7 +789,7 @@ function displayTeacherByID($teacher_id) {
 
 
 function displayTeacherByEmail($teacher_email){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT * FROM teacher WHERE teacher_email=?";
 
@@ -815,7 +812,7 @@ function displayTeacherByEmail($teacher_email){
 
 
 function updateTeacherEmpty($teacher_id, $teacher_name, $teacher_email, $teacher_contact) {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "UPDATE teacher SET teacher_name = ? , teacher_email = ?, teacher_contact = ?, class_id = NULL WHERE teacher_id = ?";
 	// Connection to database
@@ -838,7 +835,7 @@ function updateTeacherEmpty($teacher_id, $teacher_name, $teacher_email, $teacher
 
 
 function updateTeacher($teacher_id, $teacher_name, $teacher_email, $teacher_contact, $class_id){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "UPDATE teacher SET teacher_name = ? , teacher_email = ?, teacher_contact = ?, class_id = ? WHERE teacher_id = ?";
 	// Connection to database
@@ -862,7 +859,7 @@ function updateTeacher($teacher_id, $teacher_name, $teacher_email, $teacher_cont
 
 
 function updateStudent($student_id, $student_name, $student_ic, $class_id, $page) {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 
 	if (empty($class_id)) {
@@ -906,7 +903,7 @@ function updateStudent($student_id, $student_name, $student_ic, $class_id, $page
 
 
 function updateStudentNewStudentID($student_id, $new_student_id, $student_name, $student_ic, $class_id, $page){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "UPDATE student SET student_name = ?, student_ic = ?, class_id = ?, student_id = ? WHERE student_id =?";
 
@@ -944,7 +941,7 @@ function updateStudentNewStudentID($student_id, $new_student_id, $student_name, 
 
 
 function updateClass($class_name, $teacher_id, $class_id){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "UPDATE class SET class_name=? WHERE class_id = ?";
 	// Connection to database
@@ -976,7 +973,7 @@ function updateClass($class_name, $teacher_id, $class_id){
 
 
 function updateClassEmpty($class_name, $teacher_id_moke, $class_id){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "UPDATE class SET class_name=? WHERE class_id = ?";
 	// Connection to database
@@ -1009,7 +1006,7 @@ function updateClassEmpty($class_name, $teacher_id_moke, $class_id){
 
 
 function updatePreviousTeacher($teacher_id_moke){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "UPDATE teacher SET class_id = NULL WHERE teacher_id = ?";
 
@@ -1033,7 +1030,7 @@ function updatePreviousTeacher($teacher_id_moke){
 
 // If the class dont have any teacher
 function deleteClass($class_id){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT * FROM student WHERE class_id = ?";
 
@@ -1085,7 +1082,7 @@ function deleteClass($class_id){
 
 // If the class have any teacher
 function deleteClassWithEditTeacher($class_id){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 
 	$sql = "SELECT * FROM student WHERE class_id = ?";
@@ -1144,7 +1141,7 @@ function deleteClassWithEditTeacher($class_id){
 
 
 function deleteTeacher($teacher_id) {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 	 $sql = "DELETE FROM teacher WHERE teacher_id = ?";
 
 	// Connection to database
@@ -1165,7 +1162,7 @@ function deleteTeacher($teacher_id) {
 
 
 function deleteStudent($student_id) {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 	 $sql = "DELETE FROM student WHERE student_id = ?";
 
 	// Connection to database
@@ -1188,7 +1185,7 @@ function deleteStudent($student_id) {
 
 
 function deleteDate($holiday_id) {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 	 $sql = "DELETE FROM holiday_date WHERE holiday_id = ?";
 
 	// Connection to database
@@ -1219,7 +1216,7 @@ function deleteDate($holiday_id) {
 
 
 function verifyAdmin($admin_email, $admin_password) {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	// Check database if the date or description already been added
 	$sql = "SELECT * FROM admin WHERE BINARY admin_email = ? AND BINARY admin_password = ?";
@@ -1248,7 +1245,7 @@ function verifyAdmin($admin_email, $admin_password) {
 
 
 function verifyTeacher($teacher_email, $teacher_password) {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 	// Check database if the date or description already been added
 	$sql = "SELECT * FROM teacher WHERE BINARY teacher_email = ? AND BINARY teacher_password = ?";
 	// Connection to database
@@ -1281,7 +1278,7 @@ function verifyTeacher($teacher_email, $teacher_password) {
 
 
 function countTeacher(){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT COUNT(teacher_id) AS numberOfTeacher FROM teacher";
 
@@ -1299,7 +1296,7 @@ function countTeacher(){
 }
 
 function countClass(){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT COUNT(class_id) AS numberOfClass FROM class";
 
@@ -1317,7 +1314,7 @@ function countClass(){
 }
 
 function countStudent(){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT COUNT(student_id) AS numberOfStudent FROM student";
 
@@ -1336,7 +1333,7 @@ function countStudent(){
 
 
 function countStudentByClass($class_id){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT COUNT(*) AS numberOfStudent FROM student WHERE class_id = ?";
 
@@ -1357,7 +1354,7 @@ function countStudentByClass($class_id){
 
 
 function countStudentInAttendanceByClass($class_id){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT COUNT(*) AS numberOfStudent FROM attendance INNER JOIN student ON attendance.student_id = student.student_id WHERE MONTH(dates) = 12 AND student.class_id = ?";
 
@@ -1380,7 +1377,7 @@ function countStudentInAttendanceByClass($class_id){
 
 
 function countAttendStudentByClassAttend($class_id, $dates){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT COUNT(*) AS 'totalAttend' FROM attendance JOIN student ON attendance.student_id = student.student_id WHERE student.class_id = ? AND attendance.dates = ? AND attendance.attend_status = ?";
 
@@ -1402,7 +1399,7 @@ function countAttendStudentByClassAttend($class_id, $dates){
 
 
 function countMedicalLeaveStudentByClassAttend($class_id, $dates){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT COUNT(*) AS 'totalMedicalLeave' FROM attendance JOIN student ON attendance.student_id = student.student_id WHERE student.class_id = ? AND attendance.dates = ? AND attendance.attend_status = ?";
 
@@ -1423,7 +1420,7 @@ function countMedicalLeaveStudentByClassAttend($class_id, $dates){
 
 
 function countAttendLateStudentByClassAttend($class_id, $dates){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT COUNT(*) AS 'totalAttendLate' FROM attendance JOIN student ON attendance.student_id = student.student_id WHERE student.class_id = ? AND attendance.dates = ? AND attendance.attend_status = ?";
 
@@ -1445,7 +1442,7 @@ function countAttendLateStudentByClassAttend($class_id, $dates){
 
 
 function countAttendStudentByClassAbsent($class_id, $dates){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT COUNT(*) AS 'totalAttend' FROM attendance JOIN student ON attendance.student_id = student.student_id WHERE student.class_id = ? AND attendance.dates = ? AND attendance.attend_status = ?";
 
@@ -1467,7 +1464,7 @@ function countAttendStudentByClassAbsent($class_id, $dates){
 
 
 function countAttendStatusByMonth($month,$year, $class_id) {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT attend_status, COUNT(attend_status) AS Status FROM attendance INNER JOIN student ON student.student_id = attendance.student_id WHERE Month(attendance.dates) = ? AND YEAR(attendance.dates) = ? AND student.class_id = ? GROUP BY attendance.attend_status ORDER BY attendance.attend_status DESC";
 
@@ -1490,7 +1487,7 @@ function countAttendStatusByMonth($month,$year, $class_id) {
 
 
 function countDayByMonthAndClass($class_id, $month){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT COUNT(DISTINCT dates) AS numberOfDayByMonth FROM attendance INNER JOIN student ON attendance.student_id = student.student_id WHERE MONTH(dates) = ? AND student.class_id = ? GROUP BY MONTH(dates)";
 
@@ -1513,7 +1510,7 @@ function countDayByMonthAndClass($class_id, $month){
 
 
 function countTotalAttentByMonthAndClass($class_id, $month){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT COUNT(*) AS numberOfAttendStudent FROM attendance INNER JOIN student ON attendance.student_id = student.student_id WHERE MONTH(dates) = ? AND student.class_id = ? AND attendance.attend_status = 'Attend'";
 
@@ -1534,7 +1531,7 @@ function countTotalAttentByMonthAndClass($class_id, $month){
 
 
 function countTotalAttentLateByMonthAndClass($class_id, $month){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT COUNT(*) AS numberOfAttendLateStudent FROM attendance INNER JOIN student ON attendance.student_id = student.student_id WHERE MONTH(dates) = ? AND student.class_id = ? AND attendance.attend_status = 'Attend Late'";
 
@@ -1555,7 +1552,7 @@ function countTotalAttentLateByMonthAndClass($class_id, $month){
 
 
 function countTotalMedicalLeaveByMonthAndClass($class_id, $month){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT COUNT(*) AS numberOfMedicalLeaveStudent FROM attendance INNER JOIN student ON attendance.student_id = student.student_id WHERE MONTH(dates) = ? AND student.class_id = ? AND attendance.attend_status = 'Medical Leave'";
 
@@ -1576,7 +1573,7 @@ function countTotalMedicalLeaveByMonthAndClass($class_id, $month){
 
 
 function countTotalAbsentByMonthAndClass($class_id, $month){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT COUNT(*) AS numberOfAbsentStudent FROM attendance INNER JOIN student ON attendance.student_id = student.student_id WHERE MONTH(dates) = ? AND student.class_id = ? AND attendance.attend_status = 'Absent'";
 
@@ -1598,7 +1595,7 @@ function countTotalAbsentByMonthAndClass($class_id, $month){
 
 
 function countTotalAttendanceByMonthAndClass($class_id, $month){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT COUNT(*) AS numberOfAttendaceStudent FROM attendance INNER JOIN student ON attendance.student_id = student.student_id WHERE MONTH(dates) = ? AND student.class_id = ?";
 
@@ -1637,7 +1634,7 @@ function countTotalAttendanceByMonthAndClass($class_id, $month){
 
 
 function updateMC($attendance_img) {
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "UPDATE attendance SET attendance_img = ? WHERE  attendance_id = ?";
 	// Connection to database
@@ -1660,7 +1657,7 @@ function updateMC($attendance_img) {
 
 
 function getTeacherID($class_id){
-	require 'connectDB.php';
+	require '/../../connectDB.php';
 
 	$sql = "SELECT * FROM teacher WHERE class_id = ?";
 
