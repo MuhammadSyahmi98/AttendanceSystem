@@ -1,7 +1,22 @@
 <?php include "../resources/php/sql.php"; session_start(); ?>
 <?php $db=mysqli_connect('localhost', 'root', '', 'oas'); ?>
 
-<?php $_SESSION['code_type_attend1'] = "";  ?>
+<?php $_SESSION['code_type_attend1'] = ""; 
+
+$class_id = $_SESSION['class_id']; ?>
+
+
+<?php
+$loggedIn = $_SESSION['loggedIn'];
+
+if ($loggedIn!=9999) {
+  echo "<script>alert('Please Login');
+              window.location.href='../index.php';
+              </script>";
+}
+  
+
+ ?>
 
 <!DOCTYPE html>
 <html>
@@ -27,7 +42,7 @@
 
   <?php 
   $year = 2020;
-  $class_id = $_SESSION['class_id'];
+  
 
   $nameOfMonth = array("mockup", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December",);
 
@@ -271,7 +286,9 @@
   ?>
 
 
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <?php 
+  if (!empty($class_id)) { ?>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
@@ -328,6 +345,9 @@
       }
     </script>
 
+ <?php }
+
+  ?>
 
 
 
@@ -339,7 +359,21 @@
 <div class="wrapper">
   <!-- Navbar -->
   <?php  include "navTeacher.php"; ?>
-	<div class="content-wrapper">
+  <?php 
+            if (empty($class_id)) { 
+
+              ?><div class= "content-wrapper"><section class="content-header"><div class="container-fluid"><div class="row mb-2"><div class="col-sm-6"><h1 style="color: red;"><?php echo "Please Contact Administrator to Assign Classroom"; ?></h1></div></div></div></section></div> <?php 
+
+            }
+          ?>
+
+	<div id="remove" class="content-wrapper" <?php
+  if (empty($class_id)) {
+    
+    ?> style="display: none;"  <?php
+  }
+
+   ?>  ">
 
     <section class="content-header"> 
       <div class="container-fluid">

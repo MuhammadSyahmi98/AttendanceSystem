@@ -1,4 +1,18 @@
 <?php   include "../resources/php/sql.php"; session_start(); ?>
+
+<?php
+$loggedIn = $_SESSION['loggedIn'];
+
+if ($loggedIn!=9999) {
+  echo "<script>alert('Please Login');
+              window.location.href='../index.php';
+              </script>";
+}
+  
+
+ ?>
+
+ 
 <!DOCTYPE html>
 <html>
 <head>

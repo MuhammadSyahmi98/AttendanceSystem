@@ -1,5 +1,17 @@
 <?php include "../resources/php/sql.php"; session_start();?>
 
+<?php
+$loggedIn = $_SESSION['loggedIn'];
+
+if ($loggedIn!=893247348) {
+  echo "<script>alert('PLEASE TRY AGAIN');
+              window.location.href='../index.php';
+              </script>";
+}
+  
+
+ ?>
+ 
 <!DOCTYPE html>
 
 <html>
@@ -119,8 +131,18 @@
                       <select class="form-control select2" name="teacher_id"  data-placeholder="Select" style="width: 100%;">
 
                       
+                      <?php 
+                      if (!empty($row['teacher_id'])) {
+                        ?><option value="<?php echo $row['teacher_id']; ?>"><?php echo $row['teacher_name']; ?></option><?php
+                      }
+                      ?>
+                      
 
-                      <option value="<?php echo $row['teacher_id']; ?>"><?php echo $row['teacher_name']; ?></option>
+                      <?php 
+                      if (empty($row['teacher_name'])) {
+                        ?><option value=""></option><?php
+                      }
+                      ?>
 
 
 

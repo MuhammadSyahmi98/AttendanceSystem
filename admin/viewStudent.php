@@ -7,6 +7,18 @@
   file_put_contents('../UIDContainer.php',$Write);
 ?>
 
+<?php
+$loggedIn = $_SESSION['loggedIn'];
+
+if ($loggedIn!=893247348) {
+  echo "<script>alert('PLEASE TRY AGAIN');
+              window.location.href='../index.php';
+              </script>";
+}
+  
+
+ ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -24,21 +36,6 @@
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
-  <!-- JS-RFID -->
-
-  <script src="jquery.min.js"></script>
-    <script>
-      $(document).ready(function(){
-         $("#getUID").load("../UIDContainer.php");
-        setInterval(function() {
-          $("#getUID").load("../UIDContainer.php");
-        }, 500);
-      });
-    </script>
-
-  <!-- /.JS-RFID -->
-
 
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
@@ -68,14 +65,15 @@
               
               <!-- /.card-header -->
               <div>
-              <form role="form" method="POST" action="registerStudent.php">
+              
                 <div class="card-body">
 
                   <?php
 
-                    $student_id = $_SESSION['student_id'];
-                    $result = displayStudentByID($student_id);
+                    $student_id1 = $_SESSION['student_id'];
+                    $result = displayStudentByID($student_id1);
                     $row = mysqli_fetch_assoc($result);
+              
                   ?>
 
 
@@ -115,8 +113,7 @@
                 </div>
                 <!-- /.card-body -->
 
-              
-              </form>
+           
 
                
               </div>

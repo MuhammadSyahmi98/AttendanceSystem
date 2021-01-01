@@ -1,5 +1,15 @@
 <?php include "../resources/php/sql.php"; session_start(); ?>
+<?php
+$loggedIn = $_SESSION['loggedIn'];
 
+if ($loggedIn!=893247348) {
+  echo "<script>alert('PLEASE TRY AGAIN');
+              window.location.href='../index.php';
+              </script>";
+}
+  
+
+ ?>
 
 <!DOCTYPE html>
 <html>
@@ -107,9 +117,10 @@ $(document).ready(function(){
                       <td><?php echo $row['parent_name']; ?></td>
                       <td><?php echo $row['parent_contact']; ?></td>
                       <td>
-                        <form method="POST">
+                        <form method="POST" action="studentlist.php">
 
-                          <input type="hidden" name="id$i" value="<?php echo $row['student_id'] ?>">
+                          <input type="hidden" name="idy$i" value="<?php echo $row['student_id']; ?>">
+                          <input type="hidden" name="id$i" value="<?php echo $class_id1; ?>">
 
                           <button class="btn btn-primary btn-sm" name="viewDetailStudent">
                               <i class="fas fa-folder">
@@ -167,7 +178,8 @@ $(document).ready(function(){
 
 <?php 
 if (isset($_POST['viewDetailStudent'])) {
-  $_SESSION['student_id'] = $_POST['id$i'];
+  $_SESSION['student_id'] = $_POST['idy$i'];
+  $_SESSION['class_id'] = $_POST['id$i'];
   echo "<script>window.location.assign('viewStudent.php')</script>";
   
 }
@@ -176,7 +188,7 @@ if (isset($_POST['viewDetailStudent'])) {
 
 <?php 
 if (isset($_POST['editDetailStudent'])) {
-  $_SESSION['student_id'] = $_POST['id$i'];
+  $_SESSION['student_id'] = $_POST['idy$i'];
    $_SESSION['pageStudentList'] = 2;
   echo "<script>window.location.assign('editStudent.php')</script>";
   
@@ -187,7 +199,7 @@ if (isset($_POST['editDetailStudent'])) {
 
 <?php 
 if (isset($_POST['deleteDetailStudent'])) {
-  $student_id = $_POST['id$i'];
+  $student_id = $_POST['idy$i'];
   deleteStudent($student_id);
 }
 

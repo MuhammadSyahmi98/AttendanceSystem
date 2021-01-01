@@ -1,4 +1,17 @@
 <?php include "../resources/php/sql.php"; session_start(); ?>
+
+<?php
+$loggedIn = $_SESSION['loggedIn'];
+
+if ($loggedIn!=893247348) {
+  echo "<script>alert('PLEASE TRY AGAIN');
+              window.location.href='../index.php';
+              </script>";
+}
+  
+
+ ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,7 +88,17 @@
                       $row1 = mysqli_fetch_assoc($result1);
                     ?>
 
-                    <option value="<?php echo $row1['class_id']; ?>"><?php echo $row1['class_name']; ?></option>
+                    <?php
+                    if (!empty($row1['class_id'])) { ?>
+                      <option value="<?php echo $row1['class_id']; ?>"><?php echo $row1['class_name']; ?></option> <?php
+                    }
+                    ?>
+
+                    <?php 
+                        if (empty($row1['class_id'])) {
+                         ?> <option value=""></option><?php
+                        }
+                      ?> 
 
                     <?php  $resultl = displayAvailableClassTeacher(); 
                     $i=1;
@@ -90,11 +113,11 @@
                     }
                     ?>
 
-                    <?php 
+                   <?php 
                         if (!empty($row1['class_id'])) {
                          ?> <option value=""></option><?php
                         }
-                      ?>
+                      ?> 
                     
   
                   </select>

@@ -7,6 +7,19 @@
   file_put_contents('../UIDContainer.php',$Write);
 ?>
 
+<?php
+$loggedIn = $_SESSION['loggedIn'];
+
+if ($loggedIn!=9999) {
+  echo "<script>alert('Please Login');
+              window.location.href='../index.php';
+              </script>";
+}
+  
+
+ ?>
+
+
 
 <!DOCTYPE html>
 <html>

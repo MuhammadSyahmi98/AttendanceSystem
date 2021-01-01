@@ -1,3 +1,15 @@
+<?php
+$loggedIn = $_SESSION['loggedIn'];
+
+if ($loggedIn!=893247348) {
+  echo "<script>alert('PLEASE TRY AGAIN');
+              window.location.href='../index.php';
+              </script>";
+}
+  
+
+ ?>
+
 <!DOCTYPE html>
 <html>
 <head>

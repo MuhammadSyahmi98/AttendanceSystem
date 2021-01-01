@@ -2,6 +2,19 @@
 <?php $_SESSION['code_type_attend'] = "";
 $_SESSION['code_type_attend1'] = "";?>
 
+<?php
+$loggedIn = $_SESSION['loggedIn'];
+
+if ($loggedIn!=9999) {
+  echo "<script>alert('Please Login');
+              window.location.href='../index.php';
+              </script>";
+}
+  
+
+ ?>
+
+
 <!DOCTYPE html>
 <html>
 <head>

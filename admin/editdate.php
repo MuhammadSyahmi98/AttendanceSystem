@@ -1,5 +1,15 @@
 <?php include "../resources/php/sql.php"; session_start();?>
+<?php
+$loggedIn = $_SESSION['loggedIn'];
 
+if ($loggedIn!=893247348) {
+  echo "<script>alert('PLEASE TRY AGAIN');
+              window.location.href='../index.php';
+              </script>";
+}
+  
+
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,33 +64,39 @@
         </div>
         <div class="card-body">    
           <div class="form-group">
-            <label>Date range:</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <i class="far fa-calendar-alt"></i>
-                </span>
-              </div>
-
-              <?php 
+            <form method="POST">
+            <?php 
               $date_id1=$_SESSION['date_id'];
               $result1 = displaySpecificHoliday($date_id1);
               $row = mysqli_fetch_assoc($result1);
 
               $new_date_start1 = strtotime($row['holiday_start']);
-              $new_date_start = date("m/d/Y", $new_date_start1);
+              $new_date_start = date("m-d-Y", $new_date_start1);
 
 
              $new_date_end1 = strtotime($row['holiday_end']);
-             $new_date_end = date("m/d/Y", $new_date_end1);
+             $new_date_end = date("m-d-Y", $new_date_end1);
 
-              $newDate = $new_date_start . " - " . $new_date_end;
+              
 
               ?>
-
-
-              <input type="text" class="form-control float-right" id="reservation" value="<?php echo $newDate; ?>">
-            </div>
+            <input type="hidden" name="holiday_id" value="<?php echo $row['holiday_id']; ?>">
+            <label>Start Date:</label>
+              <div class="input-group date" id="reservationdate" data-target-input="nearest" style="width: 40%;">
+                    <input id="element" name="startDate" type="text" class="form-control datetimepicker-input" data-target="#reservationdate" value="<?php echo $new_date_start ?>">
+                   
+                    <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+              <label style="margin-top: 10px;">End Date:</label>
+              <div class="input-group date" id="reservationdate1" data-target-input="nearest" style="width: 40%;">
+                    <input id="element" name="endDate" type="text" class="form-control datetimepicker-input" data-target="#reservationdate1" value="<?php echo $new_date_end ?>" >
+                   
+                    <div class="input-group-append" data-target="#reservationdate1" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
              <div style="margin-top: 10px;" class="form-group">
                   <label>Type</label>
                   <select class="form-control " name="holiday_type" data-placeholder="Select" style="width: 40%;">
@@ -89,19 +105,29 @@
                     <?php
                     if ($row['holiday_type'] === "National Holiday") {?>
                       <option value="State Holiday">State Holiday</option>
-                      <option value="Holidays by Declaration">Holidays by Declaration</option><?php
+                      <option value="Holidays by Declaration">Holidays by Declaration</option>
+                      <option value="School Holiday">School Holiday</option><?php
 
                     }
 
                      if ($row['holiday_type'] === "State Holiday") {?>
                       <option value="National Holiday">National Holiday</option>
-                      <option value="Holidays by Declaration">Holidays by Declaration</option><?php
+                      <option value="Holidays by Declaration">Holidays by Declaration</option>
+                      <option value="School Holiday">School Holiday</option><?php
 
                     }
 
                     if ($row['holiday_type'] === "Holidays by Declaration") {?>
                       <option value="National Holiday">National Holiday</option>
-                      <option value="State Holiday">State Holiday</option><?php
+                      <option value="State Holiday">State Holiday</option>
+                      <option value="School Holiday">School Holiday</option><?php
+
+                    }
+
+                     if ($row['holiday_type'] === "School Holiday") {?>
+                      <option value="National Holiday">National Holiday</option>
+                      <option value="State Holiday">State Holiday</option>
+                      <option value="Holidays by Declaration">Holidays by Declaration</option><?php
 
                     }
 
@@ -112,12 +138,13 @@
               <div style="margin-top: 10px;" class="form-group" style="width: 40%;">
                 <label for="exampleInputEmail1">Description</label>
 
-                <input type="desc" name="description" class="form-control" id="Description" value="<?php echo $row['holiday_description']; ?>" placeholder="Enter Description" required>
+                <input type="desc" name="holiday_description" class="form-control" id="Description" value="<?php echo $row['holiday_description']; ?>" placeholder="Enter Description" required>
               </div>
             <div>
               <button type="submit" id="cancel" name="cancel" class="btn btn-primary">Cancel</button>
-              <button type="submit" class="btn btn-primary">Update</button>
-            </div>     
+              <button type="submit" class="btn btn-primary" name="updateDate">Update</button>
+            </div>   
+          </form>
           </div>
         </div>  
       </div>
@@ -237,3 +264,19 @@
 </script>
 </body>
 </html>
+
+
+<?php
+if (isset($_POST['updateDate'])) {
+  $holiday_id = $_POST['holiday_id'];
+  $startDate = $_POST['startDate'];
+  $endDate = $_POST['endDate'];
+  $holiday_type = $_POST['holiday_type'];
+  $holiday_description = $_POST['holiday_description'];
+
+
+
+  updateDate($holiday_id, $startDate, $endDate, $holiday_type, $holiday_description);
+  
+}
+?>

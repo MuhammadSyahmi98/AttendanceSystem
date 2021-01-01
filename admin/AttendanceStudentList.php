@@ -1,5 +1,16 @@
 <?php include "../resources/php/sql.php"; session_start(); ?>
 <?php $db=mysqli_connect('localhost', 'root', '', 'oas'); ?>
+<?php
+$loggedIn = $_SESSION['loggedIn'];
+
+if ($loggedIn!=893247348) {
+  echo "<script>alert('PLEASE TRY AGAIN');
+              window.location.href='../index.php';
+              </script>";
+}
+  
+
+ ?>
 
 
 

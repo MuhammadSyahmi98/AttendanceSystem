@@ -8,6 +8,18 @@
 ?>
 
 
+<?php
+$loggedIn = $_SESSION['loggedIn'];
+
+if ($loggedIn!=893247348) {
+  echo "<script>alert('PLEASE TRY AGAIN');
+              window.location.href='../index.php';
+              </script>";
+}
+  
+
+ ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,7 +80,7 @@
               
               <!-- /.card-header -->
               <div>
-              <form role="form" method="POST" action="registerStudent.php">
+              <form role="form" method="POST">
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputrfid">RFID NUMBER</label>
@@ -121,7 +133,7 @@
 
                 <div class="card-footer">
                   <button type="submit" name="cancel" id="cancel" class="btn btn-primary">Cancel</button>
-                  <button type="submit" name="addStudent" class="btn btn-primary">Submit</button>
+                  <button type="submit" name="addStudent1" class="btn btn-primary">Submit</button>
                 </div>
               </form>
 
@@ -171,7 +183,7 @@
 
 
 <?php 
-if (isset($_POST['addStudent'])) {
+if (isset($_POST['addStudent1'])) {
   $student_id = $_POST['student_id'];
   $student_name = $_POST['student_name'];
   $student_ic = $_POST['student_ic'];
@@ -180,7 +192,7 @@ if (isset($_POST['addStudent'])) {
   $parent_contact = $_POST['parent_contact'];
   $class_id = $_POST['ids'];
 
-  addStudent2($student_id, $student_name, $student_ic, $parent_name, $parent_email, $parent_contact, $class_id);
+  addStudent4($student_id, $student_name, $student_ic, $parent_name, $parent_email, $parent_contact, $class_id);
 }
 
 ?>

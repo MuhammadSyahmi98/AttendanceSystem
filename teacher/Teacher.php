@@ -7,6 +7,18 @@
 
 ?>
 
+<?php
+$loggedIn = $_SESSION['loggedIn'];
+
+if ($loggedIn!=9999) {
+  echo "<script>alert('Please Login');
+              window.location.href='../index.php';
+              </script>";
+}
+  
+
+ ?>
+
 
 
 <!DOCTYPE html>
@@ -104,6 +116,7 @@
           
           <!-- ./col -->
         </div>
+        
 
         <div class="row">
           <div class="col-12">

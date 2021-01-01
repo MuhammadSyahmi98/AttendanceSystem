@@ -11,6 +11,18 @@ $Write="<?php $" . "UIDresult=''; " . "echo $" . "UIDresult;" . " ?>";
 
 ?>
 
+<?php
+$loggedIn = $_SESSION['loggedIn'];
+
+if ($loggedIn!=9999) {
+  echo "<script>alert('Please Login');
+              window.location.href='../index.php';
+              </script>";
+}
+  
+
+ ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,6 +101,10 @@ $Write="<?php $" . "UIDresult=''; " . "echo $" . "UIDresult;" . " ?>";
                   <div class="form-group">
                     <label for="exampleInputrfid">NEW RFID NUMBER</label>
                     <textarea name="new_RFID" style="resize: none; height: 40px;" class="form-control" id=""   placeholder="Scan RFID Card If Want To Change Current RFID Card"></textarea>  
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputName">Name</label>
+                    <input type="name" name="student_name" class="form-control" id="exampleInputname" value="<?php echo $row['student_name']; ?>" placeholder="Enter name">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputName">Name</label>

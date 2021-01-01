@@ -1,7 +1,4 @@
 
-
-
-
 <?php
 
 require 'connectDB.php';
@@ -49,7 +46,7 @@ if (isset($_POST["UIDresult"])) {
 
 
                     // To check if the day not equal to weekeed(saturday or sunday) or public holiday
-                	if (!$day==6 || !$day==0) {
+                	if (!$day==6 || !$day==0   ) {
                         // To check if the student already scan the card in that day
                         $sql = "SELECT * FROM attendance WHERE student_id = ? AND dates = ? AND attend_status = ?";
                         $result = mysqli_stmt_init($conn);
@@ -170,7 +167,7 @@ if (isset($_POST["UIDresult"])) {
                         window.location.href='adminteacher.php';
                         </script>";
             } else { 
-                $ds = '2020-12-29';
+                $ds = date('Y-m-d');
                 $attend_status = "Absent";
                 mysqli_stmt_bind_param($result5, 'ss' , $student_id, $ds);
                 mysqli_stmt_execute($result5);

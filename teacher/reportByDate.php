@@ -3,6 +3,18 @@
 
 <?php $_SESSION['code_type_attend1'] = "";  ?>
 
+<?php
+$loggedIn = $_SESSION['loggedIn'];
+
+if ($loggedIn!=9999) {
+  echo "<script>alert('Please Login');
+              window.location.href='../index.php';
+              </script>";
+}
+  
+
+ ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -126,8 +138,21 @@
 <div class="wrapper">
   <!-- Navbar -->
   <?php  include "navTeacher.php"; ?>
+  <?php 
+            if (empty($class_id)) { 
+
+              ?><div class= "content-wrapper"><section class="content-header"><div class="container-fluid"><div class="row mb-2"><div class="col-sm-6"><h1 style="color: red;"><?php echo "Please Contact Administrator to Assign Classroom"; ?></h1></div></div></div></section></div> <?php 
+
+            }
+          ?>
 	
-	<div class="content-wrapper">
+	<div class="content-wrapper"  <?php
+  if (empty($class_id)) {
+    
+    ?> style="display: none;"  <?php
+  }
+
+   ?>   >
 
 
    <section class="content-header">

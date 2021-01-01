@@ -1,3 +1,17 @@
+<?php
+session_start();
+$loggedIn = $_SESSION['loggedIn'];
+
+if ($loggedIn!=893247348) {
+  echo "<script>alert('PLEASE TRY AGAIN');
+             
+              </script>";
+}
+  
+
+ ?>
+
+
 <?php 
 include "../resources/php/sql.php";
 
@@ -28,9 +42,9 @@ if (isset($_POST['addDate'])) {
 
 
 }
-
-
 ?>
+
+
 
 
 
@@ -112,6 +126,7 @@ if (isset($_POST['addDate'])) {
                     <option value="National Holiday">National Holiday</option>
                     <option value="State Holiday">State Holiday</option>
                     <option value="Holidays by Declaration">Holidays by Declaration</option>
+                    <option value="School Holiday">School Holiday</option>
                   </select>
               </div>
               <div style="margin-top: 10px;" class="form-group" style="width: 40%;">

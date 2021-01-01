@@ -11,6 +11,18 @@ $Write="<?php $" . "UIDresult=''; " . "echo $" . "UIDresult;" . " ?>";
 
 ?>
 
+<?php
+$loggedIn = $_SESSION['loggedIn'];
+
+if ($loggedIn!=893247348) {
+  echo "<script>alert('PLEASE TRY AGAIN');
+              window.location.href='../index.php';
+              </script>";
+}
+  
+
+ ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,8 +103,30 @@ $Write="<?php $" . "UIDresult=''; " . "echo $" . "UIDresult;" . " ?>";
                     <textarea name="new_RFID" style="resize: none; height: 40px;" class="form-control" id=""   placeholder="Scan RFID Card If Want To Change Current RFID Card"></textarea>  
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputName">Name</label>
+                    <label for="exampleInputName">NAME</label>
                     <input type="name" name="student_name" class="form-control" id="exampleInputname" value="<?php echo $row['student_name']; ?>" placeholder="Enter name">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputICNumber">STATUS</label>
+                    
+                    <select class="form-control select2" name="student_status"  data-placeholder="Select" style="width: 100%;">
+
+                      <?php if ($row['student_status']=== 'Active') { ?>
+                        <option value="Active">Active</option>
+                        <option value="Deactive">Deactive</option>  <?php
+                      } else if($row['student_status']=== 'Deactive') {
+                        ?>
+                        <option value="Deactive">Deactive</option>
+                        <option value="Active">Active</option>  <?php
+                      } 
+
+                      ?>
+                      
+                    
+  
+                    </select>
+
+
                   </div>
                   <div class="form-group">
                     <label for="exampleInputICNumber">IC NUMBER</label>
@@ -112,7 +146,18 @@ $Write="<?php $" . "UIDresult=''; " . "echo $" . "UIDresult;" . " ?>";
                     <select class="form-control select2" name="class_id"  data-placeholder="Select" style="width: 100%;">
 
 
-                    <option value="<?php echo $row['class_id']; ?>"><?php echo $row['class_name']; ?></option>
+                    <?php 
+                    if (!empty($row['class_id'])) { ?>
+                      <option value="<?php echo $row['class_id']; ?>"><?php echo $row['class_name']; ?></option> <?php
+                    }
+                    ?>
+                    <?php 
+                        if (empty($row['class_id'])) {
+                         ?> <option value=""></option><?php
+                        }
+                      ?>
+                    
+                    
 
                     <?php  $resultl = displayClassExceptOneRow($class_id1); 
                     $i=1;
@@ -204,13 +249,14 @@ if (isset($_POST['updateStudent'])) {
   $student_name = $_POST['student_name'];
   $student_ic = $_POST['student_ic'];
   $class_id = $_POST['class_id'];
+  $student_status = $_POST['student_status'];
   $page = $_SESSION['pageStudentList'];
 
   if (empty($new_student_id)) {
-      updateStudent($student_id, $student_name, $student_ic, $class_id,$page);
+      updateStudent($student_id, $student_name, $student_status, $student_ic, $class_id,$page);
 
   } else {
-      updateStudentNewStudentID($student_id, $new_student_id, $student_name, $student_ic, $class_id, $page);
+      updateStudentNewStudentID($student_id, $new_student_id,  $student_name, $student_status, $student_ic, $class_id, $page);
   } 
  
 }

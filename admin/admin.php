@@ -145,7 +145,7 @@ if ($loggedIn!=893247348) {
           $(document).ready(function() {
             setInterval(function () {
               $('#refresh').load('realtimeAttendance.php')
-            }, 3000000000000000000);
+            }, 3000000000);
           });
         </script>
       

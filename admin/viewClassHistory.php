@@ -7,6 +7,18 @@ $class_id =  $_SESSION['class_id'];
 
 ?>
 
+<?php
+$loggedIn = $_SESSION['loggedIn'];
+
+if ($loggedIn!=893247348) {
+  echo "<script>alert('PLEASE TRY AGAIN');
+              window.location.href='../index.php';
+              </script>";
+}
+  
+
+ ?>
+
 
 
 <!DOCTYPE html>
@@ -88,8 +100,13 @@ $class_id =  $_SESSION['class_id'];
                       <td><?php echo $i; ?></td>
                       <td><?php echo $row['teacher_name']; ?></td>
 
+                     <?php 
+                     $date_start = $row['classHistory_date'];
+                     $new_date_start1 = strtotime($date_start);
+                     $new_date_start = date("d-m-Y", $new_date_start1);
+                     ?>
 
-                      <td><?php echo $row['classHistory_date']; ?></td>
+                      <td><?php echo $new_date_start; ?></td>
                       
                     </tr>
                     

@@ -1,5 +1,17 @@
 <?php include "../resources/php/sql.php"; session_start(); ?>
 
+<?php
+$loggedIn = $_SESSION['loggedIn'];
+
+if ($loggedIn!=893247348) {
+  echo "<script>alert('PLEASE TRY AGAIN');
+              window.location.href='../index.php';
+              </script>";
+}
+  
+
+ ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -78,7 +90,7 @@ $(document).ready(function(){
                       <th>ID</th>
                       <th>Name</th>
                       <th>Class</th>
-                      <th>IC NUMBER</th>
+                      <th>STATUS</th>
                       <th>Parent Name</th>
                       <th>Parent Contact Number</th>
 
@@ -109,7 +121,7 @@ $(document).ready(function(){
                        ?>
 
                       <td><?php if(empty($row1['class_name'])) {echo "-";} else {echo $row1['class_name'];} ?></td>
-                      <td><?php echo $row['student_ic']; ?></td>
+                      <td><?php echo $row['student_status']; ?></td>
                       <td><?php echo $row['parent_name']; ?></td>
                       <td><?php echo $row['parent_contact']; ?></td>
           
