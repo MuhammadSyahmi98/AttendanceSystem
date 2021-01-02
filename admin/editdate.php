@@ -1,4 +1,4 @@
-<?php include "../resources/php/sql.php"; session_start();?>
+<?php include "../resources/php/sql.php"; session_start(); date_default_timezone_set("Asia/Kuala_Lumpur");?>
 <?php
 $loggedIn = $_SESSION['loggedIn'];
 
@@ -71,11 +71,11 @@ if ($loggedIn!=893247348) {
               $row = mysqli_fetch_assoc($result1);
 
               $new_date_start1 = strtotime($row['holiday_start']);
-              $new_date_start = date("m-d-Y", $new_date_start1);
+              $new_date_start = date("d-m-Y", $new_date_start1);
 
 
              $new_date_end1 = strtotime($row['holiday_end']);
-             $new_date_end = date("m-d-Y", $new_date_end1);
+             $new_date_end = date("d-m-Y", $new_date_end1);
 
               
 
@@ -208,7 +208,13 @@ if ($loggedIn!=893247348) {
 
     //Date range picker
     $('#reservationdate').datetimepicker({
-        format: 'L'
+        format: 'DD-MM-YYYY',
+        minDate:new Date()
+    });
+    $('#reservationdate1').datetimepicker({
+        format: 'DD-MM-YYYY',
+        minDate:new Date()
+
     });
     //Date range picker
     $('#reservation').daterangepicker()
@@ -273,6 +279,17 @@ if (isset($_POST['updateDate'])) {
   $endDate = $_POST['endDate'];
   $holiday_type = $_POST['holiday_type'];
   $holiday_description = $_POST['holiday_description'];
+
+
+
+
+  $new_date_start1 = strtotime($startDate);
+  $startDate = date("Y-m-d", $new_date_start1);
+
+
+  $new_date_end1 = strtotime($endDate);
+  $endDate = date("Y-m-d", $new_date_end1);
+
 
 
 

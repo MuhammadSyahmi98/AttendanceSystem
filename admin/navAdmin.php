@@ -90,10 +90,16 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
+            <a href="listAdmin.php" class="nav-link <?php if((false)) {echo "active";} ?> "><p>
+                ADMIN
+              </p></a>
+          </li>
+          <li class="nav-item has-treeview">
             <a href="class.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/class.php")  || ($url === "http://localhost/AttendanceSystem/admin/editClass.php")) {echo "active";} ?> "><p>
                 CLASS
               </p></a>
           </li>
+          
           <li class="nav-item has-treeview">
             <a href="adminTeacher.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/adminTeacher.php") || ($url === "http://localhost/AttendanceSystem/admin/editTeacher.php")) {echo "active";} ?> ">
               <p>

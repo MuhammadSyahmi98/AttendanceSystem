@@ -3,6 +3,54 @@
 
 <?php
 
+function addAdmin($name, $email, $admin_password){
+	require 'connectDB.php';
+
+	// Check if data already been added
+	$sql = "SELECT * FROM admin WHERE admin_name = ? OR admin_email = ?";
+
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_ADMIN_DATA');
+		        window.location.href='listAdmin.php';
+		        </script>";
+    } else { 
+		mysqli_stmt_bind_param($result, "ss", $name, $email);
+        mysqli_stmt_execute($result);
+        $resultl = mysqli_stmt_get_result($result);
+
+        // If the details not redundent
+        if (!$row = mysqli_fetch_assoc($resultl)){
+        	$sql = "INSERT INTO admin (admin_name, admin_email, admin_password) VALUES (?,?,?)";
+
+        	$result = mysqli_stmt_init($conn);
+			if (!mysqli_stmt_prepare($result, $sql)) {
+				echo "<script>alert('SQL_Error_INSERT_DATA');
+		        window.location.href='listAdmin.php';
+		        </script>";
+		    }
+		    else {
+				// Execute the sql statement
+		        mysqli_stmt_bind_param($result, 'sss' , $name, $email, $admin_password);
+		        mysqli_stmt_execute($result);
+		        echo "<script>alert('Success Add New Admin');
+		        window.location.href='listAdmin.php';
+		        </script>";
+		    }
+
+		// Data exist in database
+        } else {
+        	echo "<script>alert('Data Exist In Database');
+		        window.location.href='listAdmin.php';
+		        </script>";
+        }
+
+}
+}
+
+
+
+
 // Record Holiday Date
 function addDate($type, $description, $new_date_start, $new_date_end){
 	require 'connectDB.php';
@@ -150,7 +198,7 @@ function addStudent($student_id, $student_name, $student_ic, $parent_name, $pare
 		        </script>";
 		    }
 		    else {
-		    	$student_status = "Deactive";
+		    	$student_status = "Active";
 				// Execute the sql statement
 		        mysqli_stmt_bind_param($result, 'sssssssi' , $student_id, $student_name, $student_ic, $student_status, $parent_name, $parent_email, $parent_contact, $class_id);
 		        mysqli_stmt_execute($result);
@@ -198,7 +246,7 @@ function addStudent4($student_id, $student_name, $student_ic, $parent_name, $par
 		        </script>";
 		    }
 		    else {
-		    	$student_status = "Deactive";
+		    	$student_status = "Active";
 		    	if(empty($class_id)) {$class_id = NULL;}
 				// Execute the sql statement
 		        mysqli_stmt_bind_param($result, 'sssssssi' , $student_id, $student_name, $student_ic, $student_status ,$parent_name, $parent_email, $parent_contact, $class_id);
@@ -350,6 +398,47 @@ function addTeacher($teacher_name, $teacher_email, $teacher_contact, $password_1
 
 }
 
+
+
+function displayAdmin(){
+	require 'connectDB.php';
+
+	$sql = "SELECT * FROM admin";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_DISPLAY_ADMIN_DATA');
+		        window.location.href='class.php';
+		        </script>";
+    } else {
+		// mysqli_stmt_bind_param($result, 'i' , $class_id);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+
+}
+
+function displayAdminByID($admin_id) {
+	require 'connectDB.php';
+
+	$sql = "SELECT * FROM admin WHERE admin_id = ?";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_DISPLAY_ADMIN_DATA');
+		        window.location.href='class.php';
+		        </script>";
+    } else {
+		mysqli_stmt_bind_param($result, 'i' , $admin_id);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+
+}
 
 
 function displayClassHistoryByID($class_id){
@@ -820,6 +909,54 @@ function displayTeacherByEmail($teacher_email){
 
 
 
+
+function updateAdmin($admin_id, $name, $email){
+	require 'connectDB.php';
+
+	// Check if data already been added
+	$sql = "SELECT * FROM admin WHERE admin_name = ? OR admin_email = ?";
+
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_ADMIN_DATA');
+		        window.location.href='listAdmin.php';
+		        </script>";
+    } else { 
+		mysqli_stmt_bind_param($result, "ss", $name, $email);
+        mysqli_stmt_execute($result);
+        $resultl = mysqli_stmt_get_result($result);
+
+        // If the details not redundent
+        if (!$row = mysqli_fetch_assoc($resultl)){
+        	$sql = "UPDATE admin SET admin_name = ?, admin_email = ? WHERE admin_id =?";
+
+        	$result = mysqli_stmt_init($conn);
+			if (!mysqli_stmt_prepare($result, $sql)) {
+				echo "<script>alert('SQL_Error_INSERT_DATA');
+		        window.location.href='listAdmin.php';
+		        </script>";
+		    }
+		    else {
+				// Execute the sql statement
+		        mysqli_stmt_bind_param($result, 'ssi' , $name, $email, $admin_id);
+		        mysqli_stmt_execute($result);
+		        echo "<script>alert('Success Update Admin');
+		        window.location.href='listAdmin.php';
+		        </script>";
+		    }
+
+		// Data exist in database
+        } else {
+        	echo "<script>alert('Data Exist In Database');
+		        window.location.href='listAdmin.php';
+		        </script>";
+        }
+
+}
+}
+
+
+
 function updateTeacherEmpty($teacher_id, $teacher_name, $teacher_email, $teacher_contact) {
 	require 'connectDB.php';
 
@@ -918,7 +1055,12 @@ function updateStudent($student_id, $student_name, $student_status, $student_ic,
 function updateStudentNewStudentID($student_id, $new_student_id, $student_name, $student_status, $student_ic, $class_id, $page){
 	require 'connectDB.php';
 
-	$sql = "UPDATE student SET student_name = ?, student_status = ?, student_ic = ?, class_id = ?, student_id = ? WHERE student_id =?";
+	if (empty($class_id)) {
+		$sql = "UPDATE student SET student_name = ?, student_status = ?, student_ic = ?, class_id = null, student_id = ? WHERE student_id =?";
+	} else {
+		$sql = "UPDATE student SET student_name = ?, student_status = ?, student_ic = ?, class_id = ?, student_id = ? WHERE student_id =?";
+
+	}
 
 	// Connection to database
 	$result = mysqli_stmt_init($conn);
@@ -1061,6 +1203,28 @@ function updateDate($holiday_id, $startDate, $endDate, $holiday_type, $holiday_d
 
 
 }
+
+
+function deleteAdmin($admin_id){
+	require 'connectDB.php';
+
+	$sql = "DELETE FROM admin WHERE admin_id = ?";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_DELETE_ADMIN_DATA');
+		        window.location.href='class.php';
+		        </script>";
+    } else { 
+    	mysqli_stmt_bind_param($result, "i", $admin_id);
+        mysqli_stmt_execute($result);
+        echo "<script>alert('Successfully Delete');
+		       window.location.href='listAdmin.php';
+		       </script>";
+	}
+}
+
 
 
 

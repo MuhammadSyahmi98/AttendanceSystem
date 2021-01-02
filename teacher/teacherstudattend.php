@@ -80,7 +80,7 @@ if ($loggedIn!=9999) {
 
                  $date = $_SESSION['date'];
                  if (empty($_SESSION['code_type_attend1'])) {
-                   $date = date('d-m-Y');
+                   $date = date('Y-m-d');
                 }
 
 

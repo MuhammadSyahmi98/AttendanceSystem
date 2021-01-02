@@ -45,6 +45,33 @@ if (isset($_POST["UIDresult"])) {
                 } else if ($device_mode == 2) {
 
 
+                    // Check date
+                    // If date have in range call exit()
+                    $sql1 = "SELECT * FROM holiday_date";
+                    $result1 = mysqli_stmt_init($conn);
+
+                    if (!mysqli_stmt_prepare($result1, $sq1)) {
+                        echo "<script>alert('SQL_Error_DISPLAY_CLASS_AVAILABLE_DATA');
+                                window.location.href='adminteacher.php';
+                                </script>";
+                    } else { 
+                        mysqli_stmt_execute($result1);
+                        $result2 = mysqli_stmt_get_result($result1);
+                        if (!empty($result2)) {
+
+                            while ($row5 = mysqli_fetch_assoc($result2)) {
+                                $startDate = $row5['holiday_start'];
+                                $endDate = $row5['holiday_end'];
+                                if (strtotime($d)>=strtotime($startDate) && strtotime($d)<=strtotime($endDate)) {
+                                    exit();
+                                }
+                            }
+                        }
+}
+
+
+
+
                     // To check if the day not equal to weekeed(saturday or sunday) or public holiday
                 	if (!$day==6 || !$day==0   ) {
                         // To check if the student already scan the card in that day
@@ -56,7 +83,13 @@ if (isset($_POST["UIDresult"])) {
                             exit();
                         } 
                         else { 
+
+
                             $attend_status = "Attend";
+                            
+
+
+
                             mysqli_stmt_bind_param($result, "sss", $UIDresult, $d , $attend_status);
                             mysqli_stmt_execute($result);
                             $resultl = mysqli_stmt_get_result($result);
@@ -84,7 +117,18 @@ if (isset($_POST["UIDresult"])) {
                                     if ($row = mysqli_fetch_assoc($resultl)){
                                         
                                         $time_in = $t;
-                                        $attend_status = "Attend";
+                                        
+                                        $setTime = "08:00:00";
+                                        // Check if the time 
+                                        if ($t>$setTime) {
+                                            $attend_status = "Attend Late";
+                                        }
+                                        else{
+                                            
+                                            $attend_status = "Attend";
+                                        }
+
+
                                         $dates = $d;
                                         $student_id = $row['student_id'];
 

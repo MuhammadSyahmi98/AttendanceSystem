@@ -131,29 +131,6 @@ if ($loggedIn!=9999) {
 
 
 
-    <!-- DISPLAY IMAGE -->
-<!-- 
-    <section class="content">
-      <?php 
-// Include the database configuration file  
-      require '/../connectDB.php';
-
- 
-// Get image data from database 
-$result = $conn->query("SELECT * FROM attendance WHERE attendance_id = 50"); 
-?>
-
-<?php if($result->num_rows > 0){ ?> 
-    <div class="gallery"> 
-        <?php while($row = $result->fetch_assoc()){ ?> 
-            <img style="height: 100px; width: 100px;" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['attendance_img']); ?>" /> 
-        <?php } ?> 
-    </div> 
-<?php }else{ ?> 
-    <p class="status error">Image(s) not found...</p> 
-<?php } ?>
-    </section>
-     -->
 
     <!-- /.content -->
   </div>
@@ -228,7 +205,7 @@ $(document).ready(function () {
  <?php 
 if (isset($_POST['insert'])) {
   
-   require '/../connectDB.php';
+   require '../connectDB.php';
    $option = $_POST['option'];
 
    $student_id = $_SESSION['student_id'];

@@ -1,5 +1,5 @@
-<?php include "../resources/php/sql.php"; session_start();?>
-
+<?php include "../resources/php/sql.php"; ?>
+<?php session_start();?>
 <?php
 $loggedIn = $_SESSION['loggedIn'];
 
@@ -11,22 +11,22 @@ if ($loggedIn!=893247348) {
   
 
  ?>
- 
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Holiday</title>
+  <title>Admin</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
@@ -46,7 +46,7 @@ $(document).ready(function(){
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <!-- Site wrapper -->
 <div class="wrapper">
-  <?php include "navAdmin.php"; ?>
+   <?php include "navAdmin.php"; ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -55,7 +55,7 @@ $(document).ready(function(){
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>List of Holidays</h1>
+            <h1>List of Admin</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -64,11 +64,9 @@ $(document).ready(function(){
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        
-      
       <div class="row">
           <div class="col-12">
-            <div class="card">
+            <div class="card" >
               <div class="card-header">
                 <h3 class="card-title"></h3>
 
@@ -77,12 +75,12 @@ $(document).ready(function(){
                   <div class="input-group input-group-sm" style="width: 74px;">
                     <div class="">
                       
-                      <button type="submit" class="btn btn-primary"  onclick="location.href='registerDate.php';">Add</button>
+                      <button type="submit" class="btn btn-primary"  onclick="location.href='registerAdmin.php';">Add</button>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="card-body" >
+              <div class="card-body">
                 <table id="example1" class="table table-striped text-nowrap">
                   <thead>
                       <tr>
@@ -90,53 +88,49 @@ $(document).ready(function(){
                           No.
                       </th>
                       <th>
-                          Type
+                          Name
                       </th>
                       <th>
-                          Description
+                        Email
                       </th>
                       <th>
-                          Start Date
-                      </th>
-                      <th>
-                          End Date
-                      </th>  
-                      <th>
-                          Action
-                      </th>   
+                        Action
+                      </th> 
                   </tr>   
                   </thead>
                   <tbody id="myTable">
-                    <?php $result = displayHoliday();
-                    $i = 1;
-                      while ($row = mysqli_fetch_assoc($result)) {
+                    <?php $result = displayAdmin(); 
+                     $i = 1;
+                    while ($row = mysqli_fetch_assoc($result)) {
         
                     
                     ?>
-                    <tr>
-                      <td><?php echo $i; ?></td>
-                      <td><?php echo $row['holiday_type'] ?></td>
-                      <td><?php echo $row['holiday_description'] ?></td>
-                      <td><?php 
 
-                      $orgDate = $row['holiday_start'];  
-                      $newDate1 = date("d-m-Y", strtotime($orgDate));  
-                      echo $newDate1; ?></td>
-                      <td><?php 
-                      $orgDate = $row['holiday_end'];  
-                      $newDate = date("d-m-Y", strtotime($orgDate));  
-                      echo $newDate;
-                       ?></td>
-                      <td>
-                        <form method="POST">
-                          <input type="hidden" name="date_id$i" value="<?php echo $row['holiday_id']; ?>">
-                          <input type="hidden" name="currentDate$i" value="<?php echo $newDate1; ?>">
-                          <button class="btn btn-info btn-sm" name="editDate">
-                              <i class="fas fa-pencil-alt">
+
+                    <tr>
+                        <td><?php echo $i; ?></td>
+                        <td><?php echo $row['admin_name']; ?></td>
+                        <td><?php echo $row['admin_email']; ?></td>
+                        <td>
+                        <form method="post">
+
+                          <input type="hidden" name="id$i" value="<?php echo $row['admin_id']; ?>">
+
+                          <button class="btn btn-primary btn-sm" name="viewAdmin">
+                            <i class="fas fa-folder">
+                              </i>
+                              View
+                          </button> 
+                              
+                          
+                          <button class="btn btn-info btn-sm" name="editAdmin">
+                              <i class="fas fa-pencil-alt" >
                               </i>
                               Edit
-                          </button> 
-                          <button class="btn btn-danger btn-sm" name="deleteDate" OnClick="return confirm('Confirm to delete this data?');">
+                          </button>
+                          <button class="btn btn-danger btn-sm" name="deleteAdmin" OnClick="return confirm('Confirm to delete this data?');"  style="<?php if ($i===1) {
+                            ?>display: none; <?php
+                          } ?>">
                               <i class="fas fa-trash">
                               </i>
                               Delete
@@ -144,7 +138,10 @@ $(document).ready(function(){
                         </form>
                       </td>
                     </tr>
-                    <?php $i++; } ?>
+                    
+                    <?php $i=$i+1;} ?>
+                   
+                    
                   </tbody>
                   
                 </table>
@@ -163,10 +160,13 @@ $(document).ready(function(){
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-
 <?php include "footer.php"; ?>
-  
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
@@ -174,12 +174,12 @@ $(document).ready(function(){
 <script src="../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 <!-- DataTables -->
 <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 <script>
@@ -202,32 +202,34 @@ $(document).ready(function(){
 </body>
 </html>
 
-<?php
-if (isset($_POST['editDate'])) {
-   $_SESSION['date_id']= $_POST['date_id$i'];
-   $currentDate = $_POST['currentDate$i'];
 
-   $date = date('d-m-Y');
+<?php 
+if (isset($_POST['viewAdmin'])) {
+    $_SESSION['admin_id']=$_POST['id$i'];
+    echo "<script>window.location.assign('viewAdmin.php')</script>";
+}
 
-   if (strtotime($currentDate) > strtotime($date)) {
-     echo "<script>window.location.assign('editDate.php')</script>";
-   } else {
-    echo "<script>alert('Cant Edit');
-    window.location.assign('date.php')</script>";
-   }
+?>
 
+<?php 
+if (isset($_POST['editAdmin'])) {
+    $_SESSION['admin_id']=$_POST['id$i'];
+    echo "<script>window.location.assign('editAdmin.php')</script>";
+}
 
+?>
 
+<?php 
+if (isset($_POST['deleteAdmin'])) {
+    $admin_id = $_POST['id$i'];
+    deleteAdmin($admin_id);
    
 }
 
-if (isset($_POST['deleteDate'])) {
-
-  $holiday_id = $_POST['date_id$i'];
-  deleteDate($holiday_id);
-}
+?>
 
 
 
- ?>
+
+
 

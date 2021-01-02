@@ -10,15 +10,14 @@
 <?php
 $loggedIn = $_SESSION['loggedIn'];
 
-if ($loggedIn!=9999) {
-  echo "<script>alert('Please Login');
+if ($loggedIn!=893247348) {
+  echo "<script>alert('PLEASE TRY AGAIN');
               window.location.href='../index.php';
               </script>";
 }
   
 
  ?>
-
 
 
 <!DOCTYPE html>
@@ -38,27 +37,12 @@ if ($loggedIn!=9999) {
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
-  <!-- JS-RFID -->
-
-  <script src="jquery.min.js"></script>
-    <script>
-      $(document).ready(function(){
-         $("#getUID").load("../UIDContainer.php");
-        setInterval(function() {
-          $("#getUID").load("../UIDContainer.php");
-        }, 500);
-      });
-    </script>
-
-  <!-- /.JS-RFID -->
-
-
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar -->
-  <?php  include "navTeacher.php"; ?>
+  <?php  include "navAdmin.php"; ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -67,7 +51,7 @@ if ($loggedIn!=9999) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Attendance Information</h1>
+            <h1>Student Information</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -81,83 +65,44 @@ if ($loggedIn!=9999) {
               
               <!-- /.card-header -->
               <div>
-              <form role="form" method="POST" action="registerStudent.php">
+              
                 <div class="card-body">
 
                   <?php
 
-                    $student_id = $_SESSION['student_id'];
-                    $attendance_id = $_SESSION['attendance_id'];
-                    $result = displaystudentAttendanceByID($student_id, $attendance_id);
+                    $admin_id = $_SESSION['admin_id'];
+                    $result = displayAdminByID($admin_id);
                     $row = mysqli_fetch_assoc($result);
-
-
-
-                    $date1=$_SESSION['date'];
+              
                   ?>
 
+                   <div class="form-group">
 
-
-                  <div class="form-group">
-                    <label for="exampleInputName">Date</label>
-                    <input type="name" name="date" class="form-control" value="<?php echo $date1; ?>" readonly  >
-                  </div>
-                 
-                  <div class="form-group">
                     <label for="exampleInputName">Name</label>
-                    <input type="name" name="student_name" class="form-control" value="<?php echo $row['student_name']; ?>" readonly  >
+
+                    <input type="name" name="admin_name" readonly class="form-control" placeholder="Enter Name" value="<?php echo $row['admin_name']; ?>">
+
                   </div>
+
                   <div class="form-group">
-                    <label for="exampleInputICNumber">IC NUMBER</label>
-                    <input class="form-control" name="student_ic" readonly value="<?php echo $row['student_ic']; ?>" >
+
+                    <label for="exampleInputName">Email</label>
+
+                    <input type="email" name="admin_email" readonly class="form-control" placeholder="Enter Email" required value="<?php echo $row['admin_email']; ?>">
+
                   </div>
-                  <div class="form-group">
-                    <label for="exampleInputICNumber">ATTENDANCE STATUS</label>
-                    <input class="form-control" name="parent_name" readonly value="<?php echo $row['attend_status']; ?>" >
-                  </div>
-
-                   <?php 
-                    // Include the database configuration file  
-                          require '../connectDB.php';
-
-                     
-                    // Get image data from database 
-                    $result = $conn->query("SELECT * FROM attendance WHERE attendance_id = '$attendance_id'"); 
-                    ?>
-
-
-                  <div class="form-group" style="<?php if ($row['attend_status'] != "Medical Leave") {
-                    ?> display: none; <?php
-                  } ?>">
-                    <label for="exampleInputICNumber">MEDICAL LEAVE</label>
-                    <?php while($row = $result->fetch_assoc()){ ?> 
-                      <div>
-                      <?php if ($row['attend_status'] === "Medical Leave") { ?>
-                        <img style="height: 300px; width: 300px;" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['attendance_img']); ?>" /> 
-        <?php } else { ?>
-          <input class="form-control" name="" readonly value="" > <?php
-        } ?> </div> <?php
-                      }?>
-                  </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
                   
+                  
+                  
+                 
                 </div>
                 <!-- /.card-body -->
-
-              
-              </form>
+                <div class="card-footer">
+                  <form method="POST">
+                  <button type="submit"  name="back" class="btn btn-primary">Back</button></div>
+                  </form>
+           
 
                
               </div>
@@ -189,11 +134,20 @@ if ($loggedIn!=9999) {
 <script src="../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+<!-- AdminLTE App -->
+<script src="../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 </body>
 </html>
+
+<?php 
+if (isset($_POST['back'])) {
+   echo "<script>
+            window.location.href='listAdmin.php';
+            </script>";
+}
+?>
 
 
 

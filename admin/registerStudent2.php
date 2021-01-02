@@ -84,7 +84,7 @@ if ($loggedIn!=893247348) {
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputrfid">RFID NUMBER</label>
-                    <textarea style="resize: none; height: 40px;" name="student_id" class="form-control" id="getUID" required placeholder="Scan RFID Card"></textarea>  
+                    <textarea style="resize: none; height: 40px;" name="student_id" class="form-control" id="getUID" required placeholder="Scan RFID Card" readonly></textarea>  
                   </div>
                   <div class="form-group">
                     <label for="exampleInputName">Name</label>
