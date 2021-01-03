@@ -1,6 +1,7 @@
 <?php include "../resources/php/sql.php"; ?>
 <?php 
 session_start();
+date_default_timezone_set("Asia/Kuala_Lumpur");
 ?>
 
 <?php
@@ -61,13 +62,27 @@ if ($loggedIn!=893247348) {
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>89<sup style="font-size: 20px">%</sup></h3>
 
                 <?php
                 $date = date('Y-m-d');
-                $result4 = count
+                // Total Attend Student
+                $result4 = countTodayAttend($date);
+                $row4 = mysqli_fetch_assoc($result4);
+                $totalAttendStudent = $row4['numberOfTodayAttend'];
+
+                // TotalStudent
+                $result5 = countStudent();
+                $row5 = mysqli_fetch_assoc($result5);
+                 $TotalStudent = $row5['numberOfStudent'];
+
+
+                 $todayPercentage = ($totalAttendStudent/$TotalStudent)*100;
+
                 ?>
 
+
+
+                <h3><?php echo $todayPercentage; ?><sup style="font-size: 20px">%</sup></h3>
                 <p>Today Attendance</p>
               </div>
               <div class="icon">

@@ -1565,7 +1565,24 @@ function verifyTeacher($teacher_email, $teacher_password) {
 }
 
 
+function countTodayAttend($date){
+	require 'connectDB.php';
 
+	$sql = "SELECT COUNT(attendance_id) AS numberOfTodayAttend FROM attendance WHERE dates = ? AND attend_status = 'Attend'";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_STUDENT_CLASS_DATA');
+		       window.location.href='class.php';
+		       </script>";
+    } else {
+    	mysqli_stmt_bind_param($result, "s", $date);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+}
 
 
 
