@@ -85,41 +85,42 @@
             <a href="admin.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/admin.php")) {echo "active";} ?> ">
               <i class="nav-icon fas fa-home"></i>
               <p>
-                HOME
+                HOME 
               </p>
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="listAdmin.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/listAdmin.php") || ($url === "http://localhost/AttendanceSystem/admin/registerAdmin.php") || ($url === "http://localhost/AttendanceSystem/admin/viewAdmin.php") || ($url === "http://localhost/AttendanceSystem/admin/editAdmin.php")) {echo "active";} ?> "><p>
+            <a href="listAdmin.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/listAdmin.php") || ($url === "http://localhost/AttendanceSystem/admin/registerAdmin.php") || ($url === "http://localhost/AttendanceSystem/admin/viewAdmin.php") || ($url === "http://localhost/AttendanceSystem/admin/editAdmin.php")) {echo "active";} ?> "><i class="nav-icon fas fa-user-tie"></i><p>
                 ADMIN
               </p></a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="class.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/class.php")  || ($url === "http://localhost/AttendanceSystem/admin/editClass.php")) {echo "active";} ?> "><p>
+            <a href="class.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/class.php")  || ($url === "http://localhost/AttendanceSystem/admin/editClass.php")) {echo "active";} ?> "><i class="nav-icon fas fa-chalkboard"></i><p>
                 CLASS
               </p></a>
           </li>
           
           <li class="nav-item has-treeview">
             <a href="adminTeacher.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/adminTeacher.php") || ($url === "http://localhost/AttendanceSystem/admin/editTeacher.php")) {echo "active";} ?> ">
-              <p>
+              <i class="nav-icon fas fa-users"></i><p>
                 TEACHER
               </p></a>
           </li>
           <li class="nav-item has-treeview">
             <a href="allStudentList.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/allStudentList.php") || ($url === "http://localhost/AttendanceSystem/admin/viewStudent.php") || ($url === "http://localhost/AttendanceSystem/admin/studentlist.php") || ($url === "http://localhost/AttendanceSystem/admin/editStudent.php"))  {echo "active";} ?> ">
-              <p>
+              <i class="nav-icon fas fa-users"></i><p>
                 STUDENT
               </p></a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="date.php" class="nav-link <?php if($url === "http://localhost/AttendanceSystem/admin/date.php") {echo "active";} ?>"><p>
+            <a href="date.php" class="nav-link <?php if($url === "http://localhost/AttendanceSystem/admin/date.php") {echo "active";} ?>"><i class="nav-icon far fa-calendar-alt"></i><p>
                 HOLIDAY
               </p></a>
           </li>
 
            <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-bar"></i>
               <p>
                 ATTENDANCE REPORT
                 <i class="right fas fa-angle-left"></i>

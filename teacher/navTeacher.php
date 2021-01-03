@@ -33,7 +33,7 @@
       
       <li class="nav-item">
         <a class="nav-link"  href="../admin/logout.php" role="button">
-          <p>LOG OUT</p>
+          <p style="color: red;">LOG OUT</p>
         </a>
       </li>
     </ul>
@@ -93,18 +93,19 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="teacherstudlist.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/teacher/viewStudent.php") || ($url === "http://localhost/AttendanceSystem/teacher/teacherstudlist.php") || ($url === "http://localhost/AttendanceSystem/teacher/editStudent.php") || ($url === "http://localhost/AttendanceSystem/teacher/registerstudent.php"))  {echo "active";} ?> ">
-              <p>
+              <i class="nav-icon fas fa-users"></i><p>
                 STUDENT
               </p></a>
           </li>
           <li class="nav-item has-treeview">
             <a href="teacherstudattend.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/teacher/teacherstudattend.php"))  {echo "active";} ?> ">
-              <p>
+              <i class="nav-icon fas fa-edit"></i><p>
                 MANAGE ATTENDANCE
               </p></a>
           </li>
            <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-bar"></i>
               <p>
                 ATTENDANCE REPORT
                 <i class="right fas fa-angle-left"></i>

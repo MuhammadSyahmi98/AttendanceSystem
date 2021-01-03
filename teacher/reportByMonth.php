@@ -546,14 +546,12 @@ if ($loggedIn!=9999) {
 
 
 
-
-
-                       <td> <button class="btn btn-primary btn-sm" name="viewClass">
-                            <i class="fas fa-folder">
-                              </i>
-                              View
-                          </button> 
-                              </td>
+                        <form method="POST">
+                          <input type="hidden" name="month$i" value="<?php echo $i; ?>">
+                          <td> 
+                            <button class="btn btn-primary btn-sm" name="viewDetailMonth"><i class="fas fa-folder"></i>View</button> 
+                          </td>
+                        </form>
                      </tr> <?php
                       
                     }
@@ -731,5 +729,14 @@ if (isset($_POST['displayNewDate'])) {
 }
 
 
+?>
+
+<?php 
+if (isset($_POST['viewDetailMonth'])) {
+  $_SESSION['month'] = $_POST['month$i'];
+  $_SESSION['code1'] = "1";
+  echo "<script>
+    window.location.assign('listStudentByMonth.php')</script>";
+}
 ?>
 

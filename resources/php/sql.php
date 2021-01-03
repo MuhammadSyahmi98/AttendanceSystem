@@ -602,6 +602,29 @@ function displaystudentAttendanceByID($student_id, $attendance_id){
 
 
 
+function displayAttendanceByClassByMonth($class_id,$month){
+	require 'connectDB.php';
+
+	$sql = "SELECT student.student_id AS id, student.student_name AS name, class.class_name AS class, attendance.dates AS dates, attendance.attend_status AS status FROM attendance RIGHT JOIN student ON attendance.student_id = student.student_id JOIN class ON student.class_id = class.class_id WHERE class.class_id = ? AND MONTH(attendance.dates) = ? ORDER BY attendance.dates ASC";
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_ADD_STUDENT_DATA');
+		        window.location.href='teacherstudlist.php';
+		        </script>";
+    } 
+    else { 
+    	
+    	mysqli_stmt_bind_param($result, "is", $class_id, $month);
+        mysqli_stmt_execute($result);
+        $resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+}
+
+
+}
+
+
+
 
 
 function displayHoliday(){
