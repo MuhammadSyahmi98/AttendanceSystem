@@ -3,7 +3,7 @@
 
 <?php $_SESSION['code_type_attend1'] = ""; 
 
-$class_id = $_SESSION['class_id']; ?>
+ $class_id = $_SESSION['class_id'];?>
 
 
 <?php
@@ -41,7 +41,8 @@ if ($loggedIn!=9999) {
 
 
   <?php 
-  $year = 2020;
+  $year = 2021;
+  
   
 
   $nameOfMonth = array("mockup", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December",);
@@ -287,6 +288,7 @@ if ($loggedIn!=9999) {
 
 
   <?php 
+  $class_id = $_SESSION['class_id'];
   if (!empty($class_id)) { ?>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -537,7 +539,7 @@ if ($loggedIn!=9999) {
                         ?>
 
 
-                       <td><?php if (empty($percentAttendance)) {
+                       <td><?php if (empty($row14['numberOfDayByMonth'])) {
                          echo "-";
                        } else {echo round($percentAttendance);} ?></td>
 

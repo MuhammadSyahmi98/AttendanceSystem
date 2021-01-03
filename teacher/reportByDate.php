@@ -50,7 +50,7 @@ if ($loggedIn!=9999) {
       <?php 
 
       if (empty($_SESSION['code_type_attend'])) {
-        $dates = date('d-m-Y');
+        $dates = date('Y-m-d');
       }else {
         $dates = $_SESSION['date'];
       }
@@ -204,7 +204,7 @@ if ($loggedIn!=9999) {
 
 
     <?php
-    if ($absent === 0 && empty($totalAttend)) { ?>
+    if ($absent === 0 && empty($totalAttend) && empty($totalMedicalLeave) && empty($totalAttendLate)) { ?>
       <section class="content-header"> 
       <div class="container-fluid">
         <div class="row mb-2">
@@ -223,7 +223,7 @@ if ($loggedIn!=9999) {
 
     <!-- Chart Section -->
     <section class="content">
-      <div id="piechart_3d" style="width: 100%; height: 500px; <?php if($absent === 0 && empty($totalAttend)){ echo "visibility: hidden;";} ?>"></div>
+      <div id="piechart_3d" style="width: 100%; height: 500px; <?php if($absent === 0 && empty($totalAttend) && empty($totalMedicalLeave) && empty($totalAttendLate)){ echo "visibility: hidden;";} ?>"></div>
     </section>
 
  

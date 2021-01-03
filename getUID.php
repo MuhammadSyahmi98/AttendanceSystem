@@ -211,7 +211,7 @@ if (isset($_POST["UIDresult"])) {
                         window.location.href='adminteacher.php';
                         </script>";
             } else { 
-                $ds = date('Y-m-d');
+                $ds = date('Y-m-9');
                 $attend_status = "Absent";
                 mysqli_stmt_bind_param($result5, 'ss' , $student_id, $ds);
                 mysqli_stmt_execute($result5);

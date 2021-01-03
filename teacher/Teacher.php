@@ -33,6 +33,9 @@ if ($loggedIn!=9999) {
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+   <!-- DataTables -->
+  <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
@@ -65,9 +68,30 @@ if ($loggedIn!=9999) {
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>89<sup style="font-size: 20px">%</sup></h3>
 
-                <p>Attend Percentage</p>
+                <?php 
+                $class_id = $_SESSION['class_id'];
+                $result = countStudentByClass($class_id);
+                $row = mysqli_fetch_assoc($result);
+                $numberOfStudent = $row['numberOfStudent'];
+
+                ?>
+
+                <?php 
+                $class_id = $_SESSION['class_id'];
+                $date = date('Y-m-d');
+                $result = countAttendStudentByClassAttend($class_id, $date);
+                $row = mysqli_fetch_assoc($result);
+                $totalAttend = $row['totalAttend'];
+
+                $todayAttendPrecentage = ($totalAttend/$numberOfStudent)*100;
+                $todayAbsentPrecentage = 100 -  $todayAttendPrecentage;
+
+                ?>
+
+                <h3><?php echo $todayAttendPrecentage; ?><sup style="font-size: 20px">%</sup></h3>
+
+                <p>Today Attend Percentage</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
@@ -80,9 +104,9 @@ if ($loggedIn!=9999) {
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3><?php echo $todayAbsentPrecentage; ?><sup style="font-size: 20px">%</sup></h3>
 
-                <p>Absence Percentage</p>
+                <p>Today Absence Percentage</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -125,38 +149,33 @@ if ($loggedIn!=9999) {
                 <h3 class="card-title">Daily Log: <b> <?php echo date("d-m-Y"); ?></b></h3>
 
 
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                      <button type="submit" class="btn btn-primary" style="margin-left: 10px;" onclick="location.href='registerclass.php';">Add</button>
-                    </div>
-                  </div>
-                </div>
+               
               </div>
-              <div class="card-body table-responsive p-0" style="height: 500px;" >
-                <table class="table table-head-fixed text-nowrap">
+              <div class="card-body">
+                <table id="example1" class="table table-head-fixed table-striped text-nowrap ">
                   <thead>
                       <tr>
-                      <th>
+                        <th>
                           No.
+                        </th>
+                      <th>
+                          ID
+                      </th>
+                      <th>
+                          Name
                       </th>
                       <th>
                           Class
                       </th>
                       <th>
-                          Teacher
-                      </th>
-                      <th>
-                        Action
+                        Status
                       </th>   
                   </tr>   
                   </thead>
                   <tbody>
-                   <!--  <?php $result = displayClass(); 
+                    <?php 
+                    $date = date('Y-m-d');
+                    $result = displayTodayAttendanceByMonth($class_id, $date); 
                      $i = 1;
                     while ($row = mysqli_fetch_assoc($result)) {
         
@@ -165,40 +184,15 @@ if ($loggedIn!=9999) {
 
                     <tr>
                       <td><?php echo $i; ?></td>
-                      <td><?php echo $row['class_name']; ?></td>
-                      <td><span class="tag tag-success"><?php if(empty($row['teacher_name'])){
-                        echo " - ";
-                      } else {echo $row['teacher_name'];}  ?></span></td>
-                      <td>
-                        <form method="post" action="class.php">
-
-                          <input type="hidden" name="teacherData" value="<?php echo $row['teacher_name']; ?>"> 
-                          <input type="hidden" name="id$i" value="<?php echo $row['class_id']; ?>"> 
-
-                          <button class="btn btn-primary btn-sm" name="viewClass">
-                            <i class="fas fa-folder">
-                              </i>
-                              View
-                          </button> 
-                              
-                          
-                          <button class="btn btn-info btn-sm" name="editClass">
-                              <i class="fas fa-pencil-alt" >
-                              </i>
-                              Edit
-                          </button>
-                          <button class="btn btn-danger btn-sm" name="deleteClass" OnClick="return confirm('Confirm to delete this data?');">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </button>
-                        </form>
-                      </td>
+                      <td><?php echo $row['id']; ?></td>
+                      <td><?php echo $row['name']; ?></td>
+                      <td><?php echo $row['class']; ?></td>
+                      <td><?php echo $row['status']; ?></td>
                     </tr>
                     
                     <?php $i=$i+1;} ?>
                    
-                     -->
+                    
                   </tbody>
                   
                 </table>
@@ -234,5 +228,27 @@ if ($loggedIn!=9999) {
 
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
+<!-- DataTables -->
+<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
 </body>
 </html>

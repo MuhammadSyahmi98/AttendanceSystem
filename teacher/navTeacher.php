@@ -100,7 +100,7 @@
           <li class="nav-item has-treeview">
             <a href="teacherstudattend.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/teacher/teacherstudattend.php"))  {echo "active";} ?> ">
               <p>
-                STUDENT ATTENDANCE
+                MANAGE ATTENDANCE
               </p></a>
           </li>
            <li class="nav-item has-treeview">
