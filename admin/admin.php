@@ -63,6 +63,11 @@ if ($loggedIn!=893247348) {
               <div class="inner">
                 <h3>89<sup style="font-size: 20px">%</sup></h3>
 
+                <?php
+                $date = date('Y-m-d');
+                $result4 = count
+                ?>
+
                 <p>Today Attendance</p>
               </div>
               <div class="icon">

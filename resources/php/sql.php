@@ -3,6 +3,51 @@
 
 <?php
 
+
+function validateFirstTimeLogin($email, $admin_password){
+	require 'connectDB.php';
+
+	$sql = "SELECT * FROM admin WHERE admin_email = ? AND admin_password = ?";
+	$result = mysqli_stmt_init($conn);
+
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_VALIDATE_DATA');
+		        window.location.href='index.php';
+		        </script>";
+    } else { 
+		mysqli_stmt_bind_param($result, "ss", $email, $admin_password);
+        mysqli_stmt_execute($result);
+        $resultl = mysqli_stmt_get_result($result);
+        return $resultl;
+    }
+}
+
+
+
+function validateFirstTimeLoginTeacher($email, $teacher_password){
+
+	require 'connectDB.php';
+
+	$sql = "SELECT * FROM teacher WHERE teacher_email = ? AND teacher_password = ?";
+	$result = mysqli_stmt_init($conn);
+
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_VALIDATE_DATA');
+		        window.location.href='index.php';
+		        </script>";
+    } else { 
+		mysqli_stmt_bind_param($result, "ss", $email, $teacher_password);
+        mysqli_stmt_execute($result);
+        $resultl = mysqli_stmt_get_result($result);
+        return $resultl;
+    }
+
+}
+
+
+
 function addAdmin($name, $email, $admin_password){
 	require 'connectDB.php';
 
@@ -955,6 +1000,53 @@ function updateAdmin($admin_id, $name, $email){
 }
 }
 
+
+
+function updatePasswordAdmin($admin_id, $admin_password){
+	require 'connectDB.php';
+
+	$sql = "UPDATE admin SET admin_password = ?, admin_login = 1 WHERE admin_id = ?";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_UPDATE_PASSWORD_DATA');
+		        window.location.href='index.php';
+		        </script>";
+    } else { 
+    	mysqli_stmt_bind_param($result, "si", $admin_password, $admin_id);
+        mysqli_stmt_execute($result);
+        echo "<script>alert('Successfully Update Password. Please Login');
+		        window.location.href='index.php';
+		        </script>";
+         
+	}
+
+
+
+}
+
+
+function updatePasswordTeacher($teacher_id, $teacher_password){
+	require 'connectDB.php';
+
+	$sql = "UPDATE teacher SET teacher_password = ?, teacher_login = 1 WHERE teacher_id = ?";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_UPDATE_PASSWORD_DATA');
+		        window.location.href='index.php';
+		        </script>";
+    } else { 
+    	mysqli_stmt_bind_param($result, "si", $teacher_password, $teacher_id);
+        mysqli_stmt_execute($result);
+        echo "<script>alert('Successfully Update Password. Please Login');
+		        window.location.href='index.php';
+		        </script>";
+         
+	}
+}
 
 
 function updateTeacherEmpty($teacher_id, $teacher_name, $teacher_email, $teacher_contact) {

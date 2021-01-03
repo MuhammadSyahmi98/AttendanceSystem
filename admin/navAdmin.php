@@ -90,7 +90,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="listAdmin.php" class="nav-link <?php if((false)) {echo "active";} ?> "><p>
+            <a href="listAdmin.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/listAdmin.php") || ($url === "http://localhost/AttendanceSystem/admin/registerAdmin.php") || ($url === "http://localhost/AttendanceSystem/admin/viewAdmin.php") || ($url === "http://localhost/AttendanceSystem/admin/editAdmin.php")) {echo "active";} ?> "><p>
                 ADMIN
               </p></a>
           </li>
