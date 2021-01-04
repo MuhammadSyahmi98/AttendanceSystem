@@ -66,7 +66,7 @@ if ($loggedIn!=893247348) {
               <!-- /.card-header -->
               <div>
               
-                <div class="card-body">
+                <div class="card-body pb-0">
 
 
 
