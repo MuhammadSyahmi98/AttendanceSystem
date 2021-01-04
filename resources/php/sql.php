@@ -905,7 +905,7 @@ function displayAvailableClassTeacher() {
 function displayTeacher() {
 	require 'connectDB.php';
 
-	$sql = "SELECT * FROM teacher LEFT JOIN class ON teacher.class_id = class.class_id";
+	$sql = "SELECT teacher.teacher_id AS teacher_id, teacher.teacher_name AS teacher_name, teacher.teacher_email AS teacher_email, teacher.teacher_contact AS teacher_contact, class.class_id AS class_id, class.class_name AS class_name FROM teacher LEFT JOIN class ON teacher.class_id = class.class_id";
 
 	// Connection to database
 	$result = mysqli_stmt_init($conn);
@@ -973,6 +973,26 @@ function displayTeacherByID($teacher_id) {
         $resultl = mysqli_stmt_get_result($result);
         return $resultl;
 	}
+}
+
+
+function displayTeacherByIDByClass($teacher_id){
+	require 'connectDB.php';
+	$sql = "SELECT * FROM teacher INNER JOIN class on teacher.class_id = class.class_id  WHERE teacher_id=?";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_STUDENT_DATA');
+		        window.location.href='class.php';
+		        </script>";
+    } else { 
+    	mysqli_stmt_bind_param($result, "i", $teacher_id);
+        mysqli_stmt_execute($result);
+        $resultl = mysqli_stmt_get_result($result);
+        return $resultl;
+	}
+
 }
 
 

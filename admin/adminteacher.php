@@ -117,6 +117,12 @@ $(document).ready(function(){
                       <td>
                           <form method="POST">
                             <input type="hidden" name="id$i" value="<?php echo $row['teacher_id']; ?>"> 
+                            <input type="hidden" name="ids$i" value="<?php echo $row['class_id']; ?>"> 
+                            <button class="btn btn-primary btn-sm" name="viewTeacher">
+                                <i class="fas fa-pencil-alt">
+                                </i>
+                                View
+                            </button>
                             <button class="btn btn-info btn-sm" name="editTeacher">
                                 <i class="fas fa-pencil-alt">
                                 </i>
@@ -202,3 +208,15 @@ if (isset($_POST['deleteTeacher'])) {
 }
 
 ?>
+
+<?php
+if (isset($_POST['viewTeacher'])) {
+   $_SESSION['teacher_id'] = $_POST['id$i'];
+   $_SESSION['class_id'] = $_POST['ids$i'];
+
+   
+   echo "<script>window.location.assign('viewTeacher.php')</script>";
+}
+
+?>
+
