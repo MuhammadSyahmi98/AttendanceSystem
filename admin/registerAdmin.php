@@ -127,6 +127,14 @@ if ($loggedIn!=893247348) {
 
                   <div class="form-group">
 
+                    <label for="exampleInputName">Contact Number</label>
+
+                    <input type="name" name="admin_contact" class="form-control" placeholder="Enter Contact Number" required>
+
+                  </div>
+
+                  <div class="form-group">
+
                     <label for="exampleInputName">Password</label>
 
                     <input type="password" name="password" class="form-control" placeholder="Enter Password" required>
@@ -235,10 +243,11 @@ if (isset($_POST['submit'])) {
   $email = $_POST['admin_email'];
   $password = $_POST['password']; 
   $rePassword = $_POST['rePassword'];
+  $admin_contact = $_POST['admin_contact'];
 
   if ($password === $rePassword) {
     
-    addAdmin($name, $email, $password);
+    addAdmin($name, $email, $password, $admin_contact);
 
 
   } else {

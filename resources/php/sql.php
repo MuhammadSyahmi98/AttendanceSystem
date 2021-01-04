@@ -48,7 +48,7 @@ function validateFirstTimeLoginTeacher($email, $teacher_password){
 
 
 
-function addAdmin($name, $email, $admin_password){
+function addAdmin($name, $email, $admin_password, $admin_contact){
 	require 'connectDB.php';
 
 	// Check if data already been added
@@ -66,7 +66,7 @@ function addAdmin($name, $email, $admin_password){
 
         // If the details not redundent
         if (!$row = mysqli_fetch_assoc($resultl)){
-        	$sql = "INSERT INTO admin (admin_name, admin_email, admin_password) VALUES (?,?,?)";
+        	$sql = "INSERT INTO admin (admin_name, admin_email, admin_contact, admin_password) VALUES (?,?,?,?)";
 
         	$result = mysqli_stmt_init($conn);
 			if (!mysqli_stmt_prepare($result, $sql)) {
@@ -76,7 +76,7 @@ function addAdmin($name, $email, $admin_password){
 		    }
 		    else {
 				// Execute the sql statement
-		        mysqli_stmt_bind_param($result, 'sss' , $name, $email, $admin_password);
+		        mysqli_stmt_bind_param($result, 'ssss' , $name, $email, $admin_contact, $admin_password);
 		        mysqli_stmt_execute($result);
 		        echo "<script>alert('Success Add New Admin');
 		        window.location.href='listAdmin.php';

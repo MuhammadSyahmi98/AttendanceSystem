@@ -93,6 +93,7 @@ $(document).ready(function(){
                       <th>
                         Email
                       </th>
+                      <th>Contact Number</th>
                       <th>
                         Action
                       </th> 
@@ -111,6 +112,7 @@ $(document).ready(function(){
                         <td><?php echo $i; ?></td>
                         <td><?php echo $row['admin_name']; ?></td>
                         <td><?php echo $row['admin_email']; ?></td>
+                        <td><?php echo $row['admin_contact']; ?></td>
                         <td>
                         <form method="post">
 

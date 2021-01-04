@@ -3,22 +3,19 @@
 <!-- Refresh the page and will resit the UIDContainer to empty. The RFID will show nothing -->
 <?php
   include "../resources/php/sql.php"; session_start();
-  $Write="<?php $" . "UIDresult=''; " . "echo $" . "UIDresult;" . " ?>";
-  file_put_contents('../UIDContainer.php',$Write);
 ?>
 
 <?php
 $loggedIn = $_SESSION['loggedIn'];
 
 if ($loggedIn!=9999) {
-  echo "<script>alert('Please Login');
+  echo "<script>alert('PLEASE TRY AGAIN');
               window.location.href='../index.php';
               </script>";
 }
   
 
  ?>
-
 
 
 <!DOCTYPE html>
@@ -38,21 +35,6 @@ if ($loggedIn!=9999) {
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
-  <!-- JS-RFID -->
-
-  <script src="jquery.min.js"></script>
-    <script>
-      $(document).ready(function(){
-         $("#getUID").load("../UIDContainer.php");
-        setInterval(function() {
-          $("#getUID").load("../UIDContainer.php");
-        }, 500);
-      });
-    </script>
-
-  <!-- /.JS-RFID -->
-
-
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <!-- Site wrapper -->
@@ -67,7 +49,7 @@ if ($loggedIn!=9999) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Student Information</h1>
+            <h1>Profile</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -78,20 +60,17 @@ if ($loggedIn!=9999) {
             <div class="row">
           <div class="col-12">
             <div class="card">
-
-
-
-
-              <div class="card card-primary card-outline">
+              
+               <div class="card card-primary card-outline">
             
                   <!-- /.card-header -->
                   <div class="card-body">
 
                     <?php 
 
-                        $student_id = $_SESSION['student_id'];
-                        $result = displayStudentByID($student_id);
-                         $row = mysqli_fetch_assoc($result);
+                        $teacher_id = $_SESSION['teacher_id'];
+                        $result = displayTeacherByID($teacher_id); 
+                        $row = mysqli_fetch_assoc($result);
 
             
 
@@ -99,78 +78,47 @@ if ($loggedIn!=9999) {
 
 
 
-                    <strong style="font-size: 120%;">RFID ID</strong>
+                    <strong><i class="fas fa-book mr-1"></i> Name</strong>
 
-                    <p class="text-muted" style="font-size: 120%;">
-                      <?php echo $row['student_id']; ?>
+                    <p class="text-muted">
+                      <?php echo $row['teacher_name']; ?>
                     </p>
 
                     <hr>
 
-                    <strong style="font-size: 120%;"> Name</strong>
+                    <strong><i class="fas fa-envelope"></i></i> Email</strong>
 
-                    <p class="text-muted" style="font-size: 120%;">
-                      <?php echo $row['student_name']; ?>
+                    <p class="text-muted"><?php echo $row['teacher_email']; ?></p>
+
+                    <hr>
+
+                    <strong><i class="fas fa-pencil-alt mr-1">Contact Number</i> </strong>
+
+                    <p class="text-muted">
+                      <?php echo $row['teacher_contact']; ?>
                     </p>
 
                     <hr>
 
-                    <strong style="font-size: 120%;"> IC Number</strong>
+                    <strong><i class="fas fa-user-tie"></i> Type</strong>
 
-                    <p class="text-muted" style="font-size: 120%;">
-                      <?php echo $row['student_ic']; ?>
-                    </p>
-
-                    <hr>
-
-                    <strong style="font-size: 120%;"> Parent Name</strong>
-
-                    <p class="text-muted" style="font-size: 120%;">
-                      <?php echo $row['parent_name']; ?>
-                    </p>
-
-                    <hr>
-
-                    <strong style="font-size: 120%;"> Parent Email</strong>
-
-                    <p class="text-muted" style="font-size: 120%;"> <?php echo $row['parent_email']; ?></p>
-
-                    <hr>
-
-                    <strong style="font-size: 120%;"> Parent Contact</strong>
-
-                    <p class="text-muted" style="font-size: 120%;">
-                      <?php echo $row['parent_contact']; ?>
-                    </p>
-
-                    <hr>
-
-                    <strong style="font-size: 120%;"> Class</strong>
-                    <?php 
-                      $class_id1=$_SESSION['class_id'];
-                      $result = displayClassForAddStudent($class_id1);
-                      $row1 = mysqli_fetch_assoc($result); ?>
-                    
-                    <p class="text-muted" style="font-size: 120%;"><?php echo $row1['class_name']; ?></p>
+                    <p class="text-muted">Teacher</p>
                   </div>
                   <!-- /.card-body -->
-                  
                 </div>
-                
-                <div class="card-footer">
-                  <a href="teacherstudlist.php">
-                  <button type="submit" id="cancel" name="cancel" class="btn btn-primary">Back</button>
-                  </a>
-                </div>
-
-              
             
+              
+                
+
+               
+              </div>
+              <!-- /.card-body -->
             </div>
             <!-- /.card -->
           </div>
         </div>
   
-      </div>
+    
     </section>
     
 
@@ -195,8 +143,24 @@ if ($loggedIn!=9999) {
 
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
+
 </body>
 </html>
+
+<?php 
+if (isset($_POST['back'])) {
+   echo "<script>
+            window.location.href='listAdmin.php';
+            </script>";
+}
+?>
+
+
+
+
+
+
+
 
 
 

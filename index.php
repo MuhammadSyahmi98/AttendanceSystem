@@ -22,14 +22,17 @@ if($loggedIn=== 893247348){
      echo "<script>
               window.location.href='admin/admin.php';
               </script>";
-} else if ($loggedIn===9999) {
+}  
+}
+
+if ($loggedIn===9999) {
   if ($type==="teacher") {
     echo "<script>
               window.location.href='teacher/Teacher.php';
               </script>";
   }
 }
-}
+
 
  ?>
 
@@ -179,6 +182,9 @@ if (isset($_POST['login'])) {
               window.location.href='firstTimeLogin.php';
              </script>";
       } else {
+        $_SESSION['admin_id'] = $row4['admin_id'];
+        
+        $_SESSION['admin_idMain'] = $row4['admin_id'];
         $_SESSION['loggedIn'] = 893247348;
         $_SESSION['type'] = "admin";
         echo $statusLogin;

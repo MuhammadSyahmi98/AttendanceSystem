@@ -49,7 +49,7 @@ if ($loggedIn!=893247348) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Student Information</h1>
+            <h1>Profile</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -60,18 +60,16 @@ if ($loggedIn!=893247348) {
             <div class="row">
           <div class="col-12">
             <div class="card">
-
               <div class="card-body">
-
-
-              <div class="card card-primary card-outline">
+              
+               <div class="card card-primary card-outline">
             
               <!-- /.card-header -->
               <div class="card-body">
 
                 <?php 
 
-                    $admin_id = $_SESSION['admin_id'];
+                    $admin_id = $_SESSION['admin_idMain'];
                     $result = displayAdminByID($admin_id); 
                     $row = mysqli_fetch_assoc($result);
 
@@ -81,59 +79,47 @@ if ($loggedIn!=893247348) {
 
 
 
-                <strong  style="font-size: 110%;"><i class="fas fa-book mr-1"></i> Name</strong>
+                <strong><i class="fas fa-book mr-1"></i> Name</strong>
 
-                <p class="text-muted" style="font-size: 120%;">
+                <p class="text-muted">
                   <?php echo $row['admin_name']; ?>
                 </p>
 
                 <hr>
 
-                <strong style="font-size: 110%;"><i class="fas fa-envelope"></i></i> Email</strong>
+                <strong><i class="fas fa-envelope"></i></i> Email</strong>
 
-                <p class="text-muted" style="font-size: 120%;"><?php echo $row['admin_email']; ?></p>
+                <p class="text-muted"><?php echo $row['admin_email']; ?></p>
 
                 <hr>
 
-                <strong style="font-size: 110%;"><i class="fas fa-pencil-alt mr-1"></i>Contact Number</strong>
+                <strong><i class="fas fa-pencil-alt mr-1"></i>Contact Number</strong>
 
-                <p class="text-muted" style="font-size: 120%;">
+                <p class="text-muted">
                    <?php echo $row['admin_contact']; ?>
                 </p>
 
                 <hr>
 
-                <strong style="font-size: 110%;"><i class="fas fa-user-tie"></i> Type</strong>
+                <strong><i class="fas fa-user-tie"></i> Type</strong>
 
-                <p class="text-muted" style="font-size: 120%;">Admin</p>
+                <p class="text-muted">Admin</p>
               </div>
               <!-- /.card-body -->
-
             </div>
               
-            
+                
 
-
-
-
-
-
-
-
+               
+              </div>
               <!-- /.card-body -->
             </div>
-            <div class="card-footer">
-                  <a href="listAdmin.php">
-                  <button type="submit" id="cancel" name="cancel" class="btn btn-primary">Back</button>
-                  </a>
-                </div>
-            </div>
-
             <!-- /.card -->
+          </div>
           </div>
         </div>
   
-      </div>
+    
     </section>
     
 
@@ -155,8 +141,7 @@ if ($loggedIn!=893247348) {
 <script src="../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../dist/js/adminlte.min.js"></script>
+
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 </body>
@@ -169,6 +154,13 @@ if (isset($_POST['back'])) {
             </script>";
 }
 ?>
+
+
+
+
+
+
+
 
 
 

@@ -32,8 +32,10 @@
       <!-- Messages Dropdown Menu -->
       
       <li class="nav-item">
-        <a class="nav-link"  href="../admin/logout.php" role="button">
-          <p style="color: red;">LOG OUT</p>
+         <a href="logout.php">
+        <button class="btn btn-danger"  href="logout.php" role="button">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
         </a>
       </li>
     </ul>
@@ -58,7 +60,7 @@
           <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="Teacher.php" class="d-block">TEACHER</a>
+          <a href="profile.php" class="d-block">TEACHER</a>
         </div>
       </div>
 

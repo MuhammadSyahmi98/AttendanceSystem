@@ -47,6 +47,7 @@ $month = $_SESSION['month'];
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light/all.min.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
@@ -66,9 +67,10 @@ $(document).ready(function(){
    <?php include "navTeacher.php"; ?>
 
   <!-- Content Wrapper. Contains page content -->
+  <section>
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+      <section class="content">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
@@ -95,10 +97,11 @@ $(document).ready(function(){
           </div>
         </div>
       </div><!-- /.container-fluid -->
-    </section>
-    
+      </section>
+      
     <!-- Main content -->
     <section class="content">
+
       <div class="container-fluid">
             <div class="row">
           <div class="col-12">
@@ -106,10 +109,10 @@ $(document).ready(function(){
               
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example1" class="table table-striped text-nowrap">
+                <table id="example2" class="table table-striped text-nowrap">
                   <thead>
                     <tr>
-                      <th>NO.</th>
+                      <th>NO</th>
                       <th>ID</th>
                       <th>Name</th>
                       <th>DATE</th>
@@ -154,6 +157,7 @@ $(document).ready(function(){
     </section>
     <!-- /.content -->
   </div>
+  </section>
   <!-- /.content-wrapper -->
 
  <?php include "footer.php"; ?>
@@ -176,6 +180,9 @@ $(document).ready(function(){
 <script src="../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 
+
+
+
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 <script>
@@ -185,9 +192,9 @@ $(document).ready(function(){
       "autoWidth": false,
     });
     $('#example2').DataTable({
-      "paging": true,
+      "paging": false,
       "lengthChange": false,
-      "searching": false,
+      "searching": true,
       "ordering": true,
       "info": true,
       "autoWidth": false,
@@ -195,6 +202,15 @@ $(document).ready(function(){
     });
   });
 </script>
+
+<style>
+    #exportButton {
+        border-radius: 0;
+    }
+</style>
+<!-- <script type="text/javascript"> 
+  window.addEventListener("load", window.print());
+</script> -->
 </body>
 </html>
 

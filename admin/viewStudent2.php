@@ -78,60 +78,92 @@ if ($loggedIn!=893247348) {
           <div class="col-12">
             <div class="card">
               
-              <!-- /.card-header -->
-              <div>
-              <form role="form" method="POST" action="registerStudent.php">
-                <div class="card-body">
-
-                  <?php
-
-                    $student_id = $_SESSION['student_id'];
-                    $result = displayStudentByID($student_id);
-                    $row = mysqli_fetch_assoc($result);
-                  ?>
+              <div class="card-body">
 
 
 
-                  <div class="form-group">
-                    <label for="exampleInputrfid">RFID NUMBER</label>
-                    <textarea style="resize: none; height: 40px;" name="student_id" readonly class="form-control" required placeholder="Scan RFID Card"><?php echo $row['student_id']; ?></textarea>  
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputName">Name</label>
-                    <input type="name" name="student_name" class="form-control" value="<?php echo $row['student_name']; ?>" readonly placeholder="Enter name" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputICNumber">IC NUMBER</label>
-                    <input class="form-control" name="student_ic" readonly value="<?php echo $row['student_ic']; ?>"  placeholder="Enter Ic Number" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputICNumber">PARENT NAME</label>
-                    <input class="form-control" name="parent_name" readonly value="<?php echo $row['parent_name']; ?>"  placeholder="Enter Parent Name" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputICNumber">EMAIL</label>
-                    <input type="email" name="parent_email" class="form-control" readonly value="<?php echo $row['parent_email']; ?>"   placeholder="Enter Parent Email" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputICNumber">PARENT CONTACT NUMBER</label>
-                    <input class="form-control" name="parent_contact" value="<?php echo $row['parent_contact']; ?>"  readonly placeholder="Enter Parent Contact Number" required>
-                  </div>
-                  <div class="form-group">
+
+                  <div class="card card-primary card-outline">
+            
+                  <!-- /.card-header -->
+                  <div class="card-body">
+
                     <?php 
-                    $class_id1=$_SESSION['class_id'];
-                    $result = displayClassForAddStudent($class_id1);
-                    $row = mysqli_fetch_assoc($result); ?>
-                    <label for="exampleInputICNumber">Class</label>
-                    <input type="class" name="class_id" class="form-control" readonly required value="<?php echo $row['class_name']?>">
+
+                        $student_id = $_SESSION['student_id'];
+                        $result = displayStudentByID($student_id);
+                         $row = mysqli_fetch_assoc($result);
+
+            
+
+                     ?>
+
+
+
+                    <strong style="font-size: 110%;">RFID ID</strong>
+
+                    <p class="text-muted" style="font-size: 120%;">
+                      <?php echo $row['student_id']; ?>
+                    </p>
+
+                    <hr>
+
+                    <strong style="font-size: 110%;"> Name</strong>
+
+                    <p class="text-muted" style="font-size: 120%;">
+                      <?php echo $row['student_name']; ?>
+                    </p>
+
+                    <hr>
+
+                    <strong style="font-size: 110%;"> IC Number</strong>
+
+                    <p class="text-muted" style="font-size: 120%;">
+                      <?php echo $row['student_ic']; ?>
+                    </p>
+
+                    <hr>
+
+                    <strong style="font-size: 110%;"> Parent Name</strong>
+
+                    <p class="text-muted" style="font-size: 120%;">
+                      <?php echo $row['parent_name']; ?>
+                    </p>
+
+                    <hr>
+
+                    <strong style="font-size: 110%;"> Parent Email</strong>
+
+                    <p class="text-muted" style="font-size: 120%;"> <?php echo $row['parent_email']; ?></p>
+
+                    <hr>
+
+                    <strong style="font-size: 110%;"> Parent Contact</strong>
+
+                    <p class="text-muted" style="font-size: 120%;">
+                      <?php echo $row['parent_contact']; ?>
+                    </p>
+
+                    <hr>
+
+                    <strong style="font-size: 110%;"> Class</strong>
+                    <?php 
+                      $class_id1=$_SESSION['class_id'];
+                      $result = displayClassForAddStudent($class_id1);
+                      $row1 = mysqli_fetch_assoc($result); ?>
+                    
+                    <p class="text-muted" style="font-size: 120%;"><?php echo $row1['class_name']; ?></p>
                   </div>
+                  <!-- /.card-body -->
+                  
                 </div>
-                <!-- /.card-body -->
-
               
-              </form>
-
-               
               </div>
+               <div class="card-footer">
+                  <a href="allStudentList.php">
+                  <button type="submit" id="cancel" name="cancel" class="btn btn-primary">Back</button>
+                  </a>
+                </div>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->

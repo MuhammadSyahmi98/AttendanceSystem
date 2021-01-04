@@ -78,45 +78,65 @@ if ($loggedIn!=9999) {
             <div class="row">
           <div class="col-12">
             <div class="card">
-              
-              <!-- /.card-header -->
-              <div>
-              <form role="form" method="POST" action="registerStudent.php">
-                <div class="card-body">
-
-                  <?php
-
-                    $student_id = $_SESSION['student_id'];
-                    $attendance_id = $_SESSION['attendance_id'];
-                    $result = displaystudentAttendanceByID($student_id, $attendance_id);
-                    $row = mysqli_fetch_assoc($result);
 
 
 
-                    $date1=$_SESSION['date'];
-                  ?>
+
+
+              <div class="card card-primary card-outline">
+            
+                  <!-- /.card-header -->
+                  <div class="card-body">
+
+                    <?php 
+
+                        $student_id = $_SESSION['student_id'];
+                        $attendance_id = $_SESSION['attendance_id'];
+                        $result = displaystudentAttendanceByID($student_id, $attendance_id);
+                        $row = mysqli_fetch_assoc($result);
 
 
 
-                  <div class="form-group">
-                    <label for="exampleInputName">Date</label>
-                    <input type="name" name="date" class="form-control" value="<?php echo $date1; ?>" readonly  >
-                  </div>
-                 
-                  <div class="form-group">
-                    <label for="exampleInputName">Name</label>
-                    <input type="name" name="student_name" class="form-control" value="<?php echo $row['student_name']; ?>" readonly  >
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputICNumber">IC NUMBER</label>
-                    <input class="form-control" name="student_ic" readonly value="<?php echo $row['student_ic']; ?>" >
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputICNumber">ATTENDANCE STATUS</label>
-                    <input class="form-control" name="parent_name" readonly value="<?php echo $row['attend_status']; ?>" >
-                  </div>
+                        $date1=$_SESSION['date'];
 
-                   <?php 
+                     ?>
+
+
+
+                    <strong style="font-size: 120%;">Date</strong>
+
+                    <p class="text-muted" style="font-size: 120%;">
+                      <?php echo $date1; ?>
+                    </p>
+
+                    <hr>
+
+                    <strong style="font-size: 120%;"> Student Name</strong>
+
+                    <p class="text-muted" style="font-size: 120%;">
+                      <?php echo $row['student_name']; ?>
+                    </p>
+
+                    <hr>
+
+                    <strong style="font-size: 120%;"> IC Number</strong>
+
+                    <p class="text-muted" style="font-size: 120%;">
+                      <?php echo $row['student_ic']; ?>
+                    </p>
+
+                    <hr>
+
+                    <strong style="font-size: 120%;"> Attendance Status</strong>
+
+                    <p class="text-muted" style="font-size: 120%;">
+                      <?php echo $row['attend_status']; ?>
+                    </p>
+
+                    <hr>
+
+
+                    <?php 
                     // Include the database configuration file  
                           require '../connectDB.php';
 
@@ -129,38 +149,50 @@ if ($loggedIn!=9999) {
                   <div class="form-group" style="<?php if ($row['attend_status'] != "Medical Leave") {
                     ?> display: none; <?php
                   } ?>">
-                    <label for="exampleInputICNumber">MEDICAL LEAVE</label>
+                  <strong style="font-size: 120%;">MEDICAL LEAVE</strong>
                     <?php while($row = $result->fetch_assoc()){ ?> 
                       <div>
                       <?php if ($row['attend_status'] === "Medical Leave") { ?>
-                        <img style="height: 300px; width: 300px;" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['attendance_img']); ?>" /> 
+                        <img style="margin-top: 15px; height: 300px; width: 600px;" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['attendance_img']); ?>" /> 
         <?php } else { ?>
           <input class="form-control" name="" readonly value="" > <?php
         } ?> </div> <?php
                       }?>
+
+                    
+                    
                   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
+                  <!-- /.card-body -->
                   
                 </div>
-                <!-- /.card-body -->
+                
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
 
               
-              </form>
-
+             
+              
+           
                
               </div>
+              <div class="card-footer">
+                  <a href="teacherstudattend.php">
+                  <button type="submit" id="cancel" name="cancel" class="btn btn-primary">Back</button>
+                  </a>
+                </div>
+
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
