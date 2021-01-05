@@ -22,7 +22,7 @@ if($_GET['key'] && $_GET['reset'])
       <html>
       <head>
         <link rel="stylesheet" type="text/css" href="resources/style.css">
-        <title>Resit Password</title>
+        <title>Recover Password</title>
 
 
 
@@ -56,7 +56,8 @@ if($_GET['key'] && $_GET['reset'])
               <form class="login100-form validate-form flex-sb flex-w" method="POST" action="submit_new.php">
                 <input type="hidden" name="email" value="<?php echo $email; ?>">
                 <span class="login100-form-title p-b-32">
-                  Resit Password
+                  Recover Password
+                  <!-- You are only one step a way from your new password, recover your password now. -->
                 </span>
 
                 <span class="txt1 p-b-11">
@@ -116,7 +117,7 @@ if($_GET['key'] && $_GET['reset'])
       <html>
       <head>
         <link rel="stylesheet" type="text/css" href="resources/style.css">
-        <title>Resit Password</title>
+        <title>Recover Password</title>
 
 
 

@@ -1,4 +1,8 @@
+<?php session_start(); ?>
+
+
 <?php
+
 $loggedIn = $_SESSION['loggedIn'];
 
 if ($loggedIn!=893247348) {
@@ -30,6 +34,49 @@ if ($loggedIn!=893247348) {
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+
+      function drawChart() {
+
+
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Attend',     12],
+          ['Medical Leave',     34],
+          ['Attend Late',     12],
+          ['Absend',      12]
+        ]);
+
+        var options = {
+          title: 'Attendance Percentange',
+          is3D: true,
+          colors: ['#36c', '#f90', '#9610b2', '#dc3912'],
+          backgroundColor: '#f4f6f9',
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
+
+
+
+
+
+
+
+
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <!-- Site wrapper -->
@@ -38,256 +85,82 @@ if ($loggedIn!=893247348) {
 
     <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-     <section class="content">
-      <div class="card card-primary" >
-        <div class="card-header" >
-          <h3 class="card-title">Student Attendance By Day</h3>
-        </div>
-        <div class="card-body">    
-          
-        </div>
-             <div class="container-fluid">
-            <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title"></h3>
 
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                    </div>
-                  </div>
-                </div>
+
+  
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Report   By Month</h1>
+            <form method="POST" style="margin-top: 10px;" autocomplete="off">
+
+              <div class="form-group">
+               <select class="form-control" name="class"  data-placeholder="Select" style="width: 100%;">
+
+                  <option value="all">All</option>
+                  <option value="all">1 Pintar</option>
+                  <option value="all">2 Pintar</option>
+                  <option value="all">3 Pintar</option>
+                    
+  
+                </select>
+                <select style="margin-top: 10px;" class="form-control" name="class"  data-placeholder="Select" style="width: 100%;">
+                  <?php $date = date('n') ?>
+                  <option>- Select Month -</option>
+                  <option value="all" >January</option>
+                  <option value="1" style="<?php if ($date<2) { ?> display: none; <?php } ?>">February</option>
+                  <option value="2" style="<?php if ($date<3) { ?> display: none; <?php } ?>">Mac</option>
+                  <option value="3" style="<?php if ($date<4) { ?> display: none; <?php } ?>">April</option>
+                  <option value="4" style="<?php if ($date<5) { ?> display: none; <?php } ?>">February</option>
+                  <option value="5" style="<?php if ($date<6) { ?> display: none; <?php } ?>">Mac</option>
+                  <option value="6" style="<?php if ($date<7) { ?> display: none; <?php } ?>">April</option>
+                  <option value="7" style="<?php if ($date<8) { ?> display: none; <?php } ?>">February</option>
+                  <option value="8" style="<?php if ($date<9) { ?> display: none; <?php } ?>">Mac</option>
+                  <option value="9" style="<?php if ($date<10) { ?> display: none; <?php } ?>">April</option>
+                  <option value="10" style="<?php if ($date<11) { ?> display: none; <?php } ?>">February</option>
+                  <option value="11" style="<?php if ($date<12) { ?> display: none; <?php } ?>">Mac</option>
+                  <option value="12" style="<?php if ($date<13) { ?> display: none; <?php } ?>">April</option>
+                    
+  
+                </select>
               </div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0" style="height: 500px;">
-                <table class="table table-head-fixed text-nowrap">
-                  <thead>
-                    <tr>
-                      <th>No.</th>
-                      <th>Class</th>
-                      <th>Attendance Percentage</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td><span class="tag tag-success">Approved</span></td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td><span class="tag tag-success">Approved</span></td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td><span class="tag tag-success">Approved</span></td>
-                         <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td><span class="tag tag-success">Approved</span></td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td><span class="tag tag-success">Approved</span></td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td><span class="tag tag-success">Approved</span></td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td><span class="tag tag-success">Approved</span></td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td><span class="tag tag-success">Approved</span></td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td><span class="tag tag-success">Approved</span></td>
-                      <td>
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+                <div>
+                   <button name="displayNewDate" type="submit" class="btn btn-primary">Submit</button>
+                </div>     
+              
+            </form>
+            
           </div>
         </div>
-  
-      </div>  
-      </div>
-
+      </div><!-- /.container-fluid -->
+      
     </section>
 
+    
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div id="piechart_3d" style="width: 100%; height: 500px;"></div>
+          </div>
+        </div>
+      </div>
+      
+    </section>
 
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row ">
+          <div class="col-12">
+            adasfasf
+          </div>
+        </div>
+      </div>
+      
+    </section>
+     
 
 
   </div>
@@ -304,7 +177,7 @@ if ($loggedIn!=893247348) {
 <script src="../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../plugins/select2/js/select2.full.min.js"></script>
+
 <!-- Bootstrap4 Duallistbox -->
 <script src="../plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
 <!-- InputMask -->

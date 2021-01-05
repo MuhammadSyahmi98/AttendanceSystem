@@ -40,14 +40,17 @@ if ($loggedIn!=893247348) {
 
 
 
-
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
       <?php 
-      $dates = $_SESSION['date'];
+
+      
+        $dates = $_SESSION['date'];
+      
+      
 
 
       $timestamp = strtotime($dates);
@@ -56,20 +59,41 @@ if ($loggedIn!=893247348) {
 
 
       $class_id = $_SESSION['class_id'];
+
+      // Status = "Attend"
       $result = countAttendStudentByClassAttend($class_id, $dates);
       $row = mysqli_fetch_assoc($result);
       $totalAttend = $row['totalAttend'];
 
 
+      // Status = "Medical Leave"
+      $result3 = countMedicalLeaveStudentByClassAttend($class_id, $dates);
+      $row3 = mysqli_fetch_assoc($result3);
+      $totalMedicalLeave = $row3['totalMedicalLeave'];
+
+
+      // Status = "Attend Late"
+      $result4 = countAttendLateStudentByClassAttend($class_id, $dates);
+      $row4 = mysqli_fetch_assoc($result4);
+      $totalAttendLate = $row4['totalAttendLate'];
+
+
+
+      // Total Student
       $result1 = countStudentByClass($class_id);
       $row1 = mysqli_fetch_assoc($result1);
       $totalStudent = $row1['numberOfStudent'];
 
-      if (empty($totalAttend)) {
-        $absent = 0;
-      } else {
-        $absent = $totalStudent - $totalAttend;
-      }
+
+
+      // Total Student
+      $result1 = countStudentAbsent($class_id, $dates);
+      $row1 = mysqli_fetch_assoc($result1);
+      $absent = $row1['totalAbsent'];
+  
+
+
+
       
 
       ?>
@@ -80,12 +104,15 @@ if ($loggedIn!=893247348) {
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
           ['Attend',     <?php echo $totalAttend; ?>],
+          ['Medical Leave',     <?php echo $totalMedicalLeave; ?>],
+          ['Attend Late',     <?php echo $totalAttendLate; ?>],
           ['Absend',      <?php echo $absent; ?>]
         ]);
 
         var options = {
           title: 'Attendance Percentange',
           is3D: true,
+          colors: ['#36c', '#f90', '#9610b2', '#dc3912'],
           backgroundColor: '#f4f6f9',
         };
 
@@ -158,7 +185,7 @@ if ($loggedIn!=893247348) {
 
 
     <?php
-    if ($absent === 0 && empty($totalAttend)) { ?>
+    if (empty($absent) && empty($totalAttend)) { ?>
       <section class="content-header"> 
       <div class="container-fluid">
         <div class="row mb-2">

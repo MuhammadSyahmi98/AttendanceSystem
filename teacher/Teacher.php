@@ -19,6 +19,7 @@ if ($loggedIn!=9999) {
 
  ?>
 
+<?php $class_id = $_SESSION['class_id']; ?>
 
 
 <!DOCTYPE html>
@@ -47,9 +48,33 @@ if ($loggedIn!=9999) {
   <?php include "navTeacher.php" ?>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper" >
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <?php 
+            if (empty($class_id )) { 
+
+              ?>
+
+
+              <section class="content-header">
+                <div class="container-fluid">
+                  <div class="row mb-2">
+                    <div class="col-sm-6">
+                      <h1 style="color: red;">Please Contact Administrator to Assign Classroom</h1>
+                    </div>
+                  </div>
+                </div><!-- /.container-fluid -->
+              </section>
+
+               <?php 
+
+            }
+              
+          ?>
+
+    <section class="content-header" style="<?php if (empty($class_id)) {
+      display: none;
+    } ?>">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
@@ -67,7 +92,7 @@ if ($loggedIn!=9999) {
           <div class="col-lg-4 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
-              <div class="inner">
+              <div class="inner" >
 
                 <?php 
                 $class_id = $_SESSION['class_id'];

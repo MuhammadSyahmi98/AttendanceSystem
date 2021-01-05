@@ -1,4 +1,5 @@
 <?php
+session_start();
 $loggedIn = $_SESSION['loggedIn'];
 
 if ($loggedIn!=893247348) {

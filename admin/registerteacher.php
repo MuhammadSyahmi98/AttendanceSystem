@@ -164,7 +164,7 @@ if (isset($_POST['addTeacher'])) {
   $class_id = $_POST['class_id2'];
 
   if ($password_1 === $password_2) {
-    $set = addTeacher($teacher_name, $teacher_email, $teacher_contact, $password_1, $class_id);
+    addTeacher($teacher_name, $teacher_email, $teacher_contact, $password_1, $class_id);
     if (!empty($class_id)) {
 
       $result2 = getTeacherID($class_id);
@@ -174,7 +174,7 @@ if (isset($_POST['addTeacher'])) {
       addClasHistory($class_id, $teacher_id, $d);
     }
   } else {
-    echo "FAIL";
+    echo "Password Dont Match";
   }
 
 

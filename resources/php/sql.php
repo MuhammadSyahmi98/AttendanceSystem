@@ -444,6 +444,10 @@ function addTeacher($teacher_name, $teacher_email, $teacher_contact, $password_1
         // If the details not redundent
         if (!$row = mysqli_fetch_assoc($resultl)){
 
+        	if(empty($class_id)) {
+        		$class_id = null;
+        	}
+
         	$sql = "INSERT INTO teacher (teacher_name,teacher_email, teacher_contact, teacher_password, class_id) VALUES (?,?,?,?,?)";
 
         	$result = mysqli_stmt_init($conn);
@@ -456,6 +460,11 @@ function addTeacher($teacher_name, $teacher_email, $teacher_contact, $password_1
 				// Execute the sql statement
 		        mysqli_stmt_bind_param($result, 'ssssi' , $teacher_name, $teacher_email, $teacher_contact,$password_1, $class_id);
 		        mysqli_stmt_execute($result);
+		        if(empty($class_id)) {
+        			echo "<script>alert('Successfully Add New Teacher');
+		         window.location.href='adminTeacher.php';
+		        </script>";
+        		}
 		        $resultl = mysqli_stmt_get_result($result);
     			return $resultl;
 		        
@@ -1749,6 +1758,29 @@ function countStudentInAttendanceByClass($class_id){
 }
 
 
+
+
+function countStudentAbsent($class_id, $dates){
+	require 'connectDB.php';
+
+	$sql = "SELECT COUNT(*) AS 'totalAbsent' FROM attendance JOIN student ON attendance.student_id = student.student_id WHERE student.class_id = ? AND attendance.dates = ? AND attendance.attend_status = ?";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_STUDENT_CLASS_DATA');
+		       window.location.href='class.php';
+		       </script>";
+    } else {
+    	$attend_status = "Absent";
+ 		mysqli_stmt_bind_param($result, "iss", $class_id, $dates, $attend_status);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+
+
+}
 
 
 

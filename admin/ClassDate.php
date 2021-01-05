@@ -44,7 +44,7 @@ if ($loggedIn!=893247348) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Choose Classes</h1>
+            <h1>Report by Day</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -98,15 +98,10 @@ if ($loggedIn!=893247348) {
                           <button class="btn btn-primary btn-sm" name="viewClassAttendance">
                             <i class="fas fa-folder">
                               </i>
-                              View
+                              Report
                           </button> 
                               
-                          
-                          <button class="btn btn-info btn-sm" name="editClass">
-                              <i class="fas fa-pencil-alt" >
-                              </i>
-                              Edit
-                          </button>
+                         
                 
                         </form>
                       </td>

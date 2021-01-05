@@ -90,15 +90,14 @@ if ($loggedIn!=9999) {
 
 
 
+      // Total Student
+      $result1 = countStudentAbsent($class_id, $dates);
+      $row1 = mysqli_fetch_assoc($result1);
+      $absent = $row1['totalAbsent'];
+  
 
 
 
-
-      if (empty($totalAttend)) {
-        $absent = 0;
-      } else {
-        $absent = $totalStudent - $totalAttend - $totalMedicalLeave - $totalAttendLate;
-      }
       
 
       ?>
@@ -204,7 +203,11 @@ if ($loggedIn!=9999) {
 
 
     <?php
-    if ($absent === 0 && empty($totalAttend) && empty($totalMedicalLeave) && empty($totalAttendLate)) { ?>
+
+      
+
+
+    if (empty($absent) && empty($totalAttend) && empty($totalMedicalLeave) && empty($totalAttendLate)) { ?>
       <section class="content-header"> 
       <div class="container-fluid">
         <div class="row mb-2">

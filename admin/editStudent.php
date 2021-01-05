@@ -95,7 +95,7 @@ if ($loggedIn!=893247348) {
 
                   <div class="form-group">
                     <label for="exampleInputrfid">RFID NUMBER</label>
-                    <textarea name="student_id" style="resize: none; height: 40px;" class="form-control" required placeholder="Scan RFID Card"><?php echo $row['student_id'];?></textarea>  
+                    <textarea name="student_id" style="resize: none; height: 40px;" class="form-control" required placeholder="Scan RFID Card" readonly><?php echo $row['student_id'];?></textarea>  
                   </div>
 
                   <div class="form-group">
