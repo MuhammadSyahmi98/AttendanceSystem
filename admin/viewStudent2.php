@@ -124,6 +124,14 @@ if ($loggedIn!=893247348) {
 
                     <hr>
 
+                    <strong style="font-size: 110%;">ADDRESS</strong>
+
+                    <p class="text-muted" style="font-size: 120%;">
+                      <?php echo $row['student_address']; ?>
+                    </p>
+
+                    <hr>
+
                     <strong style="font-size: 110%;"> Parent Name</strong>
 
                     <p class="text-muted" style="font-size: 120%;">

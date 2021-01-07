@@ -107,6 +107,14 @@ if ($loggedIn!=893247348) {
                     <input type="name" name="student_name" class="form-control" id="exampleInputname" value="<?php echo $row['student_name']; ?>" placeholder="Enter name">
                   </div>
                   <div class="form-group">
+                    <label for="exampleInputICNumber">IC NUMBER</label>
+                    <input type="icnumber" name="student_ic" class="form-control" value="<?php echo $row['student_ic'];?>" id="exampleInputIcnumber" placeholder="Enter IcNumber">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputICNumber">Address</label>
+                    <input type="icnumber" name="student_address" class="form-control" value="<?php echo $row['student_address'];?>" id="exampleInputIcnumber" placeholder="Enter IcNumber">
+                  </div>
+                  <div class="form-group">
                     <label for="exampleInputICNumber">STATUS</label>
                     
                     <select class="form-control select2" name="student_status"  data-placeholder="Select" style="width: 100%;">
@@ -127,10 +135,6 @@ if ($loggedIn!=893247348) {
                     </select>
 
 
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputICNumber">IC NUMBER</label>
-                    <input type="icnumber" name="student_ic" class="form-control" value="<?php echo $row['student_ic'];?>" id="exampleInputIcnumber" placeholder="Enter IcNumber">
                   </div>
                   <div class="form-group">
                     <?php 
@@ -250,13 +254,14 @@ if (isset($_POST['updateStudent'])) {
   $student_ic = $_POST['student_ic'];
   $class_id = $_POST['class_id'];
   $student_status = $_POST['student_status'];
+  $student_address = $_POST['student_address'];
   $page = $_SESSION['pageStudentList'];
 
   if (empty($new_student_id)) {
-      updateStudent($student_id, $student_name, $student_status, $student_ic, $class_id,$page);
+      updateStudent($student_id, $student_name, $student_status, $student_ic, $student_address, $class_id,$page);
 
   } else {
-      updateStudentNewStudentID($student_id, $new_student_id,  $student_name, $student_status, $student_ic, $class_id, $page);
+      updateStudentNewStudentID($student_id, $new_student_id,  $student_name, $student_status, $student_ic, $student_address, $class_id, $page);
   } 
  
 }

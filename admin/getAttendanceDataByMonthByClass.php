@@ -9,6 +9,7 @@
 $loggedIn = $_SESSION['loggedIn'];
 $month1 = $_GET['month'];
 $_SESSION['current_month'] = $month1;
+$class_id = $_SESSION['class_id'];
 
 if ($loggedIn!=893247348) {
   echo "<script>alert('PLEASE TRY AGAIN');
@@ -28,11 +29,12 @@ if ($loggedIn!=893247348) {
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed" >
 <!-- Site wrapper -->
-
+  <?php $result0 = countTotalAttendanceByMonthByClass($month1, $class_id);
+                      $row0 = mysqli_fetch_assoc($result0); ?>
     <!--Part All  -->
     <!--  -->
     <!--  -->
-    <div style="<?php if ($month1 ==="0") {
+    <div style="<?php if ($month1 ==="0" || empty($row0['totalAttendance'])) {
      ?>  display: none; <?php
     } ?>">
 
@@ -78,16 +80,12 @@ if ($loggedIn!=893247348) {
                     <?php
 
                       // Count attendance by month
-                      $result0 = countTotalAttendanceByMonth($month1);
-                      $row0 = mysqli_fetch_assoc($result0);
+                      
                       $totalAttendance = $row0['totalAttendance'];
-                      if (empty($totalAttendance)) {
-                        $totalAttendance =1;
-                      }
 
 
                       // Attend by month
-                      $result = countAttendByMonth($month1);
+                      $result = countAttendByMonthByClass($month1, $class_id);
                       $row = mysqli_fetch_assoc($result);
                       if (empty($row['totalAttend'])) {
                         $totalAttend = 0;
@@ -98,7 +96,7 @@ if ($loggedIn!=893247348) {
 
 
                       // Attend Late by month
-                      $result2 = countAttendLateByMonth($month1);
+                      $result2 = countAttendLateByMonthByClass($month1, $class_id);
                       $row2 = mysqli_fetch_assoc($result2);
                       if (empty($row2['totalAttendLate'])) {
                         $totalAttendLate = 0;
@@ -109,7 +107,7 @@ if ($loggedIn!=893247348) {
 
 
                       // Attend Late by month
-                      $result3 = countAbsentByMonth($month1);
+                      $result3 = countAbsentByMonthByClass($month1, $class_id);
                       $row3 = mysqli_fetch_assoc($result3);
                       if (empty($row3['totalAbsent'])) {
                         $totalAbsent = 0;
@@ -119,7 +117,7 @@ if ($loggedIn!=893247348) {
 
 
                       // Medical Leave Late by month
-                      $result4 = countMedicalLeaveByMonth($month1);
+                      $result4 = countMedicalLeaveByMonthByClass($month1, $class_id);
                       $row4 = mysqli_fetch_assoc($result4);
                       if (empty($row4['totalMedicalLeave'])) {
                         $totalMedicalLeave = 0;
@@ -130,7 +128,7 @@ if ($loggedIn!=893247348) {
 
 
                       // Other Late by month
-                      $result5 = countOtherByMonth($month1);
+                      $result5 = countOtherByMonthByClass($month1, $class_id);
                       $row5 = mysqli_fetch_assoc($result5);
                       if (empty($row5['totalOther'])) {
                         $totalOther = 0;

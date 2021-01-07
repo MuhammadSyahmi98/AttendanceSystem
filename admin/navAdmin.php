@@ -147,12 +147,6 @@
                   <p>BY MONTH</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="index3.html" class="nav-link <?php if($url === "http://localhost/AttendanceSystem/admin/.php") {echo "active";} ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>BY YEAR</p>
-                </a>
-              </li>
             </ul> 
             </li>
 

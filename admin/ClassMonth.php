@@ -44,7 +44,7 @@ if ($loggedIn!=893247348) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Report by Day</h1>
+            <h1>Report by Month</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -115,7 +115,7 @@ if ($loggedIn!=893247348) {
                           <input type="hidden" name="teacherData" value="<?php echo $row['teacher_name']; ?>"> 
                           <input type="hidden" name="id$i" value="<?php echo $row['class_id']; ?>"> 
 
-                          <button class="btn btn-primary btn-sm" name="viewClassAttendance">
+                          <button class="btn btn-primary btn-sm" name="viewByMonth">
                             <i class="fas fa-folder">
                               </i>
                               Report
@@ -194,5 +194,13 @@ if ($loggedIn!=893247348) {
 <?php 
 if (isset($_POST['viewAllMonth'])) {
   echo "<script>window.location.assign('reportByMonth.php')</script>";
+}
+?>
+
+
+<?php 
+if (isset($_POST['viewByMonth'])) {
+  $_SESSION['class_id'] = $_POST['id$i'];
+  echo "<script>window.location.assign('reportByMonthByClass.php')</script>";
 }
 ?>

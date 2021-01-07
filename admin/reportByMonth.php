@@ -95,7 +95,7 @@
               
             </section>
 
-            <div id="txtHint"><b>GoogleChart</b></div>
+            <div id="txtHint"></div>
           </div>
         </div>
       </div>
@@ -184,9 +184,10 @@ function showUser(str) {
         console.log(insertData);
 
         showData(str);
-        if (str != "0") {}
+        
         drawChart();
-        //document.getElementById("txtHint").innerHTML = this.responseText;
+
+   
       }
     };
     xmlhttp.open("GET","service.php?cart&month="+str,true);
@@ -238,3 +239,56 @@ function showData(str) {
     </script>
 
 </html>
+
+<?php 
+if (isset($_POST['viewAttend'])) {
+  $_SESSION['current_month'] = $_POST['month'];
+  $_SESSION['status_student'] = "Attend";
+  echo "<script>window.location.assign('listOfStudentByMonth.php')</script>";
+}
+?>
+
+<?php 
+if (isset($_POST['viewAttendLate'])) {
+  $_SESSION['current_month'] = $_POST['month'];
+  $_SESSION['status_student'] = "Attend Late";
+  echo "<script>window.location.assign('listOfStudentByMonth.php')</script>";
+}
+?>
+
+
+<?php 
+if (isset($_POST['viewAbsent'])) {
+  $_SESSION['current_month'] = $_POST['month'];
+  $_SESSION['status_student'] = "Absent";
+  echo "<script>window.location.assign('listOfStudentByMonth.php')</script>";
+}
+?>
+
+
+<?php 
+if (isset($_POST['viewMedicalLeave'])) {
+  $_SESSION['current_month'] = $_POST['month'];
+  $_SESSION['status_student'] = "Medical Leave";
+  echo "<script>window.location.assign('listOfStudentByMonth.php')</script>";
+}
+?>
+
+
+<?php 
+if (isset($_POST['viewOther'])) {
+  $_SESSION['current_month'] = $_POST['month'];
+  $_SESSION['status_student'] = "Other";
+  echo "<script>window.location.assign('listOfStudentByMonth.php')</script>";
+}
+?>
+
+
+
+<?php 
+if (isset($_POST['viewAll'])) {
+  $_SESSION['current_month'] = $_POST['month'];
+  $_SESSION['status_student'] = "All";
+  echo "<script>window.location.assign('listOfStudentByMonth.php')</script>";
+}
+?>

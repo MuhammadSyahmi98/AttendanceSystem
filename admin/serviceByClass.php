@@ -1,8 +1,9 @@
-<?php include "../resources/php/sql.php";?>
+<?php include "../resources/php/sql.php"; session_start();?>
 
 <?php 
-if(isset($_GET['cart'])) {
+if(isset($_GET['carts'])) {
 	$month = $_GET['month'];
+	$class_id = $_SESSION['class_id'];
 
 	if ($month === "0") {
 		$data = array(
@@ -14,16 +15,18 @@ if(isset($_GET['cart'])) {
 	);
 	} else {
 		$month1 = (int) $month;
+		$class_id = (int) $class_id;
+
 
 
 		// Count attendance by month
-		$result0 = countTotalAttendanceByMonth($month1);
+		$result0 = countTotalAttendanceByMonthByClass($month1, $class_id);
 		$row0 = mysqli_fetch_assoc($result0);
 		$totalAttendance = $row0['totalAttendance'];
 
 
 		// Attend by month
-		$result = countAttendByMonth($month1);
+		$result = countAttendByMonthByClass($month1, $class_id);
 		$row = mysqli_fetch_assoc($result);
 		if (empty($row['totalAttend'])) {
 			$totalAttend = 0;
@@ -34,7 +37,7 @@ if(isset($_GET['cart'])) {
 
 
 		// Attend Late by month
-		$result2 = countAttendLateByMonth($month1);
+		$result2 = countAttendLateByMonthByClass($month1, $class_id);
 		$row2 = mysqli_fetch_assoc($result2);
 		if (empty($row2['totalAttendLate'])) {
 			$totalAttendLate = 0;
@@ -45,7 +48,7 @@ if(isset($_GET['cart'])) {
 
 
 		// Attend Late by month
-		$result3 = countAbsentByMonth($month1);
+		$result3 = countAbsentByMonthByClass($month1, $class_id);
 		$row3 = mysqli_fetch_assoc($result3);
 		if (empty($row3['totalAbsent'])) {
 			$totalAbsent = 0;
@@ -55,7 +58,7 @@ if(isset($_GET['cart'])) {
 
 
 		// Medical Leave Late by month
-		$result4 = countMedicalLeaveByMonth($month1);
+		$result4 = countMedicalLeaveByMonthByClass($month1, $class_id);
 		$row4 = mysqli_fetch_assoc($result4);
 		if (empty($row4['totalMedicalLeave'])) {
 			$totalMedicalLeave = 0;
@@ -66,7 +69,7 @@ if(isset($_GET['cart'])) {
 
 
 		// Other Late by month
-		$result5 = countOtherByMonth($month1);
+		$result5 = countOtherByMonthByClass($month1, $class_id);
 		$row5 = mysqli_fetch_assoc($result5);
 		if (empty($row5['totalOther'])) {
 			$totalOther = 0;

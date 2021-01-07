@@ -136,7 +136,7 @@ if ($loggedIn!=893247348) {
 <script>  
  $(document).ready(function(){  
       $('#cancel').click(function(){
-        window.location.assign('studentlist.php'); 
+        window.location.assign('parentList.php'); 
             
       });  
  });  
@@ -167,6 +167,8 @@ if (isset($_POST['addParent'])) {
       $code = 12;
     } else if($test ===9) {
       $code = 9;
+    } else if ($test ===23) {
+      $code = 23;
     }
 
     addParent($parent_name, $parent_email, $parent_contact, $parent_password,$code);
