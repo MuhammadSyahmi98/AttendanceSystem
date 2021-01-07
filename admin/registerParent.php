@@ -7,7 +7,6 @@
   file_put_contents('../UIDContainer.php',$Write);
 ?>
 
-
 <?php
 $loggedIn = $_SESSION['loggedIn'];
 
@@ -20,12 +19,13 @@ if ($loggedIn!=893247348) {
 
  ?>
 
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Register Student</title>
+  <title>Parent Student</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -37,21 +37,8 @@ if ($loggedIn!=893247348) {
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
-  <!-- JS-RFID -->
-
-  <script src="jquery.min.js"></script>
-    <script>
-      $(document).ready(function(){
-         $("#getUID").load("../UIDContainer.php");
-        setInterval(function() {
-          $("#getUID").load("../UIDContainer.php");
-        }, 500);
-      });
-    </script>
-
-  <!-- /.JS-RFID -->
-
-
+ 
+  
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <!-- Site wrapper -->
@@ -66,7 +53,7 @@ if ($loggedIn!=893247348) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Student Registration</h1>
+            <h1>Parent Registration</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -83,58 +70,32 @@ if ($loggedIn!=893247348) {
               <form role="form" method="POST">
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputrfid">RFID NUMBER</label>
-                    <textarea style="resize: none; height: 40px;" name="student_id" class="form-control" id="getUID" required placeholder="Scan RFID Card"></textarea>  
-                  </div>
-                  <div class="form-group">
                     <label for="exampleInputName">Name</label>
-                    <input type="name" name="student_name" class="form-control"  placeholder="Enter name" required>
+                    <input type="name" name="parent_name" class="form-control"  placeholder="Enter name" required>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputICNumber">IC NUMBER</label>
-                    <input class="form-control" name="student_ic"  placeholder="Enter Ic Number" required>
+                    <label for="exampleInputName">Email</label>
+                    <input type="email" name="parent_email" class="form-control"  placeholder="Enter Email" required>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputICNumber">ADDRESS</label>
-                    <input class="form-control" name="student_address"  placeholder="Enter Ic Number" required>
+                    <label for="exampleInputICNumber">Contact Number</label>
+                    <input class="form-control" name="parent_contact"  placeholder="Enter Contact Number" required>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputICNumber">PARENT NAME</label>
-                    <input class="form-control" name="parent_name" placeholder="Enter Parent Name" required>
+                    <label for="exampleInputICNumber">Password</label>
+                    <input type="password" class="form-control" name="parent_password" placeholder="Enter Password" required>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputICNumber">EMAIL</label>
-                    <input type="email" name="parent_email" class="form-control"  placeholder="Enter Parent Email" required>
+                    <label for="exampleInputICNumber">Re-Password</label>
+                    <input type="password" name="parent_rePassword" class="form-control"  placeholder="Enter Re-Password" required>
                   </div>
-
-                  <div class="form-group">
-                    <label>Class</label>
-                    <select class="form-control select2" name="ids"  data-placeholder="Select" style="width: 100%;">
-
-                      <option value="">No class</option>
-                      <?php 
-                      $result = displayAllClass();
-                      $i = 1;
-
-                      while ($row4 = mysqli_fetch_assoc($result)) {
-                        ?><option value="<?php echo $row4['class_id']; ?>"><?php echo $row4['class_name']; ?></option><?php
-                        $i++;
-                      }
-
-
-                      ?>
-                     
-
-  
-                  </select>
-
-                  </div>
+                 
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
                   <button type="submit" name="cancel" id="cancel" class="btn btn-primary">Cancel</button>
-                  <button type="submit" name="addStudent1" class="btn btn-primary">Submit</button>
+                  <button type="submit" name="addParent" class="btn btn-primary">Submit</button>
                 </div>
               </form>
 
@@ -166,6 +127,7 @@ if ($loggedIn!=893247348) {
 
 <!-- jQuery -->
 <script src="../plugins/jquery/jquery.min.js"></script>
+
 <!-- Bootstrap 4 -->
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -174,7 +136,7 @@ if ($loggedIn!=893247348) {
 <script>  
  $(document).ready(function(){  
       $('#cancel').click(function(){
-        window.location.assign('allStudentList.php'); 
+        window.location.assign('studentlist.php'); 
             
       });  
  });  
@@ -184,43 +146,71 @@ if ($loggedIn!=893247348) {
 
 
 
-
-<?php 
-if (isset($_POST['addStudent1'])) {
-  $student_id = $_POST['student_id'];
-  $student_name = $_POST['student_name'];
-  $student_ic = $_POST['student_ic'];
-  $student_address = $_POST['student_address'];
+<?php
+if (isset($_POST['addParent'])) {
   $parent_name = $_POST['parent_name'];
   $parent_email = $_POST['parent_email'];
-  $class_id = $_POST['ids'];
+  $parent_contact = $_POST['parent_contact'];
+  $parent_password = $_POST['parent_password'];
+  $parent_rePassword = $_POST['parent_rePassword'];
 
 
-  
-
-  $result = verifyParent($parent_name, $parent_email);
-  $row = mysqli_fetch_assoc($result);
-
-  if(!empty($row)) {
-
-    $parent_id = $row['parent_id'];
-
-    addStudentNew($student_id, $student_name, $student_ic, $student_address, $parent_id, $class_id, 9);
-
-    // echo $parent_id;
-    // echo $class_id;
-
+  if ($parent_password != $parent_rePassword) {
+    echo "<script>
+  alert('Password Not Match');
+  </script>";
   } else {
 
-     $_SESSION['allstudent'] = 12;
-    echo "<script>
-  alert('Parent Doesnt Exist in Database. Need To Register Parent');
-  window.location.assign('registerParent.php')
-  </script>";
+    $test = $_SESSION['allstudent'];
+    
+    if ($test===12) {
+      $code = 12;
+    } else if($test ===9) {
+      $code = 9;
+    }
 
+    addParent($parent_name, $parent_email, $parent_contact, $parent_password,$code);
+    send_emailParent($parent_email, $parent_password);
   }
-
-  
 }
 
+
+
+
 ?>
+
+
+<?php
+
+function send_emailParent($email, $password){
+
+   $link="<a href='http://localhost/attendancesystem/'>Click To Login</a>";
+
+
+    require_once('PHPMailerAutoload.php');
+    $mail = new PHPMailer();
+    $mail->CharSet =  "utf-8";
+    $mail->IsSMTP();
+    // enable SMTP authentication
+    $mail->SMTPAuth = true;                  
+    // GMAIL username
+    $mail->Username = "attendancesystem.my@gmail.com";
+    // GMAIL password
+    $mail->Password = "Qwerty@123";
+    $mail->SMTPSecure = "tls";  
+    // sets GMAIL as the SMTP server
+    $mail->Host = "smtp.gmail.com";
+    // set the SMTP port for the GMAIL server
+    $mail->Port = 587;
+    $mail->From='attendancesystem.my@gmail.com';
+    $mail->FromName='attendancesystem.my';
+    $mail->AddAddress($admin);
+    $mail->Subject  =  'Reset Password';
+    $mail->IsHTML(true);
+    $mail->Body    = '<p>Welcome to Online Attendance System. Below is your account detail. <br>Username: '.$email.'<br>Password: '.$password.'  <br> Click this link to login '.$link.'</p>';
+   $mail->Send();
+}
+
+ ?>
+
+

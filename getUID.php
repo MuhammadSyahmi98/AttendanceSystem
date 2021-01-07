@@ -13,6 +13,7 @@ $attend_status = "Absent";
 // get current day
 // 0==sunday, 1==monday,...
 $day = date('w');
+str
 
 
 if (isset($_POST["UIDresult"])) {

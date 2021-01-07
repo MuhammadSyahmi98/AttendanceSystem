@@ -109,6 +109,12 @@
               </p></a>
           </li>
           <li class="nav-item has-treeview">
+            <a href="parentList.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/adminTeacher.php") || ($url === "http://localhost/AttendanceSystem/admin/editTeacher.php")) {echo "active";} ?> ">
+              <i class="nav-icon fas fa-users"></i><p>
+                PARENT
+              </p></a>
+          </li>
+          <li class="nav-item has-treeview">
             <a href="allStudentList.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/allStudentList.php") || ($url === "http://localhost/AttendanceSystem/admin/viewStudent.php") || ($url === "http://localhost/AttendanceSystem/admin/studentlist.php") || ($url === "http://localhost/AttendanceSystem/admin/editStudent.php"))  {echo "active";} ?> ">
               <i class="nav-icon fas fa-users"></i><p>
                 STUDENT
@@ -136,7 +142,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="reportByMonth.php" class="nav-link <?php if($url === "http://localhost/AttendanceSystem/admin/.php") {echo "active";} ?>">
+                <a href="ClassMonth.php" class="nav-link <?php if($url === "http://localhost/AttendanceSystem/admin/.php") {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>BY MONTH</p>
                 </a>

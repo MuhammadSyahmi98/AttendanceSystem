@@ -19,6 +19,8 @@ if(isset($_POST['submit_email']) && $_POST['email'])
       $pass=md5($row['admin_password']);
     }
     $link="<a href='http://localhost/attendancesystem/reEnterPassword.php?key=".$email."&reset=".$pass."'>Click To Reset password</a>";
+
+    
     require_once('PHPMailerAutoload.php');
     $mail = new PHPMailer();
     $mail->CharSet =  "utf-8";

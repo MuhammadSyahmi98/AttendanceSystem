@@ -152,7 +152,11 @@ if ($loggedIn!=893247348) {
                       $result = displayClassForAddStudent($class_id1);
                       $row1 = mysqli_fetch_assoc($result); ?>
                     
-                    <p class="text-muted" style="font-size: 120%;"><?php echo $row1['class_name']; ?></p>
+                    <p class="text-muted" style="font-size: 120%;"><?php if (!empty($row1)) {
+                      echo $row1['class_name'];
+                    } else {
+                      echo "-";
+                    } ?></p>
                   </div>
                   <!-- /.card-body -->
                   

@@ -3,6 +3,140 @@
 
 <?php
 
+function displayParent(){
+	require 'connectDB.php';
+
+	$sql = "SELECT * FROM parent";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_DISPLAY_ADMIN_DATA');
+		        window.location.href='class.php';
+		        </script>";
+    } else {
+		// mysqli_stmt_bind_param($result, 'i' , $class_id);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+}
+
+
+
+
+function addStudentNew($student_id, $student_name, $student_ic, $student_address, $parent_id, $class_id, $page){
+	require 'connectDB.php';
+
+	$sql = "INSERT INTO student (student_id, student_name, student_ic, student_address, student_status, parent_id, class_id) VALUES (?,?,?,?,?,?,?)";
+
+		$result = mysqli_stmt_init($conn);
+		if (!mysqli_stmt_prepare($result, $sql)) {
+	        echo "<script>alert('SQL_Error_REGISTER_STUDENT_DATA');
+			        window.location.href='registerStudent2.php';
+			        </script>";
+	    } else { 
+	    	$student_status = "Active";
+	    	if (empty($class_id)) {
+	    		$class_id = NULL;
+	    	}
+			mysqli_stmt_bind_param($result, "sssssii", $student_id, $student_name, $student_ic, $student_address, $student_status, $parent_id, $class_id);
+	        mysqli_stmt_execute($result);
+	        if ($result) {
+	        	if ($page === 9) {
+	        		echo "<script>alert('Successfully Register Student');
+			        window.location.href='allStudentList.php';
+			        </script>";
+	        	}
+	        	else {
+	        		echo "<script>alert('Successfully Register Student');
+			        window.location.href='studentlist.php';
+			        </script>";
+	        	}
+	        }
+	        
+	    }
+}
+
+
+
+function addParent($parent_name, $parent_email, $parent_contact, $parent_password, $code){
+	require 'connectDB.php';
+
+
+	$sql = "SELECT * FROM parent WHERE parent_email = ? AND parent_name = ?";
+
+	$result = mysqli_stmt_init($conn);
+
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_CHECK_PARENT_DATA');
+		        window.location.href='registerParent.php';
+		        </script>";
+    } else { 
+    	mysqli_stmt_bind_param($result, "ss", $parent_name, $parent_email);
+        mysqli_stmt_execute($result);
+        $resultl = mysqli_stmt_get_result($result);
+
+        // If the details not redundent
+        if (!$row = mysqli_fetch_assoc($resultl)){
+
+        	$sql = "INSERT INTO parent (parent_name, parent_email, parent_password, parent_contact) VALUES (?,?,?,?)";
+
+			$result = mysqli_stmt_init($conn);
+			if (!mysqli_stmt_prepare($result, $sql)) {
+		        echo "<script>alert('SQL_Error_REGISTER_PARENT_DATA');
+				        window.location.href='registerParent.php';
+				        </script>";
+		    } else { 
+				mysqli_stmt_bind_param($result, "ssss", $parent_name, $parent_email, $parent_password, $parent_contact);
+		        mysqli_stmt_execute($result);
+		        if ($result) {
+		        	if ($code === 12) {
+		        		echo "<script>alert('Successfully Register Parent');
+				        window.location.href='registerStudent2.php';
+				        </script>";
+		        	} else if($code === 9) {
+		        		echo "<script>alert('Successfully Register Parent');
+				        window.location.href='registerStudent.php';
+				        </script>";
+		        	}
+		        	
+		        }
+		        
+		    }
+
+   		 } else {
+   		 	echo "<script>alert('Parent Already Registered');
+		        window.location.href='index.php';
+		        </script>";
+   		 }
+
+
+
+
+	
+}
+}
+
+
+function verifyParent($parent_name, $parent_email){
+	require 'connectDB.php';
+
+	$sql = "SELECT * FROM parent WHERE parent_email = ? AND parent_name = ?";
+
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_VERIFY_DATA');
+		        window.location.href='index.php';
+		        </script>";
+    } else { 
+		mysqli_stmt_bind_param($result, "ss", $parent_email, $parent_name);
+        mysqli_stmt_execute($result);
+        $resultl = mysqli_stmt_get_result($result);
+        return $resultl;
+    }
+}
+
 
 function validateFirstTimeLogin($email, $admin_password){
 	require 'connectDB.php';
@@ -217,7 +351,7 @@ function addClasHistory($class_id, $teacher_id, $d){
 
 
 // Record Student Details
-function addStudent($student_id, $student_name, $student_ic, $parent_name, $parent_email, $parent_contact, $class_id){
+function addStudent($student_id, $student_name, $student_ic, $parent_name, $parent_email, $class_id){
 	require 'connectDB.php';
 
 	$sql = "SELECT * FROM student WHERE student_id = ?";
@@ -234,7 +368,7 @@ function addStudent($student_id, $student_name, $student_ic, $parent_name, $pare
 
         // If the details not redundent
         if (!$row = mysqli_fetch_assoc($resultl)){
-        	$sql = "INSERT INTO student (student_id, student_name, student_ic, student_status, parent_name, parent_email, parent_contact, class_id) VALUES (?,?,?,?,?,?, ?,?)";
+        	$sql = "INSERT INTO student (student_id, student_name, student_ic, student_status, parent_name, parent_email,  class_id) VALUES (?,?,?,?,?, ?,?)";
 
         	$result = mysqli_stmt_init($conn);
 			if (!mysqli_stmt_prepare($result, $sql)) {
@@ -245,7 +379,7 @@ function addStudent($student_id, $student_name, $student_ic, $parent_name, $pare
 		    else {
 		    	$student_status = "Active";
 				// Execute the sql statement
-		        mysqli_stmt_bind_param($result, 'sssssssi' , $student_id, $student_name, $student_ic, $student_status, $parent_name, $parent_email, $parent_contact, $class_id);
+		        mysqli_stmt_bind_param($result, 'ssssssi' , $student_id, $student_name, $student_ic, $student_status, $parent_name, $parent_email, $class_id);
 		        mysqli_stmt_execute($result);
 		        echo "<script>alert('Success Add New Student');
 		        window.location.href='studentlist.php';
@@ -357,6 +491,32 @@ function addStudentFromTeacher($student_id, $student_name, $student_ic, $parent_
 	}
 
 }
+
+
+
+function displayAllAttendanceByMonth($month){
+	require 'connectDB.php';
+
+	$sql = "SELECT student.student_id AS id, student.student_name AS name, class.class_name AS class, attendance.attend_status AS status, attendance.dates AS dates FROM attendance RIGHT JOIN student ON attendance.student_id = student.student_id JOIN class ON student.class_id = class.class_id  WHERE MONTH(attendance.dates) = ? ORDER BY attendance.dates ASC";
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_ADD_STUDENT_DATA');
+		        window.location.href='teacherstudlist.php';
+		        </script>";
+    } 
+    else { 
+
+    	mysqli_stmt_bind_param($result, "s", $month);
+        mysqli_stmt_execute($result);
+        $resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+}
+}
+
+
+
+
+
 
 
 
@@ -768,7 +928,7 @@ function displayClassForAddStudent($class_id) {
 function displayStudent() {
 	require 'connectDB.php';
 
-	$sql = "SELECT * FROM student ORDER BY student_name ASC";
+	$sql = "SELECT * FROM student INNER JOIN parent ON student.parent_id = parent.parent_id ORDER BY student_name ASC";
 
 	// Connection to database
 	$result = mysqli_stmt_init($conn);
@@ -790,7 +950,7 @@ function displayStudent() {
 function displayStudentByClass($class_id) {
 	require 'connectDB.php';
 
-	$sql = "SELECT * FROM student WHERE class_id = ? ORDER BY student_name ASC";
+	$sql = "SELECT * FROM student INNER JOIN parent ON parent.parent_id = student.parent_id WHERE class_id = ? ORDER BY student_name ASC";
 
 	// Connection to database
 	$result = mysqli_stmt_init($conn);
@@ -810,7 +970,7 @@ function displayStudentByClass($class_id) {
 
 function displayStudentByID($student_id){
 	require 'connectDB.php';
-	$sql = "SELECT * FROM student WHERE BINARY student_id = ?";
+	$sql = "SELECT * FROM student INNER JOIN parent ON student.parent_id = parent.parent_id WHERE BINARY student.student_id = ?";
 
 	// Connection to database
 	$result = mysqli_stmt_init($conn);

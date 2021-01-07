@@ -96,16 +96,16 @@ if ($loggedIn!=893247348) {
                     <input class="form-control" name="student_ic"  placeholder="Enter Ic Number" required>
                   </div>
                   <div class="form-group">
+                    <label for="exampleInputName">Address</label>
+                    <input type="name" name="student_address" class="form-control"  placeholder="Enter Address" required>
+                  </div>
+                  <div class="form-group">
                     <label for="exampleInputICNumber">PARENT NAME</label>
                     <input class="form-control" name="parent_name" placeholder="Enter Parent Name" required>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputICNumber">EMAIL</label>
                     <input type="email" name="parent_email" class="form-control"  placeholder="Enter Parent Email" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputICNumber">PARENT CONTACT NUMBER</label>
-                    <input class="form-control" name="parent_contact" placeholder="Enter Parent Contact Number" required>
                   </div>
                   <div class="form-group">
                     <?php 
@@ -175,12 +175,36 @@ if (isset($_POST['addStudent'])) {
   $student_id = $_POST['student_id'];
   $student_name = $_POST['student_name'];
   $student_ic = $_POST['student_ic'];
+  $student_address = $_POST['student_address'];
   $parent_name = $_POST['parent_name'];
   $parent_email = $_POST['parent_email'];
-  $parent_contact = $_POST['parent_contact'];
   $class_id = $_SESSION['class_id'];
 
-  addStudent($student_id, $student_name, $student_ic, $parent_name, $parent_email, $parent_contact, $class_id);
+
+  
+
+  $result = verifyParent($parent_name, $parent_email);
+  $row = mysqli_fetch_assoc($result);
+
+  if(!empty($row)) {
+
+    $parent_id = $row['parent_id'];
+
+    addStudentNew($student_id, $student_name, $student_ic, $student_address, $parent_id, $class_id,8);
+
+
+  } else {
+
+    $_SESSION['allstudent'] = 9;
+
+    echo "<script>
+  alert('Parent Doesnt Exist in Database. Need To Register Parent');
+  window.location.assign('registerParent.php')
+  </script>";
+
+  }
+
+  
 }
 
 ?>
