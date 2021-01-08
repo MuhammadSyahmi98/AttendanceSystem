@@ -76,8 +76,24 @@ if ($loggedIn!=893247348) {
                   </tr>   
                   </thead>
                   <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>All</td>
+                      <td>-</td>
+                      <td><form method="post" action="ClassDate.php"> 
+
+                          <button class="btn btn-primary btn-sm" name="viewAllClassAttendance">
+                            <i class="fas fa-folder">
+                              </i>
+                              Report
+                          </button> 
+                              
+                         
+                
+                        </form></td>
+                    </tr>
                     <?php $result = displayClass(); 
-                     $i = 1;
+                     $i = 2;
                     while ($row = mysqli_fetch_assoc($result)) {
         
                     
@@ -201,5 +217,13 @@ if (isset($_POST['deleteClass'])) {
    deleteClassWithEditTeacher($class_id);
 
  } 
+
+?>
+
+<?php 
+
+if (isset($_POST['viewAllClassAttendance'])) {
+  echo "<script>window.location.assign('AllAttendanceStudentList.php')</script>";
+}
 
 ?>

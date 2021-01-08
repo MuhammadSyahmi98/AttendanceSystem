@@ -109,7 +109,7 @@
               </p></a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="parentList.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/adminTeacher.php") || ($url === "http://localhost/AttendanceSystem/admin/editTeacher.php")) {echo "active";} ?> ">
+            <a href="parentList.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/registerParent.php") || ($url === "http://localhost/AttendanceSystem/admin/parentList.php") || ($url === "http://localhost/AttendanceSystem/admin/viewParent.php") || ($url === "http://localhost/AttendanceSystem/admin/parentList.php")) {echo "active";} ?> ">
               <i class="nav-icon fas fa-users"></i><p>
                 PARENT
               </p></a>

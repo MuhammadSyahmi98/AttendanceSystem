@@ -57,16 +57,13 @@ if ($loggedIn!=893247348) {
 
       $day = date('D', $timestamp);
 
-
-      $class_id = $_SESSION['class_id'];
-
       // Status = "Attend"
-      $result = countAttendStudentByClassAttend($class_id, $dates);
+      $result = countAllAttendStudentByClassAttend($dates);
       $row = mysqli_fetch_assoc($result);
       $totalAttend = $row['totalAttend'];
 
       // Status = "Other"
-      $result = countOtherStudentByClassAttend($class_id, $dates);
+      $result = countAllOtherStudentByClassAttend($dates);
       $row = mysqli_fetch_assoc($result);
 
       $totalOther = $row['totalOther'];
@@ -74,27 +71,27 @@ if ($loggedIn!=893247348) {
 
 
       // Status = "Medical Leave"
-      $result3 = countMedicalLeaveStudentByClassAttend($class_id, $dates);
+      $result3 = countAllMedicalLeaveStudentByClassAttend( $dates);
       $row3 = mysqli_fetch_assoc($result3);
       $totalMedicalLeave = $row3['totalMedicalLeave'];
 
 
       // Status = "Attend Late"
-      $result4 = countAttendLateStudentByClassAttend($class_id, $dates);
+      $result4 = countAllAttendLateStudentByClassAttend( $dates);
       $row4 = mysqli_fetch_assoc($result4);
       $totalAttendLate = $row4['totalAttendLate'];
 
 
 
       // Total Student
-      $result1 = countStudentByClass($class_id);
+      $result1 = countAllStudentByClass();
       $row1 = mysqli_fetch_assoc($result1);
       $totalStudent = $row1['numberOfStudent'];
 
 
 
-      // Total Student
-      $result1 = countStudentAbsent($class_id, $dates);
+      // Total Absent student
+      $result1 = countAllStudentAbsent($dates);
       $row1 = mysqli_fetch_assoc($result1);
       $absent = $row1['totalAbsent'];
   
@@ -114,7 +111,7 @@ if ($loggedIn!=893247348) {
           ['Medical Leave',     <?php echo $totalMedicalLeave; ?>],
           ['Attend Late',     <?php echo $totalAttendLate; ?>],
           ['Absend',      <?php echo $absent; ?>],
-          ['Other', <?php echo $totalOther; ?>]
+          ['Other',     <?php echo $totalOther; ?>]
         ]);
 
         var options = {
@@ -212,7 +209,7 @@ if ($loggedIn!=893247348) {
 
     <!-- Chart Section -->
     <section class="content">
-      <div id="piechart_3d" style="width: 100%; height: 500px; <?php if(empty($absent) && empty($totalAttend) && empty($totalMedicalLeave) && empty($totalOther)){ echo "visibility: hidden;";} ?>"></div>
+      <div id="piechart_3d" style="width: 100%; height: 500px;  <?php if(empty($absent) && empty($totalAttend) && empty($totalMedicalLeave) && empty($totalOther)){ echo "visibility: hidden;";} ?>"></div>
     </section>
 
  
@@ -241,6 +238,7 @@ if ($loggedIn!=893247348) {
                       <th>No.</th>
                       <th>ID</th>
                       <th>Name</th>
+                      <th>Class</th>
                       <th>Status</th>
                       
 
@@ -250,8 +248,8 @@ if ($loggedIn!=893247348) {
                   <tbody id="myTable">
                     <?php 
 
-                    $class_id = $_SESSION['class_id'];
-                    $result1 = displayStudentAttendanceByClassAbsent($class_id,$dates);
+                  
+                    $result1 = displayAllStudentAttendanceByClassAbsent($dates);
                     $i = 1;
                     while ($row2 = mysqli_fetch_assoc($result1)) {
 
@@ -261,6 +259,7 @@ if ($loggedIn!=893247348) {
                       <td><?php echo $i; ?></td>
                       <td><?php echo $row2['id']; ?></td>
                       <td ><?php echo $row2['name']; ?></td>
+                      <td ><?php echo $row2['class']; ?></td>
                       <td style="color: red;"><?php echo $row2['status']; ?></td>
                      
           
@@ -272,7 +271,7 @@ if ($loggedIn!=893247348) {
                     <?php 
 
         
-                    $result2 = displayStudentAttendanceByClassAttend($class_id,$dates);
+                    $result2 = displayAllStudentAttendanceByClassAttend($dates);
                     while ($row3 = mysqli_fetch_assoc($result2)) {
 
                     
@@ -281,6 +280,7 @@ if ($loggedIn!=893247348) {
                       <td><?php echo $i; ?></td>
                       <td><?php echo $row3['id']; ?></td>
                       <td ><?php echo $row3['name']; ?></td>
+                      <td ><?php echo $row3['class']; ?></td>
                       <td><?php echo $row3['status']; ?></td>
                      
           
@@ -505,7 +505,7 @@ if (isset($_POST['displayNewDate'])) {
     $_SESSION['date'] = $new_date2;
   echo "<script>
   alert('Weekend. Please Choose Other Date');
-  window.location.assign('AttendanceStudentList.php')
+  window.location.assign('AllAttendanceStudentList.php')
   </script>";
 
   } 
@@ -514,7 +514,7 @@ if (isset($_POST['displayNewDate'])) {
     $new_date2 = $new_date1;
      $_SESSION['date'] = $new_date2;
      echo "<script>
-    window.location.assign('AttendanceStudentList.php')</script>";
+    window.location.assign('AllAttendanceStudentList.php')</script>";
   }
 
 

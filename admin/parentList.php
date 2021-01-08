@@ -124,7 +124,7 @@ $(document).ready(function(){
                               </i>
                               View
                           </button>
-                          <button class="btn btn-info btn-sm" name="editDetailStudent">
+                          <button class="btn btn-info btn-sm" name="editDetailParent">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Edit
@@ -201,6 +201,16 @@ if (isset($_POST['viewDetailParent'])) {
 
   echo "<script>window.location.assign('viewParent.php')</script>";
   
+}
+
+?>
+
+<?php 
+if (isset($_POST['editDetailParent'])) {
+
+  $_SESSION['parent_id'] = $_POST['parent$i'];
+  echo "<script>window.location.assign('editParent.php')</script>";
+
 }
 
 ?>

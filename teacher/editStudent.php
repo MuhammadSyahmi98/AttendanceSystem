@@ -107,12 +107,34 @@ if ($loggedIn!=9999) {
                     <input type="name" name="student_name" class="form-control" id="exampleInputname" value="<?php echo $row['student_name']; ?>" placeholder="Enter name">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputName">Name</label>
-                    <input type="name" name="student_name" class="form-control" id="exampleInputname" value="<?php echo $row['student_name']; ?>" placeholder="Enter name">
-                  </div>
-                  <div class="form-group">
                     <label for="exampleInputICNumber">IC NUMBER</label>
                     <input type="icnumber" name="student_ic" class="form-control" value="<?php echo $row['student_ic'];?>" id="exampleInputIcnumber" placeholder="Enter IcNumber">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputICNumber">Address</label>
+                    <input type="icnumber" name="student_address" class="form-control" value="<?php echo $row['student_address'];?>" id="exampleInputIcnumber" placeholder="Enter IcNumber">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputICNumber">STATUS</label>
+                    
+                    <select class="form-control select2" name="student_status"  data-placeholder="Select" style="width: 100%;">
+
+                      <?php if ($row['student_status']=== 'Active') { ?>
+                        <option value="Active">Active</option>
+                        <option value="Deactive">Deactive</option>  <?php
+                      } else if($row['student_status']=== 'Deactive') {
+                        ?>
+                        <option value="Deactive">Deactive</option>
+                        <option value="Active">Active</option>  <?php
+                      } 
+
+                      ?>
+                      
+                    
+  
+                    </select>
+
+
                   </div>
                   <div class="form-group">
                     <?php 
@@ -218,14 +240,18 @@ if (isset($_POST['updateStudent'])) {
   $student_id = $_POST['student_id'];
   $student_name = $_POST['student_name'];
   $student_ic = $_POST['student_ic'];
+  $student_address = $_POST['student_address'];
+  $student_status = $_POST['student_status'];
   $class_id = $_POST['class_id'];
-  $page = $_SESSION['pageStudentList'];
+  $page = 3;
 
   if (empty($new_student_id)) {
-      updateStudent($student_id, $student_name, $student_ic, $class_id,$page);
+      // updateStudent($student_id, $student_name, $student_status, $student_ic, $student_address, $class_id, $page)
+      updateStudent($student_id, $student_name, $student_status, $student_ic, $student_address, $class_id,$page);
 
   } else {
-      updateStudentNewStudentID($student_id, $new_student_id, $student_name, $student_ic, $class_id, $page);
+      // updateStudentNewStudentID($student_id, $new_student_id, $student_name, $student_status, $student_ic, $student_address, $class_id, $page)
+      updateStudentNewStudentID($student_id, $new_student_id, $student_name, $student_status, $student_ic, $student_address,$class_id, $page);
   } 
  
 }

@@ -123,6 +123,14 @@ if ($loggedIn!=9999) {
 
                     <hr>
 
+                    <strong style="font-size: 120%;"> CONTACT NUMBER</strong>
+
+                    <p class="text-muted" style="font-size: 120%;">
+                      <?php echo $row['student_address']; ?>
+                    </p>
+
+                    <hr>
+
                     <strong style="font-size: 120%;"> Parent Name</strong>
 
                     <p class="text-muted" style="font-size: 120%;">
