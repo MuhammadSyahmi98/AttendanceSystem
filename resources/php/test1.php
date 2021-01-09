@@ -1,39 +1,4 @@
-
-
-<?php
-require 'PHPMailerAutoload.php';
-
-
-// To send an email to parent after student scan the RFID
-
-function sendEmail($parentEmail,$parentName, $student_name, $student_class, $dates, $time_in) {
-	$new_date_start1 = strtotime($dates);
- 	 $dates = date("d-m-Y", $new_date_start1);
-
-	$mail = new PHPMailer;
-
-	$mail->SMTPDebug = 4;                               // Enable verbose debug output
-
-	$mail->isSMTP();                                      // Set mailer to use SMTP
-	$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-	$mail->SMTPAuth = true;                               // Enable SMTP authentication
-	$mail->Username = 'attendancesystem.my@gmail.com';                 // SMTP username
-	$mail->Password = 'Qwerty@123';                           // SMTP password
-	$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-	$mail->Port = 587;                                    // TCP port to connect to
-
-	$mail->setFrom('attendancesystem.my@gmail.com');
-	$mail->addAddress($parentEmail);               // Name is optional
-	$mail->addReplyTo('attendancesystem.my@gmail.com');
-	// $mail->addCC('cc@example.com');
-	// $mail->addBCC('bcc@example.com');
-
-	// $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-	// $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-	$mail->isHTML(true);                                  // Set email format to HTML
-
-	$mail->Subject = 'Attendance today';
-	$mail->Body    = '<!DOCTYPE html>
+<!DOCTYPE html>
 
 	<html>
 	<head>
@@ -174,7 +139,7 @@ function sendEmail($parentEmail,$parentName, $student_name, $student_class, $dat
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 40px; padding-left: 40px; padding-top: 10px; padding-bottom: 10px; font-family: Tahoma, sans-serif"><![endif]-->
 	<div style="color:#555555;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.5;padding-top:10px;padding-right:40px;padding-bottom:10px;padding-left:40px;">
 	<div style="line-height: 1.5; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #555555; mso-line-height-alt: 18px;">
-	<p style="font-size: 15px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;"><span style="color: #808389; font-size: 15px;">Dear '. htmlspecialchars($parentName) .', the student below is safely arrived to school. Thank you for your attention.</span></p>
+	<p style="font-size: 15px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; margin: 0;"><span style="color: #808389; font-size: 15px;">Dear parent, the student below is safely arrived to school. Thank you for your attention.</span></p>
 	</div>
 	</div>
 	<!--[if mso]></td></tr></table><![endif]-->
@@ -383,7 +348,7 @@ function sendEmail($parentEmail,$parentName, $student_name, $student_class, $dat
 	<table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 1px solid #555961; width: 100%;" valign="top" width="100%">
 	<tbody>
 	<tr style="vertical-align: top;" valign="top">
-	<td style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top"><span style="color: #FFF; display: none; font-size: 8px;"><%= rand(36**20).to_s(36) %></span></td>
+	<td style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top"><span></span></td>
 	</tr>
 	</tbody>
 	</table>
@@ -415,33 +380,4 @@ function sendEmail($parentEmail,$parentName, $student_name, $student_class, $dat
 	</table>
 	<!--[if (IE)]></div><![endif]-->
 	</body>
-	</html>';
-	$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-	if(!$mail->send()) {
-		    echo 'Message could not be sent.';
-		    echo 'Mailer Error: ' . $mail->ErrorInfo;
-		} else {
-		    echo 'Message has been sent';
-		}
-
-
-}
-
-
-
-
-
-
-?>
-
-
-
-
-
-
-
-
-
-
-
+	</html>

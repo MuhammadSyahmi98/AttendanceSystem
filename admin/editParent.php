@@ -144,7 +144,56 @@ if (isset($_POST['updateParent'])) {
   $parent_email = $_POST['parent_email'];
   $parent_contact = $_POST['parent_contact'];
 
-  updateParent($parent_id, $parent_name, $parent_email, $parent_contact);
+
+
+
+
+
+
+  if(preg_match("/^[A-Z][a-zA-Z - ' .]+$/", $parent_name) === 0) {
+  echo "<script>alert('Name must be from letters, dashes, spaces and must not start with dash');
+             window.location.href='editParent.php';
+              </script>";
+
+  } else {
+    if(preg_match("/^[0-9]{3}-[0-9]{7}$/", $parent_contact) === 0) {
+      
+      if(preg_match("/^[0-9]{3}-[0-9]{8}$/", $parent_contact) === 0){
+         echo "<script>alert('Wrong Phone Number Format: 012-12412345 or 012-1241234');
+                  window.location.href='editParent.php';
+                  </script>";
+      } else {
+          updateParent($parent_id, $parent_name, $parent_email, $parent_contact);
+        }   
+
+
+        }
+
+     else {
+        updateParent($parent_id, $parent_name, $parent_email, $parent_contact);
+      
+    }
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   
   
 

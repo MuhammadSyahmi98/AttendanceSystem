@@ -96,7 +96,7 @@ if ($loggedIn!=9999) {
                     <div class="input-group">
                       <div class="custom-file">
                         <input id="image" name="image" type="file" class="custom-file-input"  >
-                        <label class="custom-file-label" for="customFile">Choose File If MC</label>
+                        <label class="custom-file-label" for="customFile">Choose File If MC or Other</label>
                       </div>
                       
                     </div>
@@ -107,6 +107,7 @@ if ($loggedIn!=9999) {
                     <option value="Absent">Absent</option>
                     <option value="Medical Leave">Medical Leave</option>
                     <option value="Attend Late">Attend Late</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
                 </div>
@@ -172,7 +173,7 @@ $(document).ready(function () {
  $(document).ready(function(){  
       $('#insert').click(function(){
         var option = $('#option').val();
-           if (option == 'Medical Leave') {
+           if (option == 'Medical Leave' || $option==="Other") {
               var image_name = $('#image').val();  
            if(image_name == '')  
            {  
@@ -210,11 +211,11 @@ if (isset($_POST['insert'])) {
 
    $student_id = $_SESSION['student_id'];
 
-   if ($option==="Medical Leave") {
+   if ($option==="Medical Leave" || $option==="Other") {
 
     $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"])); 
 
-    $query = "UPDATE attendance SET attendance_img = '$file', attend_status = 'Medical Leave' WHERE attendance_id = ". $attendance_id;
+    $query = "UPDATE attendance SET attendance_img = '$file', attend_status = '".$option."' WHERE attendance_id = ". $attendance_id;
     if(mysqli_query($conn, $query))  
       {  
            echo "<script>alert('Successfully Update Student Attendance');window.location.href='teacherstudattend.php';</script>";  

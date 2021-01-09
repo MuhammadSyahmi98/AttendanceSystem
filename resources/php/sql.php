@@ -1,5 +1,31 @@
 <?php
 
+
+function displayParentByClass($class_id){
+	require 'connectDB.php';
+
+	$sql = "SELECT * FROM parent INNER JOIN student ON student.parent_id = parent.parent_id WHERE student.class_id = ?";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_STUDENT_CLASS_DATA');
+		       window.location.href='class.php';
+		       </script>";
+    } else {
+    
+ 		mysqli_stmt_bind_param($result, "i", $class_id);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	return $resultl;
+    }
+
+}
+
+
+
+
+
 function countOtherStudentByClassAttend($class_id, $dates){
 	require 'connectDB.php';
 
@@ -194,7 +220,22 @@ function countAllAttendStudentByClassAttend($dates){
 function updateParent($parent_id, $parent_name, $parent_email, $parent_contact){
 	require 'connectDB.php';
 
-        	$sql = "UPDATE parent SET parent_name = ? , parent_email = ?, parent_contact = ? WHERE parent_id = ?";
+	$sql = "SELECT * FROM parent WHERE parent_name = ? AND parent_email = ? AND parent_contact = ?";
+
+	// Connection to database
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+        echo "<script>alert('SQL_Error_STUDENT_CLASS_DATA');
+		       window.location.href='parentList.php';
+		       </script>";
+    } else {
+    
+ 		mysqli_stmt_bind_param($result, "sss", $parent_name, $parent_email, $parent_contact);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+    	if (!$row = mysqli_fetch_assoc($resultl)) {
+
+    		$sql = "UPDATE parent SET parent_name = ? , parent_email = ?, parent_contact = ? WHERE parent_id = ?";
 
 	        // Connection to database
 			$result = mysqli_stmt_init($conn);
@@ -213,7 +254,19 @@ function updateParent($parent_id, $parent_name, $parent_email, $parent_contact){
 			        </script>";
 		    	
 		    	
-		    }	
+		    }
+    	} else {
+    		echo "<script>alert('Data exist in database');
+			        window.location.href='parentList.php';
+			        </script>";
+    	}
+    }
+
+
+
+
+	
+        		
 
 }
 
@@ -641,34 +694,61 @@ function displayParent(){
 function addStudentNew($student_id, $student_name, $student_ic, $student_address, $parent_id, $class_id, $page){
 	require 'connectDB.php';
 
-	$sql = "INSERT INTO student (student_id, student_name, student_ic, student_address, student_status, parent_id, class_id) VALUES (?,?,?,?,?,?,?)";
+	$sql = "SELECT * FROM student WHERE student_id = ? OR student_ic = ?";
+	$result = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($result, $sql)) {
+		echo "<script>alert('SQL_Error_DISPLAY_ADMIN_DATA');
+		        window.location.href='class.php';
+		        </script>";
 
-		$result = mysqli_stmt_init($conn);
-		if (!mysqli_stmt_prepare($result, $sql)) {
-	        echo "<script>alert('SQL_Error_REGISTER_STUDENT_DATA');
-			        window.location.href='registerStudent2.php';
-			        </script>";
-	    } else { 
-	    	$student_status = "Active";
-	    	if (empty($class_id)) {
-	    		$class_id = NULL;
-	    	}
-			mysqli_stmt_bind_param($result, "sssssii", $student_id, $student_name, $student_ic, $student_address, $student_status, $parent_id, $class_id);
-	        mysqli_stmt_execute($result);
-	        if ($result) {
-	        	if ($page === 9) {
-	        		echo "<script>alert('Successfully Register Student');
-			        window.location.href='allStudentList.php';
-			        </script>";
-	        	}
-	        	else {
-	        		echo "<script>alert('Successfully Register Student');
-			        window.location.href='studentlist.php';
-			        </script>";
-	        	}
-	        }
-	        
-	    }
+
+	}else {
+	    mysqli_stmt_bind_param($result, 'ss' , $student_id, $student_ic);
+    	mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+   
+		if (!$row = mysqli_fetch_assoc($resultl)) {
+			$sql = "INSERT INTO student (student_id, student_name, student_ic, student_address, student_status, parent_id, class_id) VALUES (?,?,?,?,?,?,?)";
+
+			$result = mysqli_stmt_init($conn);
+			if (!mysqli_stmt_prepare($result, $sql)) {
+		        echo "<script>alert('SQL_Error_REGISTER_STUDENT_DATA');
+				        window.location.href='registerStudent2.php';
+				        </script>";
+		    } else { 
+		    	$student_status = "Active";
+		    	if (empty($class_id)) {
+		    		$class_id = NULL;
+		    	}
+				mysqli_stmt_bind_param($result, "sssssii", $student_id, $student_name, $student_ic, $student_address, $student_status, $parent_id, $class_id);
+		        mysqli_stmt_execute($result);
+		        if ($result) {
+		        	if ($page === 9) {
+		        		echo "<script>alert('Successfully Register Student');
+				        window.location.href='allStudentList.php';
+				        </script>";
+		        	}
+		        	else {
+		        		echo "<script>alert('Successfully Register Student');
+				        window.location.href='studentlist.php';
+				        </script>";
+		        	}
+		        }
+		        
+		    }
+		} else {
+			if ($page === 9) {
+		        		echo "<script>alert('Data Exist in Database');
+				        window.location.href='allStudentList.php';
+				        </script>";
+		        	}
+		        	else {
+		        		echo "<script>alert('Data Exist in Database');
+				        window.location.href='studentlist.php';
+				        </script>";
+		        	}
+		}
+	}
 }
 
 
@@ -686,7 +766,7 @@ function addParent($parent_name, $parent_email, $parent_contact, $parent_passwor
 		        window.location.href='registerParent.php';
 		        </script>";
     } else { 
-    	mysqli_stmt_bind_param($result, "ss", $parent_name, $parent_email);
+    	mysqli_stmt_bind_param($result, "ss", $parent_email, $parent_name);
         mysqli_stmt_execute($result);
         $resultl = mysqli_stmt_get_result($result);
 
@@ -705,17 +785,27 @@ function addParent($parent_name, $parent_email, $parent_contact, $parent_passwor
 		        mysqli_stmt_execute($result);
 		        if ($result) {
 		        	if ($code === 12) {
-		        		echo "<script>alert('Successfully Register Parent');
-				        window.location.href='registerStudent2.php';
-				        </script>";
+		        		// echo "<script>alert('Successfully Register Parent');
+				        // window.location.href='registerStudent2.php';
+				        // </script>";
+
+				        return $result;
+
 		        	} else if($code === 9) {
-		        		echo "<script>alert('Successfully Register Parent');
-				        window.location.href='registerStudent.php';
-				        </script>";
+		        		// echo "<script>alert('Successfully Register Parent');
+				        // window.location.href='registerStudent.php';
+				        // </script>";
+				        return $result;
 		        	} else if($code === 23) {
-		        		echo "<script>alert('Successfully Register Parent');
-				        window.location.href='parentList.php';
-				        </script>";
+		        		// echo "<script>alert('Successfully Register Parent');
+				        // window.location.href='parentList.php';
+				        // </script>";
+				        return $result;
+		        	} else if($code === 11){
+		        		// echo "<script>alert('Successfully Register Parent');
+				        // window.location.href='parentListTeacher.php';
+				        // </script>";
+				        return $result;
 		        	}
 		        	
 		        }
@@ -723,9 +813,15 @@ function addParent($parent_name, $parent_email, $parent_contact, $parent_passwor
 		    }
 
    		 } else {
-   		 	echo "<script>alert('Parent Already Registered');
-		        window.location.href='index.php';
+   		 	if ($code !=11) {
+   		 		echo "<script>alert('Parent Already Registered');
+		        window.location.href='parentList.php';
 		        </script>";
+   		 	} else {
+   		 		echo "<script>alert('Parent Already Registered');
+		        window.location.href='parentListTeacher.php';
+		        </script>";
+   		 	}
    		 }
 
 
@@ -852,7 +948,7 @@ function addDate($type, $description, $new_date_start, $new_date_end){
 	require 'connectDB.php';
 
 	// Check database if the date or description already been added
-	$sql = "SELECT * FROM holiday_date WHERE holiday_description = ? || (holiday_start = ? && holiday_end = ?)";
+	$sql = "SELECT * FROM holiday_date WHERE (holiday_description = ? || holiday_start = ? AND holiday_end = ?) AND holiday_type = ?";
 	// Connection to database
 	$result = mysqli_stmt_init($conn);
 	if (!mysqli_stmt_prepare($result, $sql)) {
@@ -860,7 +956,7 @@ function addDate($type, $description, $new_date_start, $new_date_end){
 		        window.location.href='date.php';
 		        </script>";
     } else { 
-		mysqli_stmt_bind_param($result, "sss", $description, $new_date_start, $new_date_end);
+		mysqli_stmt_bind_param($result, "ssss", $description, $new_date_start, $new_date_end, $type);
         mysqli_stmt_execute($result);
         $resultl = mysqli_stmt_get_result($result);
 
@@ -1206,7 +1302,7 @@ function displayStudentAttendanceByClassAbsent($class_id, $dates){
 function addTeacher($teacher_name, $teacher_email, $teacher_contact, $password_1, $class_id) {
 	require 'connectDB.php';
 
-	$sql = "SELECT * FROM teacher WHERE teacher_name = ?";
+	$sql = "SELECT * FROM teacher WHERE teacher_name = ? AND teacher_email = ?";
 	$result = mysqli_stmt_init($conn);
 	if (!mysqli_stmt_prepare($result, $sql)) {
         echo "<script>alert('SQL_Error_SEARCH_TEACHER_DATA');
@@ -1214,7 +1310,7 @@ function addTeacher($teacher_name, $teacher_email, $teacher_contact, $password_1
 		        </script>";
     } 
     else { 
-    	mysqli_stmt_bind_param($result, "s", $teacher_name);
+    	mysqli_stmt_bind_param($result, "ss", $teacher_name, $teacher_email);
         mysqli_stmt_execute($result);
         $resultl = mysqli_stmt_get_result($result);
 
@@ -1807,11 +1903,11 @@ function displayTeacherByEmail($teacher_email){
 
 
 
-function updateAdmin($admin_id, $name, $email){
+function updateAdmin($admin_id, $name, $email, $contact){
 	require 'connectDB.php';
 
 	// Check if data already been added
-	$sql = "SELECT * FROM admin WHERE admin_name = ? OR admin_email = ?";
+	$sql = "SELECT * FROM admin WHERE BINARY admin_name = ? AND BINARY admin_email = ? AND admin_contact = ?";
 
 	$result = mysqli_stmt_init($conn);
 	if (!mysqli_stmt_prepare($result, $sql)) {
@@ -1819,13 +1915,13 @@ function updateAdmin($admin_id, $name, $email){
 		        window.location.href='listAdmin.php';
 		        </script>";
     } else { 
-		mysqli_stmt_bind_param($result, "ss", $name, $email);
+		mysqli_stmt_bind_param($result, "sss", $name, $email, $contact);
         mysqli_stmt_execute($result);
         $resultl = mysqli_stmt_get_result($result);
 
         // If the details not redundent
         if (!$row = mysqli_fetch_assoc($resultl)){
-        	$sql = "UPDATE admin SET admin_name = ?, admin_email = ? WHERE admin_id =?";
+        	$sql = "UPDATE admin SET admin_name = ?, admin_email = ?, admin_contact = ? WHERE admin_id =?";
 
         	$result = mysqli_stmt_init($conn);
 			if (!mysqli_stmt_prepare($result, $sql)) {
@@ -1835,7 +1931,7 @@ function updateAdmin($admin_id, $name, $email){
 		    }
 		    else {
 				// Execute the sql statement
-		        mysqli_stmt_bind_param($result, 'ssi' , $name, $email, $admin_id);
+		        mysqli_stmt_bind_param($result, 'sssi' , $name, $email, $contact, $admin_id);
 		        mysqli_stmt_execute($result);
 		        echo "<script>alert('Success Update Admin');
 		        window.location.href='listAdmin.php';
@@ -1904,20 +2000,43 @@ function updatePasswordTeacher($teacher_id, $teacher_password){
 function updateTeacherEmpty($teacher_id, $teacher_name, $teacher_email, $teacher_contact) {
 	require 'connectDB.php';
 
-	$sql = "UPDATE teacher SET teacher_name = ? , teacher_email = ?, teacher_contact = ?, class_id = NULL WHERE teacher_id = ?";
+	$sql = "SELECT * FROM teacher WHERE teacher_name = ? AND teacher_email = ? AND teacher_contact = ? AND class_id = NULL";
+
 	// Connection to database
 	$result = mysqli_stmt_init($conn);
 	if (!mysqli_stmt_prepare($result, $sql)) {
-        echo "<script>alert('SQL_Error_UPDATE_CLASS2_DATA');
-		        window.location.href='class.php';
-		        </script>";
-    } else { 
-    	mysqli_stmt_bind_param($result, "sssi", $teacher_name, $teacher_email, $teacher_contact, $teacher_id);
+		echo "<script>alert('SQL_Error_UPDATE_CLASS2_DATA');
+				        window.location.href='registerTeacher.php';
+				        </script>";
+	} else {
+		mysqli_stmt_bind_param($result, "sss", $teacher_name, $teacher_email, $teacher_contact);
         mysqli_stmt_execute($result);
-        echo "<script>alert('Successfully Update Teacher');
-		        window.location.href='adminteacher.php';
-		        </script>";
-         
+        $resultl = mysqli_stmt_get_result($result);
+		if (!$row = mysqli_fetch_assoc($resultl)) {
+			
+			$sql = "UPDATE teacher SET teacher_name = ? , teacher_email = ?, teacher_contact = ?, class_id = NULL WHERE teacher_id = ?";
+			// Connection to database
+			$result = mysqli_stmt_init($conn);
+			if (!mysqli_stmt_prepare($result, $sql)) {
+		        echo "<script>alert('SQL_Error_UPDATE_CLASS2_DATA');
+				        window.location.href='registerTeacher.php';
+				        </script>";
+		    } else { 
+		    	mysqli_stmt_bind_param($result, "sssi", $teacher_name, $teacher_email, $teacher_contact, $teacher_id);
+		        mysqli_stmt_execute($result);
+		        echo "<script>alert('Successfully Update Teacher');
+				        window.location.href='adminteacher.php';
+				        </script>";
+		         
+			}
+
+
+
+		} else {
+			echo "<script>alert('Data exist in database');
+				        window.location.href='adminteacher.php';
+				        </script>";
+		}
 	}
 
 }
@@ -1927,21 +2046,55 @@ function updateTeacherEmpty($teacher_id, $teacher_name, $teacher_email, $teacher
 function updateTeacher($teacher_id, $teacher_name, $teacher_email, $teacher_contact, $class_id){
 	require 'connectDB.php';
 
-	$sql = "UPDATE teacher SET teacher_name = ? , teacher_email = ?, teacher_contact = ?, class_id = ? WHERE teacher_id = ?";
+
+
+	$sql = "SELECT * FROM teacher WHERE teacher_name = ? AND teacher_email = ? AND teacher_contact = ? AND class_id = ?";
+
 	// Connection to database
 	$result = mysqli_stmt_init($conn);
 	if (!mysqli_stmt_prepare($result, $sql)) {
-        echo "<script>alert('SQL_Error_UPDATE_CLASS2_DATA');
-		        window.location.href='class.php';
-		        </script>";
-    } else { 
-    	mysqli_stmt_bind_param($result, "sssii", $teacher_name, $teacher_email, $teacher_contact, $class_id, $teacher_id);
+		echo "<script>alert('SQL_Error_UPDATE_CLASS2_DATA');
+				        window.location.href='registerTeacher.php';
+				        </script>";
+	} else {
+		mysqli_stmt_bind_param($result, "sssi", $teacher_name, $teacher_email, $teacher_contact, $class_id);
         mysqli_stmt_execute($result);
-        echo "<script>alert('Successfully Update Teacher');
-		        window.location.href='adminteacher.php';
-		        </script>";
-         
+        $resultl = mysqli_stmt_get_result($result);
+		if (!$row = mysqli_fetch_assoc($resultl)) {
+			
+			$sql = "UPDATE teacher SET teacher_name = ? , teacher_email = ?, teacher_contact = ?, class_id = ? WHERE teacher_id = ?";
+			// Connection to database
+			$result = mysqli_stmt_init($conn);
+			if (!mysqli_stmt_prepare($result, $sql)) {
+		        echo "<script>alert('SQL_Error_UPDATE_CLASS2_DATA');
+				        window.location.href='class.php';
+				        </script>";
+		    } else { 
+		    	mysqli_stmt_bind_param($result, "sssii", $teacher_name, $teacher_email, $teacher_contact, $class_id, $teacher_id);
+		        mysqli_stmt_execute($result);
+		        echo "<script>alert('Successfully Update Teacher');
+				        window.location.href='adminteacher.php';
+				        </script>";
+		         
+			}
+
+
+
+		} else {
+			echo "<script>alert('Data exist in database');
+				        window.location.href='adminteacher.php';
+				        </script>";
+		}
 	}
+
+
+
+
+
+
+
+
+	
 
 }
 
@@ -2725,6 +2878,14 @@ function countTotalAttentByMonthAndClass($class_id, $month){
 }
 
 
+
+
+
+
+
+
+
+
 function countTotalAttentLateByMonthAndClass($class_id, $month){
 	require 'connectDB.php';
 
@@ -2854,11 +3015,12 @@ function getTeacherID($class_id){
 
 
 
+ ?>
 
 
 
 
-?>
+
 
 
 

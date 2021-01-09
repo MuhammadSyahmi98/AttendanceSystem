@@ -146,13 +146,13 @@ if ($loggedIn!=9999) {
                     ?>
 
 
-                  <div class="form-group" style="<?php if ($row['attend_status'] != "Medical Leave") {
+                  <div class="form-group" style="<?php if (($row['attend_status'] === "Attend Late") || ($row['attend_status'] === "Absent") || ($row['attend_status'] === "Attend")) {
                     ?> display: none; <?php
                   } ?>">
-                  <strong style="font-size: 120%;">MEDICAL LEAVE</strong>
+                  <strong style="font-size: 120%;">PROVE</strong>
                     <?php while($row = $result->fetch_assoc()){ ?> 
                       <div>
-                      <?php if ($row['attend_status'] === "Medical Leave") { ?>
+                      <?php if ($row['attend_status'] === "Medical Leave" || $row['attend_status'] === "Other") { ?>
                         <img style="margin-top: 15px; height: 300px; width: 600px;" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['attendance_img']); ?>" /> 
         <?php } else { ?>
           <input class="form-control" name="" readonly value="" > <?php
@@ -162,6 +162,9 @@ if ($loggedIn!=9999) {
                     
                     
                   </div>
+
+
+
                   <!-- /.card-body -->
                   
                 </div>

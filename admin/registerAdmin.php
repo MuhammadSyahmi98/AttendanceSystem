@@ -245,16 +245,45 @@ if (isset($_POST['submit'])) {
   $rePassword = $_POST['rePassword'];
   $admin_contact = $_POST['admin_contact'];
 
-  if ($password === $rePassword) {
-    
-    addAdmin($name, $email, $password, $admin_contact);
-
+  if(preg_match("/^[A-Z][a-zA-Z -]+$/", $name) === 0) {
+  echo "<script>alert('Name must be from letters, dashes, spaces and must not start with dash');
+             
+              </script>";
 
   } else {
-    echo "<script>alert('Password Doesnt Match. Please Try Again');
-            window.location.href='registerAdmin.php';
-            </script>";
+    if(preg_match("/^[0-9]{3}-[0-9]{7}$/", $admin_contact) === 0) {
+      
+      if(preg_match("/^[0-9]{3}-[0-9]{8}$/", $admin_contact) === 0){
+         echo "<script>alert('Wrong Phone Number Format: 012-12412345 or 012-1241234');
+                  window.location.href='registerAdmin.php';
+                  </script>";
+      } else {
+            if ($password === $rePassword) {
+              addAdmin($name, $email, $password, $admin_contact);
+
+
+            } else {
+              echo "<script>alert('Password Doesnt Match. Please Try Again');
+                      window.location.href='registerAdmin.php';
+                      </script>";
+            }
+        }
+
+    } else {
+        if ($password === $rePassword) {
+          addAdmin($name, $email, $password, $admin_contact);
+
+
+        } else {
+          echo "<script>alert('Password Doesnt Match. Please Try Again');
+                  window.location.href='registerAdmin.php';
+                  </script>";
+        }
+    }
+    
   }
+
+  
 
 
 

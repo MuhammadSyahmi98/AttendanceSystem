@@ -116,6 +116,8 @@ if ($loggedIn!=893247348) {
 
                     <input type="name" name="class_name" class="form-control" value="<?php echo $row['class_name']; ?>">
 
+                    <input type="hidden" name="hidden_class_name" class="form-control" value="<?php echo $row['class_name']; ?>">
+
                   </div>
 
                   <div class="form-group">
@@ -257,6 +259,7 @@ if (isset($_POST['updateClass'])) {
   $class_name = $_POST['class_name'];
   $teacher_id = $_POST['teacher_id'];
   $teacher_id_moke = $_POST['session_teacher_id'];
+  $hidden_class_name = $_POST['hidden_class_name'];
 
   if ($teacher_id === "") {
     updateClassEmpty($class_name, $teacher_id_moke, $class_id);

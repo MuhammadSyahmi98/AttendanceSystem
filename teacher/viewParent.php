@@ -8,7 +8,7 @@
 <?php
 $loggedIn = $_SESSION['loggedIn'];
 
-if ($loggedIn!=893247348) {
+if ($loggedIn!=9999) {
   echo "<script>alert('PLEASE TRY AGAIN');
               window.location.href='../index.php';
               </script>";
@@ -40,7 +40,7 @@ if ($loggedIn!=893247348) {
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar -->
-  <?php  include "navAdmin.php"; ?>
+  <?php  include "navTeacher.php"; ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">

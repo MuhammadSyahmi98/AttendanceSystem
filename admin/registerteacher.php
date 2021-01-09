@@ -163,19 +163,55 @@ if (isset($_POST['addTeacher'])) {
   $teacher_contact = $_POST['teacher_contact'];
   $class_id = $_POST['class_id2'];
 
-  if ($password_1 === $password_2) {
-    addTeacher($teacher_name, $teacher_email, $teacher_contact, $password_1, $class_id);
-    if (!empty($class_id)) {
+  if(preg_match("/^[A-Z][a-zA-Z - ']+$/", $teacher_name) === 0) {
+  echo "<script>alert('Name must be from letters, dashes, spaces and must not start with dash');
+             window.location.href='registerTeacher.php';
+              </script>";
 
-      $result2 = getTeacherID($class_id);
-      $row4 = mysqli_fetch_assoc($result2);
-      $teacher_id = $row4['teacher_id'];
-      $d = date("Y-m-d");
-      addClasHistory($class_id, $teacher_id, $d);
-    }
   } else {
-    echo "Password Dont Match";
+    if(preg_match("/^[0-9]{3}-[0-9]{7}$/", $teacher_contact) === 0) {
+      
+      if(preg_match("/^[0-9]{3}-[0-9]{8}$/", $teacher_contact) === 0){
+         echo "<script>alert('Wrong Phone Number Format: 012-12412345 or 012-1241234');
+                  window.location.href='registerTeacher.php';
+                  </script>";
+      } else {
+            if ($password_1 === $password_2) {
+            addTeacher($teacher_name, $teacher_email, $teacher_contact, $password_1, $class_id);
+            if (!empty($class_id)) {
+
+              $result2 = getTeacherID($class_id);
+              $row4 = mysqli_fetch_assoc($result2);
+              $teacher_id = $row4['teacher_id'];
+              $d = date("Y-m-d");
+              addClasHistory($class_id, $teacher_id, $d);
+            }
+          } else {
+            echo "Password Dont Match";
+          }
+        }
+
+    } else {
+        if ($password_1 === $password_2) {
+        addTeacher($teacher_name, $teacher_email, $teacher_contact, $password_1, $class_id);
+        if (!empty($class_id)) {
+
+          $result2 = getTeacherID($class_id);
+          $row4 = mysqli_fetch_assoc($result2);
+          $teacher_id = $row4['teacher_id'];
+          $d = date("Y-m-d");
+          addClasHistory($class_id, $teacher_id, $d);
+        }
+      } else {
+        echo "Password Dont Match";
+      }
+    }
+    
   }
+
+
+
+  
 
 
 }

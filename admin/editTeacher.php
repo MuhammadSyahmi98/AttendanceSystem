@@ -176,17 +176,65 @@ if (isset($_POST['updateTeacher'])) {
   $class_id = $_POST['class_id1'];
   $current_classId = $_POST['current_classId'];
 
-  if ($class_id === "") {
-    updateTeacherEmpty($teacher_id, $teacher_name, $teacher_email, $teacher_contact);
+
+  if(preg_match("/^[A-Z][a-zA-Z - ']+$/", $teacher_name) === 0) {
+  echo "<script>alert('Name must be from letters, dashes, spaces and must not start with dash');
+             window.location.href='editTeacher.php';
+              </script>";
+
   } else {
-    updateTeacher($teacher_id, $teacher_name, $teacher_email, $teacher_contact, $class_id);
-    if ($class_id!=$current_classId) {
-      if (!empty($class_id)) {
-        $d = date("Y-m-d");
-        addClasHistory($class_id, $teacher_id, $d);
-      }
+    if(preg_match("/^[0-9]{3}-[0-9]{7}$/", $teacher_contact) === 0) {
+      
+      if(preg_match("/^[0-9]{3}-[0-9]{8}$/", $teacher_contact) === 0){
+         echo "<script>alert('Wrong Phone Number Format: 012-12412345 or 012-1241234');
+                  window.location.href='editTeacher.php';
+                  </script>";
+      } else {
+            if ($class_id === "") {
+              updateTeacherEmpty($teacher_id, $teacher_name, $teacher_email, $teacher_contact);
+            } else {
+              updateTeacher($teacher_id, $teacher_name, $teacher_email, $teacher_contact, $class_id);
+              if ($class_id!=$current_classId) {
+                if (!empty($class_id)) {
+                  $d = date("Y-m-d");
+                  addClasHistory($class_id, $teacher_id, $d);
+                }
+              }
+            }
+        }
+
+    } else {
+        if ($class_id === "") {
+          updateTeacherEmpty($teacher_id, $teacher_name, $teacher_email, $teacher_contact);
+        } else {
+          updateTeacher($teacher_id, $teacher_name, $teacher_email, $teacher_contact, $class_id);
+          if ($class_id!=$current_classId) {
+            if (!empty($class_id)) {
+              $d = date("Y-m-d");
+              addClasHistory($class_id, $teacher_id, $d);
+            }
+          }
+        }
     }
+    
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 
 

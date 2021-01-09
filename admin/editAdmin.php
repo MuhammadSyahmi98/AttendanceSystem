@@ -126,6 +126,13 @@ if ($loggedIn!=893247348) {
 
                   </div>
 
+                  <div class="form-group">
+
+                    <label for="exampleInputName">Phone Number</label>
+                    <input type="name" name="admin_contact" class="form-control" value="<?php echo $row['admin_contact']; ?>">
+
+                  </div>
+
 
                   
 
@@ -214,8 +221,37 @@ if ($loggedIn!=893247348) {
 if (isset($_POST['updateAdmin'])) {
   $admin_id = $_POST['admin_id'];
   $name = $_POST['admin_name'];
+  $admin_contact = $_POST['admin_contact'];
   $email = $_POST['admin_email'];
-  updateAdmin($admin_id, $name, $email);
+
+
+
+   if(preg_match("/^[A-Z][a-zA-Z -]+$/", $name) === 0) {
+  echo "<script>alert('Name must be from letters, dashes, spaces and must not start with dash');
+             window.location.href='editAdmin.php';
+              </script>";
+   } else {
+
+      if(preg_match("/^[0-9]{3}-[0-9]{7}$/", $admin_contact) === 0) {
+      
+          if(preg_match("/^[0-9]{3}-[0-9]{8}$/", $admin_contact) === 0){
+             echo "<script>alert('Wrong Phone Number Format: 012-12412345 or 012-1241234');
+                  window.location.href='editAdmin.php';
+                  </script>";
+          }else {
+            updateAdmin($admin_id, $name, $email, $admin_contact);
+          }
+
+      } else {
+        updateAdmin($admin_id, $name, $email, $admin_contact);
+      }
+
+   }
+
+
+
+
+  
 
 }
 

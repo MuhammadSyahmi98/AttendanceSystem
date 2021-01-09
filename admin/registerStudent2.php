@@ -196,29 +196,46 @@ if (isset($_POST['addStudent1'])) {
   $class_id = $_POST['ids'];
 
 
-  
 
-  $result = verifyParent($parent_name, $parent_email);
-  $row = mysqli_fetch_assoc($result);
 
-  if(!empty($row)) {
 
-    $parent_id = $row['parent_id'];
-
-    addStudentNew($student_id, $student_name, $student_ic, $student_address, $parent_id, $class_id, 9);
-
-    // echo $parent_id;
-    // echo $class_id;
+  if(preg_match("/^[A-Z][a-zA-Z - ' .]+$/", $student_name) === 0 || preg_match("/^[A-Z][a-zA-Z - ' .]+$/", $parent_name) === 0) {
+  echo "<script>alert('Name must be from letters, dashes, spaces and must not start with dash');
+             window.location.href='registerStudent2.php';
+              </script>";
 
   } else {
+    if (preg_match("/^[0-9]{6}-[0-9]{2}-[0-9]{4}$/", $student_ic) === 0) {
+        echo "<script>alert('IC must be numbers: 999999-99-9999');
+             window.location.href='registerStudent2.php';
+              </script>";
+      } else {
+          $result = verifyParent($parent_name, $parent_email);
+          $row = mysqli_fetch_assoc($result);
 
-     $_SESSION['allstudent'] = 12;
-    echo "<script>
-  alert('Parent Doesnt Exist in Database. Need To Register Parent');
-  window.location.assign('registerParent.php')
-  </script>";
+          if(!empty($row)) {
 
+            $parent_id = $row['parent_id'];
+
+            addStudentNew($student_id, $student_name, $student_ic, $student_address, $parent_id, $class_id, 9);
+
+            // echo $parent_id;
+            // echo $class_id;
+
+          } else {
+
+             $_SESSION['allstudent'] = 12;
+            echo "<script>
+          alert('Parent Doesnt Exist in Database. Need To Register Parent');
+          window.location.assign('registerParent.php')
+          </script>";
+
+          }
+        }
+    
   }
+
+
 
   
 }

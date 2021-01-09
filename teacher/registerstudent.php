@@ -91,7 +91,11 @@ if ($loggedIn!=9999) {
                   </div>
                   <div class="form-group">
                     <label for="exampleInputICNumber">IC NUMBER</label>
-                    <input class="form-control" name="student_ic"  placeholder="Enter Ic Number" required>
+                    <input class="form-control" name="student_ic"  placeholder="Enter Address" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputICNumber">ADDRESS</label>
+                    <input class="form-control" name="student_address"  placeholder="Enter Ic Number" required>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputICNumber">PARENT NAME</label>
@@ -100,10 +104,6 @@ if ($loggedIn!=9999) {
                   <div class="form-group">
                     <label for="exampleInputICNumber">EMAIL</label>
                     <input type="email" name="parent_email" class="form-control"  placeholder="Enter Parent Email" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputICNumber">PARENT CONTACT NUMBER</label>
-                    <input class="form-control" name="parent_contact" placeholder="Enter Parent Contact Number" required>
                   </div>
                   <div class="form-group">
                     <?php 
@@ -169,7 +169,56 @@ if (isset($_POST['addStudent'])) {
   $parent_contact = $_POST['parent_contact'];
   $class_id = $_SESSION['class_id'];
 
-  addStudentFromTeacher($student_id, $student_name, $student_ic, $parent_name, $parent_email, $parent_contact, $class_id);
+
+
+
+  if(preg_match("/^[A-Z][a-zA-Z - ' .]+$/", $student_name) === 0 || preg_match("/^[A-Z][a-zA-Z - ' .]+$/", $parent_name) === 0) {
+  echo "<script>alert('Name must be from letters, dashes, spaces and must not start with dash');
+             window.location.href='registerStudent.php';
+              </script>";
+
+  } else {
+    if (preg_match("/^[0-9]{6}-[0-9]{2}-[0-9]{4}$/", $student_ic) === 0) {
+        echo "<script>alert('IC must be numbers: 999999-99-9999');
+             window.location.href='registerStudent.php';
+              </script>";
+      } else {
+          $result = verifyParent($parent_name, $parent_email);
+          $row = mysqli_fetch_assoc($result);
+
+          if(!empty($row)) {
+
+            $parent_id = $row['parent_id'];
+
+            addStudentFromTeacher($student_id, $student_name, $student_ic, $parent_name, $parent_email, $parent_contact, $class_id);
+
+
+          } else {
+
+            
+
+            echo "<script>
+          alert('Parent Doesnt Exist in Database. Need To Register Parent');
+          window.location.assign('registerParent.php')
+          </script>";
+
+          }
+        }
+    
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+  
 }
 
 ?>

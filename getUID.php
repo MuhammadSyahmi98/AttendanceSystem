@@ -13,7 +13,7 @@ $attend_status = "Absent";
 // get current day
 // 0==sunday, 1==monday,...
 $day = date('w');
-str
+
 
 
 if (isset($_POST["UIDresult"])) {
@@ -102,7 +102,7 @@ if (isset($_POST["UIDresult"])) {
 
 
                                 // Get all the student data from database
-                                $sql = "SELECT * FROM student INNER JOIN class ON student.class_id = class.class_id WHERE student_id = ?";
+                                $sql = "SELECT * FROM student INNER JOIN class ON student.class_id = class.class_id INNER JOIN parent ON student.parent_id = parent.parent_id WHERE student_id = ?";
                                 $result = mysqli_stmt_init($conn);
 
                                 if (!mysqli_stmt_prepare($result, $sql)) {
@@ -119,7 +119,7 @@ if (isset($_POST["UIDresult"])) {
                                         
                                         $time_in = $t;
                                         
-                                        $setTime = "08:00:00";
+                                        $setTime = "20:00:00";
                                         // Check if the time 
                                         if ($t>$setTime) {
                                             $attend_status = "Attend Late";
@@ -136,7 +136,7 @@ if (isset($_POST["UIDresult"])) {
                                         // Use for Email section
                                         $student_name = $row['student_name'];
                                         $student_class = $row['class_name'];
-                                         $parentEmail = $row['parentEmail'];
+                                         $parentEmail = $row['parent_email'];
                                         $parentName = $row['parent_name'];
 
                                         $sql = "UPDATE attendance SET time_in = ?, attend_status = ? WHERE dates = ? AND student_id = ?";
@@ -150,7 +150,7 @@ if (isset($_POST["UIDresult"])) {
                                             // Store student information into attendance table
                                             mysqli_stmt_bind_param($result, 'ssss' , $time_in, $attend_status, $dates, $student_id);
                                             mysqli_stmt_execute($result);
-                                            // sendEmail($parentEmail,$parentName, $student_name, $student_class, $dates, $time_in);
+                                            sendEmail($parentEmail,$parentName, $student_name, $student_class, $dates, $time_in);
                                             exit();
                                         }
 
@@ -212,7 +212,7 @@ if (isset($_POST["UIDresult"])) {
                         window.location.href='adminteacher.php';
                         </script>";
             } else { 
-                $ds = date('Y-m-14');
+                $ds = date('Y-m-d');
                 $attend_status = "Absent";
                 mysqli_stmt_bind_param($result5, 'ss' , $student_id, $ds);
                 mysqli_stmt_execute($result5);

@@ -257,12 +257,44 @@ if (isset($_POST['updateStudent'])) {
   $student_address = $_POST['student_address'];
   $page = $_SESSION['pageStudentList'];
 
-  if (empty($new_student_id)) {
-      updateStudent($student_id, $student_name, $student_status, $student_ic, $student_address, $class_id,$page);
+
+
+
+  if(preg_match("/^[A-Z][a-zA-Z - ' .]+$/", $student_name) === 0) {
+  echo "<script>alert('Name must be from letters, dashes, spaces and must not start with dash');
+             window.location.href='editStudent.php';
+              </script>";
 
   } else {
-      updateStudentNewStudentID($student_id, $new_student_id,  $student_name, $student_status, $student_ic, $student_address, $class_id, $page);
-  } 
+    if (preg_match("/^[0-9]{6}-[0-9]{2}-[0-9]{4}$/", $student_ic) === 0) {
+        echo "<script>alert('IC must be numbers: 999999-99-9999');
+             window.location.href='editStudent.php';
+              </script>";
+      } else {
+          if (empty($new_student_id)) {
+              updateStudent($student_id, $student_name, $student_status, $student_ic, $student_address, $class_id,$page);
+
+          } else {
+              updateStudentNewStudentID($student_id, $new_student_id,  $student_name, $student_status, $student_ic, $student_address, $class_id, $page);
+          }
+        }
+    
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
  
 }
 

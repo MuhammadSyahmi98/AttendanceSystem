@@ -44,6 +44,16 @@
     </ul>
   </nav>
   <!-- /.navbar -->
+  <?php 
+  $teacher_id = $_SESSION['teacher_id'];
+  $result = displayTeacherByID($teacher_id);
+  $row = mysqli_fetch_assoc($result);
+
+  $teacher_name = $row['teacher_name'];
+  $teacher_name1 = explode(" ", $teacher_name);
+  $teacher_name = $teacher_name1[0];
+
+  ?>
 
 
   <!-- Main Sidebar Container -->
@@ -63,7 +73,7 @@
           <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="profile.php" class="d-block">TEACHER</a>
+          <a href="profile.php" class="d-block" style="text-transform: uppercase;"><?php echo $teacher_name; ?>(TEACHER)</a>
         </div>
       </div>
 
@@ -95,6 +105,12 @@
                 HOME
               </p>
             </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="parentListTeacher.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/teacher/parentListTeacher.php"))  {echo "active";} ?> ">
+              <i class="nav-icon fas fa-users"></i><p>
+                PARENT
+              </p></a>
           </li>
           <li class="nav-item has-treeview">
             <a href="teacherstudlist.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/teacher/viewStudent.php") || ($url === "http://localhost/AttendanceSystem/teacher/teacherstudlist.php") || ($url === "http://localhost/AttendanceSystem/teacher/editStudent.php") || ($url === "http://localhost/AttendanceSystem/teacher/registerstudent.php"))  {echo "active";} ?> ">

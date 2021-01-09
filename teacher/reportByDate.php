@@ -81,6 +81,11 @@ if ($loggedIn!=9999) {
       $row4 = mysqli_fetch_assoc($result4);
       $totalAttendLate = $row4['totalAttendLate'];
 
+      // Status = "Other"
+      $result5 = countOtherStudentByClassAttend($class_id, $dates);
+      $row5 = mysqli_fetch_assoc($result5);
+      $totalOther= $row5['totalOther'];
+
 
 
       // Total Student
@@ -110,7 +115,9 @@ if ($loggedIn!=9999) {
           ['Attend',     <?php echo $totalAttend; ?>],
           ['Medical Leave',     <?php echo $totalMedicalLeave; ?>],
           ['Attend Late',     <?php echo $totalAttendLate; ?>],
-          ['Absend',      <?php echo $absent; ?>]
+          ['Absend',      <?php echo $absent; ?>],
+          ['Other',     <?php echo $totalOther; ?>]
+
         ]);
 
         var options = {

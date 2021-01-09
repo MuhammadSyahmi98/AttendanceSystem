@@ -54,7 +54,9 @@ if ($loggedIn!=9999) {
 
   $attend_late = $attend_late2 = $attend_late3 = $attend_late4 = $attend_late5 = $attend_late6 = $attend_late7 = $attend_late8 = $attend_late9 = $attend_late10 = $attend_late11 = $attend_late12 = 0;
 
-  $medical_leave = $medical_leave2 = $medical_leave3 = $medical_leave4 = $medical_leave5 = $medical_leave6 = $medical_leave7 = $medical_leave8 = $medical_leave9 = $medical_leave10 = $medical_leave11 = $medical_leave12 = 0; 
+  $medical_leave = $medical_leave2 = $medical_leave3 = $medical_leave4 = $medical_leave5 = $medical_leave6 = $medical_leave7 = $medical_leave8 = $medical_leave9 = $medical_leave10 = $medical_leave11 = $medical_leave12 = 0;
+
+  $other = $other2 = $other3 = $other4 = $other5 = $other6 = $other7 = $other8 = $other9 = $other10 = $other11 = $other12 = 0; 
 
 
 

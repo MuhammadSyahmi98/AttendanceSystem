@@ -10,7 +10,7 @@
 <?php
 $loggedIn = $_SESSION['loggedIn'];
 
-if ($loggedIn!=893247348) {
+if ($loggedIn!=9999) {
   echo "<script>alert('PLEASE TRY AGAIN');
               window.location.href='../index.php';
               </script>";
@@ -44,7 +44,7 @@ if ($loggedIn!=893247348) {
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar -->
-  <?php  include "navAdmin.php"; ?>
+  <?php  include "navTeacher.php"; ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -175,39 +175,16 @@ if (isset($_POST['addParent'])) {
           </script>";
           } else {
 
-            $test = $_SESSION['allstudent'];
-            
-            if ($test===12) {
-              $code = 12;
-            } else if($test ===9) {
-              $code = 9;
-            } else if ($test ===23) {
-              $code = 23;
-            }
+            $code = 11;
 
             $result = addParent($parent_name, $parent_email, $parent_contact, $parent_password,$code);
             if ($result) {
               send_emailParent($parent_email, $parent_password);
-              if ($code === 12) {
-                echo "<script>alert('Successfully Register Parent');
-                window.location.href='registerStudent2.php';
-                </script>";
 
-                return $result;
-
-              } else if($code === 9) {
-                echo "<script>alert('Successfully Register Parent');
-                window.location.href='registerStudent.php';
-                </script>";
-                return $result;
-              } else if($code === 23) {
-                echo "<script>alert('Successfully Register Parent');
-                window.location.href='parentList.php';
-                </script>";
-                
-              }
+              echo "<script>alert('Successfully Register Parent');
+                    window.location.href='parentListTeacher.php';
+                    </script>";
             }
-            
           }
         }   
 
@@ -222,39 +199,16 @@ if (isset($_POST['addParent'])) {
       </script>";
       } else {
 
-        $test = $_SESSION['allstudent'];
-        
-        if ($test===12) {
-          $code = 12;
-        } else if($test ===9) {
-          $code = 9;
-        } else if ($test ===23) {
-          $code = 23;
-        }
+        $code = 11;
 
         $result = addParent($parent_name, $parent_email, $parent_contact, $parent_password,$code);
         if ($result) {
-              send_emailParent($parent_email, $parent_password);
-              if ($code === 12) {
-                echo "<script>alert('Successfully Register Parent');
-                window.location.href='registerStudent2.php';
-                </script>";
+          send_emailParent($parent_email, $parent_password);
 
-                return $result;
-
-              } else if($code === 9) {
-                echo "<script>alert('Successfully Register Parent');
-                window.location.href='registerStudent.php';
+          echo "<script>alert('Successfully Register Parent');
+                window.location.href='parentListTeacher.php';
                 </script>";
-                return $result;
-              } else if($code === 23) {
-                echo "<script>alert('Successfully Register Parent');
-                window.location.href='parentList.php';
-                </script>";
-                
-              }
-            }
-        
+        }
       }
     }
         
