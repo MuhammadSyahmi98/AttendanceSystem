@@ -13,6 +13,8 @@ if ($loggedIn!=9999) {
 
  ?>
 
+ <?php $class_id = $_SESSION['class_id']; ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -59,14 +61,32 @@ $(document).ready(function(){
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>List of Parent</h1>
+            <?php 
+            $class_id1=$_SESSION['class_id'];
+            $result = displayClassByID($class_id1);
+             $row = mysqli_fetch_assoc($result);
+
+            ?>
+
+            <?php 
+            if (empty($row['class_name'])) { 
+
+              ?><h1 style="color: red;"><?php echo "Please Contact Administrator to Assign Classroom"; ?></h1> <?php 
+
+            } else {
+              ?><h1>Parent List of <?php echo $row['class_name']; ?></h1><?php
+            }
+              
+          ?>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content" style="<?php if (empty($class_id)) {
+      ?> display: none; <?php
+    } ?>">
       <div class="container-fluid">
             <div class="row">
           <div class="col-12">

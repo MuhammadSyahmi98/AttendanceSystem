@@ -1,5 +1,7 @@
 <?php   include "../resources/php/sql.php"; session_start(); ?>
 <?php $date = date("Y-m-d"); ?>
+<?php $dates = date("d-m-Y"); ?>
+<?php $day = date("l"); ?>
 <?php
 $loggedIn = $_SESSION['loggedIn'];
 
@@ -39,13 +41,13 @@ if ($loggedIn!=893247348) {
           <div class="col-12">
             <div class="card" >
               <div class="card-header">
-                <h3 class="card-title">Daily Log: <b> <?php echo $date; ?></b></h3>
+                <h3 class="card-title">Daily Log: <b> <?php echo $day." ".$dates; ?> </b></h3>
 
 
                 
               </div>
               <div class="card-body table-responsive p-0" style="height: 500px;" >
-                <table class="table table-striped text-nowrap">
+                <table id="" class="table table-striped text-nowrap">
                   <thead>
                       <tr>
                       <th>
@@ -107,33 +109,10 @@ if ($loggedIn!=893247348) {
         </div>
 
 <!-- jQuery -->
-<script src="../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- DataTables -->
-<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-    });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>
 
-<!-- AdminLTE for demo purposes -->
-<script src="../dist/js/demo.js"></script>
+<!-- Bootstrap 4 -->
+
+<!-- DataTables -->
+
 </body>
 </html>

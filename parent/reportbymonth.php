@@ -24,33 +24,26 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
-
-
-
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <!-- Site wrapper -->
 <div class="wrapper">
-  <?php include "navAdmin.php"; ?>
+
+  <?php include "navParent2.php"; ?>
+
 
     <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 
-
-
-  
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Report By Month</h1>
-            <h4>Day: <?php echo date('l')." Date: ".date('d-m-Y'); ?></h4>
-            <h4>Class: All Class</h4>
-
             <form method="POST" style="margin-top: 10px;" autocomplete="off">
 
               <div class="form-group">
-                <select style="margin-top: 10px;" class="form-control" name="month"  data-placeholder="Select" style="width: 100%;" onchange="showUser(this.value)">
+                <select style="margin-top: 10px;" class="form-control" name="months"  data-placeholder="Select" style="width: 100%;" onchange="showUsers(this.value)">
                   <?php $date = date('n') ?>
                   <option value="0">- Select Month -</option>
                   <option value="1" >January</option>
@@ -65,18 +58,13 @@
                   <option value="10" style="<?php if ($date<9) { ?> display: none; <?php } ?>">October</option>
                   <option value="11" style="<?php if ($date<10) { ?> display: none; <?php } ?>">November</option>
                   <option value="12" style="<?php if ($date<11) { ?> display: none; <?php } ?>">December</option>
-                  
-                  
-  
                 </select>
               </div>
                 
             </form>
-            
           </div>
         </div>
-      </div><!-- /.container-fluid -->
-      
+      </div><!-- /.container-fluid --> 
     </section>
 
 
@@ -95,7 +83,6 @@
                   </div>
                 </div>
               </div>
-              
             </section>
 
             <div id="txtHint"></div>
@@ -124,7 +111,7 @@
 <script src="../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+<script src="../plugins/select2/js/select2.full.min.js"></script>
 <!-- Bootstrap4 Duallistbox -->
 <script src="../plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
 <!-- InputMask -->
@@ -170,11 +157,13 @@
   var testData = [];
   var insertData = [];
 
-function showUser(str) {
+function showUsers(str) {
   var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
+        console.log(this.responseText)
         var value = JSON.parse(this.responseText);
+        
         
         console.log(value);
 
@@ -193,7 +182,7 @@ function showUser(str) {
    
       }
     };
-    xmlhttp.open("GET","service.php?cart&month="+str,true);
+    xmlhttp.open("GET","serviceByClass.php?carts&month="+str,true);
     xmlhttp.send();
 }
 
@@ -206,7 +195,7 @@ function showData(str) {
         document.getElementById("txtHint").innerHTML = value;
       }
     };
-    xmlhttp.open("GET","getAttendanceDataByMonth.php?month="+str,true);
+    xmlhttp.open("GET","getAttendanceDataByMonthByClass.php?month="+str,true);
     xmlhttp.send();
 }
 </script>
@@ -243,55 +232,3 @@ function showData(str) {
 
 </html>
 
-<?php 
-if (isset($_POST['viewAttend'])) {
-  $_SESSION['current_month'] = $_POST['month'];
-  $_SESSION['status_student'] = "Attend";
-  echo "<script>window.location.assign('listOfStudentByMonth.php')</script>";
-}
-?>
-
-<?php 
-if (isset($_POST['viewAttendLate'])) {
-  $_SESSION['current_month'] = $_POST['month'];
-  $_SESSION['status_student'] = "Attend Late";
-  echo "<script>window.location.assign('listOfStudentByMonth.php')</script>";
-}
-?>
-
-
-<?php 
-if (isset($_POST['viewAbsent'])) {
-  $_SESSION['current_month'] = $_POST['month'];
-  $_SESSION['status_student'] = "Absent";
-  echo "<script>window.location.assign('listOfStudentByMonth.php')</script>";
-}
-?>
-
-
-<?php 
-if (isset($_POST['viewMedicalLeave'])) {
-  $_SESSION['current_month'] = $_POST['month'];
-  $_SESSION['status_student'] = "Medical Leave";
-  echo "<script>window.location.assign('listOfStudentByMonth.php')</script>";
-}
-?>
-
-
-<?php 
-if (isset($_POST['viewOther'])) {
-  $_SESSION['current_month'] = $_POST['month'];
-  $_SESSION['status_student'] = "Other";
-  echo "<script>window.location.assign('listOfStudentByMonth.php')</script>";
-}
-?>
-
-
-
-<?php 
-if (isset($_POST['viewAll'])) {
-  $_SESSION['current_month'] = $_POST['month'];
-  $_SESSION['status_student'] = "All";
-  echo "<script>window.location.assign('listOfStudentByMonth.php')</script>";
-}
-?>

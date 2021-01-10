@@ -1,13 +1,9 @@
 <?php   include "resources/php/sql.php"; session_start(); ?>
 <?php 
   $admin_id = $_SESSION['admin_id']; 
-  $teacher_id = $_SESSION['teacher_id']; 
+  $teacher_id = $_SESSION['teacher_id'];
+  $parent_id = $_SESSION['parent_id']; 
 ?>
-
-
-
-
-
 
       <!DOCTYPE html>
       <html>
@@ -48,6 +44,8 @@
 
                 <input type="hidden" name="admin_id" value="<?php echo $admin_id; ?>">
                 <input type="hidden" name="teacher_id" value="<?php echo $teacher_id; ?>">
+                <input type="hidden" name="parent_id" value="<?php echo $parent_id; ?>">
+
 
                 <input type="hidden" name="email" value="<?php echo $email; ?>">
                 <span class="login100-form-title p-b-32">
@@ -133,10 +131,10 @@
             $uppercase = preg_match('@[A-Z]@', $password);
             $lowercase = preg_match('@[a-z]@', $password);
             $number    = preg_match('@[0-9]@', $password);
-            $specialChars = preg_match('@[^\w]@', $password);
+            $specialChars = preg_match('@[^_\w]@', $password);
 
             if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
-               
+                // echo 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.';
                 echo "<script>alert('Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.');
                      
                       </script>";
@@ -161,7 +159,7 @@
               $uppercase = preg_match('@[A-Z]@', $password);
               $lowercase = preg_match('@[a-z]@', $password);
               $number    = preg_match('@[0-9]@', $password);
-              $specialChars = preg_match('@[^\w]@', $password);
+              $specialChars = preg_match('@[^_\w]@', $password);
 
               if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
                   // echo 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.';
@@ -179,7 +177,35 @@
             }
 
         } 
-        
+
+
+           // Validate For Parent
+          if (!empty($_SESSION['parent_id'])) {
+
+              if ($password === $rePassword) {
+                $parent_id = $_POST['parent_id'];
+
+              // Validate password strength
+              $uppercase = preg_match('@[A-Z]@', $password);
+              $lowercase = preg_match('@[a-z]@', $password);
+              $number    = preg_match('@[0-9]@', $password);
+              $specialChars = preg_match('@[^_\w]@', $password);
+
+              if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+                  // echo 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.';
+                  echo "<script>alert('Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.');
+                       
+                        </script>";
+              } else{
+                  updatePasswordParent($parent_id, $password);
+              }
+            } else {
+                  echo "<script>alert('Password Doesnt Match');
+                       
+                        </script>"; 
+            }
+
+          } 
 
 
       }

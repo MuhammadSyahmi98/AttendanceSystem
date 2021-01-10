@@ -86,7 +86,9 @@ $(document).ready(function(){
     </section>
     
     <!-- Main content -->
-    <section class="content">
+    <section class="content"  style="<?php if (empty($class_id)) {
+      ?> display: none; <?php
+    } ?>">
       <div class="container-fluid">
             <div class="row">
           <div class="col-12">

@@ -223,6 +223,8 @@ if (isset($_POST['deleteClass'])) {
 <?php 
 
 if (isset($_POST['viewAllClassAttendance'])) {
+  $_SESSION['class_id']=$_POST['id$i'];
+  $_SESSION['date'] = date('Y-m-d');
   echo "<script>window.location.assign('AllAttendanceStudentList.php')</script>";
 }
 

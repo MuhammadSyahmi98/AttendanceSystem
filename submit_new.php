@@ -22,7 +22,8 @@ if(isset($_POST['submit_password']))
 
       $status = $result->query("update admin set admin_password='$pass' where Binary md5(admin_email)='$email'");
       $teacher = $result->query("update teacher set teacher_password='$pass' where Binary md5(teacher_email)='$email'");
-      if ($status === false || $teacher === false) {
+      $parent = $result->query("update parent set parent_password='$pass' where Binary md5(parent_email)='$email'");
+      if ($status === false || $teacher === false || $parent === false) {
         die("Didn't Update"); 
       } else {
        echo '<script>alert("Success Update")

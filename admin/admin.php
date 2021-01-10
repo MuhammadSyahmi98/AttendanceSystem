@@ -14,6 +14,7 @@ if ($loggedIn!=893247348) {
 }
   
 
+
  ?>
 
 <!DOCTYPE html>
@@ -32,6 +33,9 @@ if ($loggedIn!=893247348) {
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <!-- Site wrapper -->
@@ -76,13 +80,13 @@ if ($loggedIn!=893247348) {
                  $TotalStudent = $row5['numberOfStudent'];
 
 
-                 $todayPercentage = ($totalAttendStudent/$TotalStudent)*100;
+                 // $todayPercentage = ($totalAttendStudent/$TotalStudent)*100;
 
                 ?>
 
 
 
-                <h3><?php echo $todayPercentage; ?><sup style="font-size: 20px">%</sup></h3>
+                <h3><?php //echo round($todayPercentage, 2); ?><sup style="font-size: 20px">%</sup></h3>
                 <p>Today Attendance</p>
               </div>
               <div class="icon">
@@ -196,5 +200,28 @@ if ($loggedIn!=893247348) {
 
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
+<!-- DataTables -->
+<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
 </body>
 </html>

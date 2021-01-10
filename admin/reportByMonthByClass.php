@@ -37,7 +37,11 @@
     <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 
-
+    <?php
+    $class_id = $_SESSION['class_id'];
+    $result = displayClassByID($class_id);
+    $row = mysqli_fetch_assoc($result);
+    ?>
 
   
     <section class="content-header">
@@ -45,6 +49,8 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Report By Month</h1>
+            <h4>Day: <?php echo date('l')." Date: ".date('d-m-Y'); ?></h4>
+            <h4>Class: <?php echo $row['class_name']; ?></h4>
             <form method="POST" style="margin-top: 10px;" autocomplete="off">
 
               <div class="form-group">

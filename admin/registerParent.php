@@ -156,7 +156,7 @@ if (isset($_POST['addParent'])) {
 
 
 
-  if(preg_match("/^[A-Z][a-zA-Z - ']+$/", $parent_name) === 0) {
+  if(preg_match("/^[A-Z][a-zA-Z - . \ ']+$/", $parent_name) === 0) {
   echo "<script>alert('Name must be from letters, dashes, spaces and must not start with dash');
              window.location.href='registerParent.php';
               </script>";
@@ -187,7 +187,7 @@ if (isset($_POST['addParent'])) {
 
             $result = addParent($parent_name, $parent_email, $parent_contact, $parent_password,$code);
             if ($result) {
-              send_emailParent($parent_email, $parent_password);
+              // send_emailParent($parent_email, $parent_password);
               if ($code === 12) {
                 echo "<script>alert('Successfully Register Parent');
                 window.location.href='registerStudent2.php';
@@ -234,7 +234,7 @@ if (isset($_POST['addParent'])) {
 
         $result = addParent($parent_name, $parent_email, $parent_contact, $parent_password,$code);
         if ($result) {
-              send_emailParent($parent_email, $parent_password);
+              // send_emailParent($parent_email, $parent_password);
               if ($code === 12) {
                 echo "<script>alert('Successfully Register Parent');
                 window.location.href='registerStudent2.php';

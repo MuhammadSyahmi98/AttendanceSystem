@@ -10,6 +10,53 @@
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <style type="text/css">
+      #tooltip {
+      text-align: center;
+      color: #fff;
+      background: #333;
+      position: absolute;
+      z-index: 10000;
+      padding: 10px;
+      border-radius: 5px;
+      -webkit-transition: 100ms ease;
+      -moz-transition: 100ms ease;
+      -o-transition: 100ms ease;
+      -ms-transition: 100ms ease;
+      transition: 100ms ease;
+    }
+
+    #tooltip:after /* triangle decoration */ {
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid #333;
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -10px;
+      margin-left: -10px;
+    }
+
+    #tooltip.top:after {
+      border-top-color: transparent;
+      border-bottom: 10px solid #111;
+      top: -20px;
+      bottom: auto;
+    }
+
+    #tooltip.left:after {
+      left: 10px;
+      margin: 0;
+    }
+
+    #tooltip.right:after {
+      right: 10px;
+      left: auto;
+      margin: 0;
+    }
+  </style>
 
 
 </head>
@@ -18,7 +65,7 @@
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
    <ul class="navbar-nav">
-      <li class="nav-item">
+      <li class="nav-item top" rel="tooltip" title="Minimize Menu">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
@@ -57,8 +104,18 @@
         <div class="image">
           <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
+        <?php
+        $admin_id = $_SESSION['admin_id'];
+
+        $result = displayAdminByID($admin_id);
+        $row = mysqli_fetch_assoc($result);
+
+        $admin_name = $row['admin_name'];
+        $admin_name1 = explode(" ", $admin_name);
+        $admin_name = $admin_name1[0];
+        ?>
         <div class="info">
-          <a href="profile.php" class="d-block">ADMIN</a>
+          <a href="profile.php" class="d-block"><?php echo $admin_name."(ADMIN)"; ?></a>
         </div>
       </div>
 
@@ -158,7 +215,7 @@
     </div>
     <!-- /.sidebar -->
   </aside>
-
+<script src="../resources/js/index.js"></script>
   <!-- jQuery -->
 <script src="../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->

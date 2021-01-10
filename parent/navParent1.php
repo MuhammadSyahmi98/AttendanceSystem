@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	 <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
@@ -15,13 +15,14 @@
 </head>
 <body>
 	<!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">    <!-- Left navbar links -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
    <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="admin.php" class="nav-link">HOME</a>
+        <a href="admin.php" class="nav-link"></a>
       </li>
     </ul>
     <!-- Right navbar links -->
@@ -29,8 +30,10 @@
       <!-- Messages Dropdown Menu -->
       
       <li class="nav-item">
-        <a class="nav-link"  href="logout.php" role="button">
-          <p>LOG OUT</p>
+         <a href="logout.php">
+        <button class="btn btn-danger"  href="logout.php" role="button">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
         </a>
       </li>
     </ul>
@@ -52,10 +55,10 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="../resources/img/12.png" class="img-circle elevation-2" alt="User Image">
+          <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="admin.php" class="d-block">ADMIN</a>
+          <a class="d-block"><?php echo $_SESSION['parent_name'];?></a>
         </div>
       </div>
 
@@ -81,38 +84,25 @@
 
 
           <li class="nav-item has-treeview">
-            <a href="admin.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/admin.php")) {echo "active";} ?> ">
+            <a href="Parent.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/parent/Parent.php")) {echo "active";} ?> ">
               <i class="nav-icon fas fa-home"></i>
               <p>
-                HOME
+                HOME 
               </p>
             </a>
           </li>
+          
           <li class="nav-item has-treeview">
-            <a href="class.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/class.php")  || ($url === "http://localhost/AttendanceSystem/admin/editClass.php")) {echo "active";} ?> "><p>
-                CLASS
-              </p></a>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="adminTeacher.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/adminTeacher.php") || ($url === "http://localhost/AttendanceSystem/admin/editTeacher.php")) {echo "active";} ?> ">
-              <p>
-                TEACHER
-              </p></a>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="allStudentList.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/admin/allStudentList.php") || ($url === "http://localhost/AttendanceSystem/admin/viewStudent.php") || ($url === "http://localhost/AttendanceSystem/admin/studentlist.php") || ($url === "http://localhost/AttendanceSystem/admin/editStudent.php"))  {echo "active";} ?> ">
-              <p>
+            <a href="ajaxindex.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/parent/ajaxindex.php")) {echo "active";} ?> ">
+              <i class="nav-icon fas fa-users"></i><p>
                 STUDENT
               </p></a>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="date.php" class="nav-link <?php if($url === "http://localhost/AttendanceSystem/admin/date.php") {echo "active";} ?>"><p>
-                HOLIDAY
-              </p></a>
-          </li>
+         
 
            <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a class="nav-link">
+              <i class="nav-icon fas fa-chart-bar"></i>
               <p>
                 ATTENDANCE REPORT
                 <i class="right fas fa-angle-left"></i>
@@ -120,21 +110,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="ClassDate.php" class="nav-link <?php if($url === "http://localhost/AttendanceSystem/admin/attendance.php") {echo "active";} ?>">
+                <a href="lbyday3done.php" class="nav-link <?php if($url === "http://localhost/AttendanceSystem/parent/lbyday3done.php") {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>BY DAY</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="reportByMonth.php" class="nav-link <?php if($url === "http://localhost/AttendanceSystem/admin/reportByMonth.php") {echo "active";} ?>">
+                <a href="reportbymonth.php" class="nav-link <?php if($url === "http://localhost/AttendanceSystem/parent/bymonth.php") {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>BY MONTH</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index3.html" class="nav-link <?php if($url === "http://localhost/AttendanceSystem/admin/.php") {echo "active";} ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>BY YEAR</p>
                 </a>
               </li>
             </ul> 
@@ -150,13 +134,14 @@
   </aside>
 
   <!-- jQuery -->
-<script src="../plugins/jquery/jquery.min.js"></script>
+<!-- <script src="../plugins/jquery/jquery.min.js"></script> -->
 <!-- Bootstrap 4 -->
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
-
+<script>
+</script>
 </body>
 </html>

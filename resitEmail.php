@@ -6,7 +6,7 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="resources/style.css">
-  <title>Resit Password</title>
+  <title>Reset Password</title>
 
 
 
@@ -39,11 +39,11 @@
       <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
         <form class="login100-form validate-form flex-sb flex-w" action="send_link.php" method="POST">
           <span class="login100-form-title p-b-32">
-            Resit Password
+            Reset Password
           </span>
 
           <span class="txt1 p-b-11">
-            email
+            Email
           </span>
           <div class="wrap-input100 validate-input m-b-36" data-validate = "Email is required">
             <input class="input100" type="text" name="email" >

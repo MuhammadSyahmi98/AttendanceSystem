@@ -33,6 +33,14 @@ if ($loggedIn===9999) {
   }
 }
 
+if ($loggedIn===1111) {
+  if ($type==="parent") {
+    echo "<script>
+              window.location.href='parent/Parent.php';
+              </script>";
+  }
+}
+
 
  ?>
 
@@ -79,7 +87,7 @@ if ($loggedIn===9999) {
           <span class="txt1 p-b-11">
             Email
           </span>
-          <div class="wrap-input100 validate-input m-b-36" data-validate = "Email is required">
+          <div class="wrap-input100 validate-input m-b-36" data-validate = "Valid email is: a@gmail.com">
             <input class="input100" type="text" name="email" >
             <span class="focus-input100"></span>
           </div>
@@ -140,18 +148,6 @@ if ($loggedIn===9999) {
 
 
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
 </html>
 
 
@@ -178,6 +174,7 @@ if (isset($_POST['login'])) {
       if ($statusLogin === '0') {
         $_SESSION['admin_id'] = $row4['admin_id'];
         $_SESSION['teacher_id'] = "";
+        $_SESSION['parent_id'] = "";
         echo "<script>
               window.location.href='firstTimeLogin.php';
              </script>";
@@ -208,6 +205,7 @@ if (isset($_POST['login'])) {
           if ($statusLogin ==='0') {
             $_SESSION['admin_id'] = "";
             $_SESSION['teacher_id'] = $row5['teacher_id'];
+            $_SESSION['parent_id'] = "";
             echo "<script>
               window.location.href='firstTimeLogin.php';
              </script>";
@@ -232,13 +230,47 @@ if (isset($_POST['login'])) {
 
           }
    
+    } else {
+        $test = verifyParent2($email, $password);
+        if ($test === 2221) {
+
+            // Validate First Time
+            $result6 = validateFirstTimeLoginParent($email, $password);
+            $row6 = mysqli_fetch_assoc($result6); 
+
+            $statusLogin = $row6['parent_login'];
+
+            if ($statusLogin ==='0') {
+              $_SESSION['admin_id'] = "";
+              $_SESSION['teacher_id'] = "";
+              $_SESSION['parent_id'] = $row6['parent_id'];
+              echo "<script>
+                window.location.href='firstTimeLogin.php';
+               </script>";
 
 
+            } 
+            else {
 
-          
+            $result = displayParentByEmail($email);
+            $data = mysqli_fetch_assoc($result);
 
+            $_SESSION['loggedIn'] = 1111;
+            $_SESSION['parent_email'] = $data['parent_email'];
+            $_SESSION['parent_id'] = $data['parent_id'];
+            $_SESSION['parent_name'] = $data['parent_name'];
+            $_SESSION['student_id'] = $data['student_id'];
+            $_SESSION['class_id'] = $data['class_id'];
+            $_SESSION['type'] = "parent";
+
+
+            echo "<script>
+                window.location.href='parent/Parent.php';
+                </script>";
         }
-        else{
+      }
+
+        else {
           echo "<script>alert('PLEASE TRY AGAIN');
               window.location.href='index.php';
               </script>";
@@ -250,8 +282,7 @@ if (isset($_POST['login'])) {
 
 
 
-
-
+}
 }
 
 ?>
