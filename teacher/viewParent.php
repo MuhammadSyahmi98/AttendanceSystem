@@ -150,7 +150,7 @@ if ($loggedIn!=9999) {
               <!-- /.card-body -->
             </div>
             <div class="card-footer">
-                  <a href="parentList.php">
+                  <a href="parentListTeacher.php">
                   <button type="submit" id="cancel" name="cancel" class="btn btn-primary">Back</button>
                   </a>
                 </div>
@@ -192,7 +192,7 @@ if ($loggedIn!=9999) {
 <?php 
 if (isset($_POST['back'])) {
    echo "<script>
-            window.location.href='parentList.php';
+            window.location.href='parentListTeacher.php';
             </script>";
 }
 ?>

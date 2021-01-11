@@ -86,7 +86,7 @@ $(document).ready(function(){
     </section>
     
     <!-- Main content -->
-    <section class="content"  style="<?php if (empty($class_id)) {
+    <section class="content"  style="<?php if (empty($class_id1)) {
       ?> display: none; <?php
     } ?>">
       <div class="container-fluid">
@@ -107,7 +107,7 @@ $(document).ready(function(){
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example1" class="table table-striped text-nowrap">
+                <table id="example1" class="table  table-striped text-nowrap">
                   <thead>
                     <tr>
                       <th>ID</th>

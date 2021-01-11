@@ -199,6 +199,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="ClassWeek.php" class="nav-link <?php if($url === "http://localhost/AttendanceSystem/admin/attendance.php") {echo "active";} ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>BY WEEK</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="ClassMonth.php" class="nav-link <?php if($url === "http://localhost/AttendanceSystem/admin/.php") {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>BY MONTH</p>

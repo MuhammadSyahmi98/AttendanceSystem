@@ -114,7 +114,7 @@ if ($loggedIn!=9999) {
 
                 ?>
 
-                <h3><?php echo $todayAttendPrecentage; ?><sup style="font-size: 20px">%</sup></h3>
+                <h3><?php echo round($todayAttendPrecentage, 2); ?><sup style="font-size: 20px">%</sup></h3>
 
                 <p>Today Attend Percentage</p>
               </div>
@@ -129,7 +129,7 @@ if ($loggedIn!=9999) {
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3><?php echo $todayAbsentPrecentage; ?><sup style="font-size: 20px">%</sup></h3>
+                <h3><?php echo round($todayAbsentPrecentage, 2); ?><sup style="font-size: 20px">%</sup></h3>
 
                 <p>Today Absence Percentage</p>
               </div>
@@ -171,7 +171,7 @@ if ($loggedIn!=9999) {
           <div class="col-12">
             <div class="card" >
               <div class="card-header">
-                <h3 class="card-title">Daily Log: <b> <?php echo date("d-m-Y"); ?></b></h3>
+                <h3 class="card-title">Daily Log: <b>  <?php echo date("l")." ".date("d-m-Y"); ?></b></h3>
 
 
                

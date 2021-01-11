@@ -56,7 +56,7 @@ if ($loggedIn!=9999) {
 
   $medical_leave = $medical_leave2 = $medical_leave3 = $medical_leave4 = $medical_leave5 = $medical_leave6 = $medical_leave7 = $medical_leave8 = $medical_leave9 = $medical_leave10 = $medical_leave11 = $medical_leave12 = 0;
 
-  $other = $other2 = $other3 = $other4 = $other5 = $other6 = $other7 = $other8 = $other9 = $other10 = $other11 = $other12 = 0; 
+  $Other = $Other2 = $Other3 = $Other4 = $Other5 = $Other6 = $Other7 = $Other8 = $Other9 = $Other10 = $Other11 = $Other12 = 0; 
 
 
 
@@ -76,8 +76,10 @@ if ($loggedIn!=9999) {
       $attend_late = $row['Status'];
       
     } else if ($row['attend_status']==="Medical Leave") {
-      $medical_leave = $row['Status'];
-      
+      $medical_leave = $row['Status']; 
+
+    } else if ($row['attend_status']==="Other") {
+      $Other = $row['Status'];  
     }
   }
 
@@ -96,6 +98,8 @@ if ($loggedIn!=9999) {
     } else if ($row2['attend_status']==="Medical Leave") {
       $medical_leave2 = $row2['Status'];
       
+    } else if ($row2['attend_status']==="Other") {
+      $Other2 = $row2['Status'];  
     }
   }
 
@@ -114,6 +118,8 @@ if ($loggedIn!=9999) {
     } else if ($row3['attend_status']==="Medical Leave") {
       $medical_leave3 = $row3['Status'];
       
+    } else if ($row3['attend_status']==="Other") {
+      $Other3 = $row3['Status'];  
     }
   }
 
@@ -132,6 +138,8 @@ if ($loggedIn!=9999) {
     } else if ($row['attend_status']==="Medical Leave") {
       $medical_leave4 = $row4['Status'];
       
+    } else if ($row4['attend_status']==="Other") {
+      $Other4 = $row4['Status'];  
     }
   }
 
@@ -150,6 +158,8 @@ if ($loggedIn!=9999) {
     } else if ($row5['attend_status']==="Medical Leave") {
       $medical_leave5 = $row5['Status'];
       
+    } else if ($row5['attend_status']==="Other") {
+      $Other5 = $row5['Status'];  
     }
   }
 
@@ -168,6 +178,8 @@ if ($loggedIn!=9999) {
     } else if ($row6['attend_status']==="Medical Leave") {
       $medical_leave6 = $row6['Status'];
       
+    } else if ($row6['attend_status']==="Other") {
+      $Other6 = $row6['Status'];  
     }
   }
 
@@ -186,6 +198,8 @@ if ($loggedIn!=9999) {
     } else if ($row7['attend_status']==="Medical Leave") {
       $medical_leave7 = $row7['Status'];
       
+    } else if ($row7['attend_status']==="Other") {
+      $Other7 = $row7['Status'];  
     }
   }
 
@@ -204,6 +218,8 @@ if ($loggedIn!=9999) {
     } else if ($row8['attend_status']==="Medical Leave") {
       $medical_leave8 = $row8['Status'];
       
+    } else if ($row8['attend_status']==="Other") {
+      $Other8 = $row8['Status'];  
     }
   }
 
@@ -222,6 +238,8 @@ if ($loggedIn!=9999) {
     } else if ($row9['attend_status']==="Medical Leave") {
       $medical_leave9 = $row9['Status'];
       
+    } else if ($row9['attend_status']==="Other") {
+      $Other9 = $row9['Status'];  
     }
   }
 
@@ -240,6 +258,8 @@ if ($loggedIn!=9999) {
     } else if ($row10['attend_status']==="Medical Leave") {
       $medical_leave10 = $row10['Status'];
       
+    } else if ($row10['attend_status']==="Other") {
+      $Other10 = $row10['Status'];  
     }
   }
 
@@ -258,6 +278,8 @@ if ($loggedIn!=9999) {
     } else if ($row11['attend_status']==="Medical Leave") {
       $medical_leave11 = $row11['Status'];
       
+    } else if ($row11['attend_status']==="Other") {
+      $Other11 = $row11['Status'];  
     }
   }
 
@@ -276,6 +298,8 @@ if ($loggedIn!=9999) {
     } else if ($row12['attend_status']==="Medical Leave") {
       $medical_leave12 = $row12['Status'];
       
+    } else if ($row12['attend_status']==="Other") {
+      $Other12 = $row12['Status'];  
     }
   }
 
@@ -299,30 +323,30 @@ if ($loggedIn!=9999) {
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Month', 'Absent', 'Attend', 'Attend Late', 'Medical Leave'],
-          ['January', <?php echo $absent/$totalStudent*100; ?>, <?php echo $attend/$totalStudent*100; ?>, <?php echo $attend_late/$totalStudent*100; ?>, <?php echo $medical_leave/$totalStudent*100; ?>],
+          ['Month', 'Absent', 'Attend', 'Attend Late', 'Medical Leave', 'Other'],
+          ['January', <?php echo $absent/$totalStudent*100; ?>, <?php echo $attend/$totalStudent*100; ?>, <?php echo $attend_late/$totalStudent*100; ?>, <?php echo $medical_leave/$totalStudent*100; ?> , <?php echo $Other/$totalStudent*100; ?>],
 
-          ['February', <?php echo $absent2/$totalStudent*100; ?>, <?php echo $attend2/$totalStudent*100; ?>, <?php echo $attend_late2/$totalStudent*100; ?>, <?php echo $medical_leave2/$totalStudent*100; ?>],
+          ['February', <?php echo $absent2/$totalStudent*100; ?>, <?php echo $attend2/$totalStudent*100; ?>, <?php echo $attend_late2/$totalStudent*100; ?>, <?php echo $medical_leave2/$totalStudent*100; ?>, <?php echo $Other2/$totalStudent*100; ?>],
 
-          ['March', <?php echo $absent3/$totalStudent*100; ?>, <?php echo $attend3/$totalStudent*100; ?>, <?php echo $attend_late3/$totalStudent*100; ?>, <?php echo $medical_leave3/$totalStudent*100; ?>],
+          ['March', <?php echo $absent3/$totalStudent*100; ?>, <?php echo $attend3/$totalStudent*100; ?>, <?php echo $attend_late3/$totalStudent*100; ?>, <?php echo $medical_leave3/$totalStudent*100; ?>, <?php echo $Other3/$totalStudent*100; ?>],
 
-          ['April', <?php echo $absent4/$totalStudent*100; ?>, <?php echo $attend4/$totalStudent*100; ?>, <?php echo $attend_late4/$totalStudent*100; ?>, <?php echo $medical_leave4/$totalStudent*100; ?>],
+          ['April', <?php echo $absent4/$totalStudent*100; ?>, <?php echo $attend4/$totalStudent*100; ?>, <?php echo $attend_late4/$totalStudent*100; ?>, <?php echo $medical_leave4/$totalStudent*100; ?>, <?php echo $Other4/$totalStudent*100; ?>],
 
-          ['May', <?php echo $absent5/$totalStudent*100; ?>, <?php echo $attend5/$totalStudent*100; ?>, <?php echo $attend_late5/$totalStudent*100; ?>, <?php echo $medical_leave5/$totalStudent*100; ?>],
+          ['May', <?php echo $absent5/$totalStudent*100; ?>, <?php echo $attend5/$totalStudent*100; ?>, <?php echo $attend_late5/$totalStudent*100; ?>, <?php echo $medical_leave5/$totalStudent*100; ?>, <?php echo $Other5/$totalStudent*100; ?>],
 
-          ['June',<?php echo $absent6/$totalStudent*100/$totalStudent*100; ?>, <?php echo $attend6/$totalStudent*100; ?>, <?php echo $attend_late6/$totalStudent*100; ?>, <?php echo $medical_leave6/$totalStudent*100; ?>],
+          ['June',<?php echo $absent6/$totalStudent*100/$totalStudent*100; ?>, <?php echo $attend6/$totalStudent*100; ?>, <?php echo $attend_late6/$totalStudent*100; ?>, <?php echo $medical_leave6/$totalStudent*100; ?>, <?php echo $Other6/$totalStudent*100; ?>],
 
-          ['July', <?php echo $absent7/$totalStudent*100; ?>, <?php echo $attend7/$totalStudent*100; ?>, <?php echo $attend_late7/$totalStudent*100; ?>, <?php echo $medical_leave7/$totalStudent*100; ?>],
+          ['July', <?php echo $absent7/$totalStudent*100; ?>, <?php echo $attend7/$totalStudent*100; ?>, <?php echo $attend_late7/$totalStudent*100; ?>, <?php echo $medical_leave7/$totalStudent*100; ?>, <?php echo $Other7/$totalStudent*100; ?>],
 
-          ['August', <?php echo $absent8/$totalStudent*100; ?>, <?php echo $attend8/$totalStudent*100; ?>, <?php echo $attend_late8/$totalStudent*100; ?>, <?php echo $medical_leave8/$totalStudent*100; ?>],
+          ['August', <?php echo $absent8/$totalStudent*100; ?>, <?php echo $attend8/$totalStudent*100; ?>, <?php echo $attend_late8/$totalStudent*100; ?>, <?php echo $medical_leave8/$totalStudent*100; ?>, <?php echo $Other8/$totalStudent*100; ?>],
 
-          ['September', <?php echo $absent9/$totalStudent*100; ?>, <?php echo $attend9/$totalStudent*100; ?>, <?php echo $attend_late9/$totalStudent*100; ?>, <?php echo $medical_leave9/$totalStudent*100; ?>],
+          ['September', <?php echo $absent9/$totalStudent*100; ?>, <?php echo $attend9/$totalStudent*100; ?>, <?php echo $attend_late9/$totalStudent*100; ?>, <?php echo $medical_leave9/$totalStudent*100; ?>, <?php echo $Other9/$totalStudent*100; ?>],
 
-          ['October', <?php echo $absent10/$totalStudent*100; ?>, <?php echo $attend10/$totalStudent*100; ?>, <?php echo $attend_late10/$totalStudent*100; ?>, <?php echo $medical_leave10/$totalStudent*100; ?>],
+          ['October', <?php echo $absent10/$totalStudent*100; ?>, <?php echo $attend10/$totalStudent*100; ?>, <?php echo $attend_late10/$totalStudent*100; ?>, <?php echo $medical_leave10/$totalStudent*100; ?>, <?php echo $Other10/$totalStudent*100; ?>],
 
-          ['November', <?php echo $absent11/$totalStudent*100; ?>, <?php echo $attend11/$totalStudent*100; ?>, <?php echo $attend_late11/$totalStudent*100; ?>, <?php echo $medical_leave11/$totalStudent*100; ?>],
+          ['November', <?php echo $absent11/$totalStudent*100; ?>, <?php echo $attend11/$totalStudent*100; ?>, <?php echo $attend_late11/$totalStudent*100; ?>, <?php echo $medical_leave11/$totalStudent*100; ?>, <?php echo $Other11/$totalStudent*100; ?>],
 
-          ['December', <?php echo (($absent12/$totalStudent)*100); ?>, <?php echo (($attend12/$totalStudent)*100); ?>, <?php echo (($attend_late12/$totalStudent)*100); ?>, <?php echo (($medical_leave12/$totalStudent)*100); ?>]
+          ['December', <?php echo (($absent12/$totalStudent)*100); ?>, <?php echo (($attend12/$totalStudent)*100); ?>, <?php echo (($attend_late12/$totalStudent)*100); ?>, <?php echo (($medical_leave12/$totalStudent)*100); ?>, <?php echo $Other12/$totalStudent*100; ?>]
         ]);
 
         var options = {
@@ -443,6 +467,7 @@ if ($loggedIn!=9999) {
                       <th>TOTAL ATTEND LATE</th>
                       <th>TOTAL MEDICAL LEAVE</th>
                       <th>TOTAL ABSENT</th>
+                      <th>TOTAL OTHER</th>
                       <th>TOTAL ATTENDANCE</th>
                       <th>PERCENTAGE(%)</th>
                       <th>ACTION</th>
@@ -478,6 +503,9 @@ if ($loggedIn!=9999) {
                       $data6 = countTotalAttendanceByMonthAndClass($class_id, $i);
                       $row19 = mysqli_fetch_assoc($data6);
 
+                      $data7 = countTotalOtherByMonthAndClass($class_id, $i);
+                      $row20 = mysqli_fetch_assoc($data7);
+
 
                       ?>
                      <tr>
@@ -503,6 +531,10 @@ if ($loggedIn!=9999) {
                        <td><?php if (empty($row18['numberOfAbsentStudent'])) {
                          echo "-";
                        } else {echo $row18['numberOfAbsentStudent'];} ?></td>
+
+                       <td><?php if (empty($row20['numberOfOther'])) {
+                         echo "-";
+                       } else {echo $row20['numberOfOther'];} ?></td>
 
 
                        <td><?php if (empty($row19['numberOfAttendaceStudent'])) {

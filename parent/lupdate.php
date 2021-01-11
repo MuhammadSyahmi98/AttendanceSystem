@@ -158,14 +158,14 @@ if (isset($_POST['updateParent'])) {
                   window.location.href='lupdate.php';
                   </script>";
       } else {
-          updateParent($parent_id, $parent_name, $parent_email, $parent_contact);
+          updateParent1($parent_id, $parent_name, $parent_email, $parent_contact);
         }   
 
 
         }
 
      else {
-        updateParent($parent_id, $parent_name, $parent_email, $parent_contact);
+        updateParent1($parent_id, $parent_name, $parent_email, $parent_contact);
       
     }
         

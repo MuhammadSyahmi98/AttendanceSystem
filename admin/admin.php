@@ -80,13 +80,12 @@ if ($loggedIn!=893247348) {
                  $TotalStudent = $row5['numberOfStudent'];
 
 
-                 // $todayPercentage = ($totalAttendStudent/$TotalStudent)*100;
-
+                  $todayPercentage = ($totalAttendStudent/$TotalStudent)*100;
                 ?>
 
 
 
-                <h3><?php //echo round($todayPercentage, 2); ?><sup style="font-size: 20px">%</sup></h3>
+                <h3><?php echo round($todayPercentage, 2); ?><sup style="font-size: 20px">%</sup></h3>
                 <p>Today Attendance</p>
               </div>
               <div class="icon">

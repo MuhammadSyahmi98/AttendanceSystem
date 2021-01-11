@@ -80,8 +80,8 @@ if ($loggedIn!=893247348) {
 
                         $teacher_id =  $_SESSION['teacher_id'];
                         
-                        $result = displayTeacherByIDByClass($teacher_id);
-                         $row = mysqli_fetch_assoc($result);
+                        $result = displayTeacherByID($teacher_id);
+                        $row = mysqli_fetch_assoc($result);
 
             
 
@@ -116,7 +116,11 @@ if ($loggedIn!=893247348) {
                     <strong style="font-size: 110%;"> Parent Name</strong>
 
                     <p class="text-muted" style="font-size: 120%;">
-                      <?php echo $row['class_name']; ?>
+                      <?php if (empty($row['class_name'])) {
+                        echo "-";
+                      } else {
+                        echo $row['class_name'];
+                      } ?>
                     </p>
 
                     <hr>

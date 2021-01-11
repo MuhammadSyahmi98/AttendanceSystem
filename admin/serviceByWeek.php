@@ -1,11 +1,10 @@
-<?php include "../resources/php/sql.php"; session_start();?>
+<?php include "../resources/php/sql.php";?>
 
 <?php 
-if(isset($_GET['carts'])) {
-	$month = $_GET['month'];
-	$student_id = $_SESSION['student_id'];
+if(isset($_GET['cart'])) {
+	$week = $_GET['week'];
 
-	if ($month === "0") {
+	if ($week === "0") {
 		$data = array(
 		array("Attend", "120", "240", 0),
 		array("Attend Late", "120", "240", 0),
@@ -14,19 +13,17 @@ if(isset($_GET['carts'])) {
 		array("Other", "120", "240", 0)
 	);
 	} else {
-		$month1 = (int) $month;
-		
-
+		$week = (int) $week;
 
 
 		// Count attendance by month
-		$result0 = countTotalAttendanceStudentByMonthByClass($month1, $student_id);
+		$result0 = countTotalAttendanceByWeek($week);
 		$row0 = mysqli_fetch_assoc($result0);
 		$totalAttendance = $row0['totalAttendance'];
 
 
 		// Attend by month
-		$result = countAttendStudentByMonthByClass($month1, $student_id);
+		$result = countAttendByWeek($week);
 		$row = mysqli_fetch_assoc($result);
 		if (empty($row['totalAttend'])) {
 			$totalAttend = 0;
@@ -37,7 +34,7 @@ if(isset($_GET['carts'])) {
 
 
 		// Attend Late by month
-		$result2 = countAttendLateStudentByMonthByClass($month1, $student_id);
+		$result2 = countAttendLateByWeek($week);
 		$row2 = mysqli_fetch_assoc($result2);
 		if (empty($row2['totalAttendLate'])) {
 			$totalAttendLate = 0;
@@ -48,7 +45,7 @@ if(isset($_GET['carts'])) {
 
 
 		// Attend Late by month
-		$result3 = countAbsentStudentByMonthByClass($month1, $student_id);
+		$result3 = countAbsentByWeek($week);
 		$row3 = mysqli_fetch_assoc($result3);
 		if (empty($row3['totalAbsent'])) {
 			$totalAbsent = 0;
@@ -58,7 +55,7 @@ if(isset($_GET['carts'])) {
 
 
 		// Medical Leave Late by month
-		$result4 = countMedicalLeaveStudentByMonthByClass($month1, $student_id);
+		$result4 = countMedicalLeaveByWeek($week);
 		$row4 = mysqli_fetch_assoc($result4);
 		if (empty($row4['totalMedicalLeave'])) {
 			$totalMedicalLeave = 0;
@@ -69,7 +66,7 @@ if(isset($_GET['carts'])) {
 
 
 		// Other Late by month
-		$result5 = countOtherStudentByMonthByClass($month1, $student_id);
+		$result5 = countOtherByWeek($week);
 		$row5 = mysqli_fetch_assoc($result5);
 		if (empty($row5['totalOther'])) {
 			$totalOther = 0;

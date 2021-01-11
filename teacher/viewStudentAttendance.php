@@ -98,6 +98,8 @@ if ($loggedIn!=9999) {
 
 
                         $date1=$_SESSION['date'];
+                        $date2 = strtotime($date1);
+                        $date2 = date("d-m-Y", $date2);
 
                      ?>
 
@@ -106,7 +108,7 @@ if ($loggedIn!=9999) {
                     <strong style="font-size: 120%;">Date</strong>
 
                     <p class="text-muted" style="font-size: 120%;">
-                      <?php echo $date1; ?>
+                      <?php echo $date2; ?>
                     </p>
 
                     <hr>

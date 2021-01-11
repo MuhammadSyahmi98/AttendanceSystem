@@ -123,7 +123,7 @@ if ($loggedIn!=9999) {
         var options = {
           title: 'Attendance Percentange',
           is3D: true,
-          colors: ['#36c', '#f90', '#9610b2', '#dc3912'],
+          colors: ['#36c', '#f90', '#9610b2', '#dc3912', '#bcc411'],
           backgroundColor: '#f4f6f9',
         };
 

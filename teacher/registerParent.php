@@ -136,7 +136,7 @@ if ($loggedIn!=9999) {
 <script>  
  $(document).ready(function(){  
       $('#cancel').click(function(){
-        window.location.assign('parentList.php'); 
+        window.location.assign('parentListTeacher.php'); 
             
       });  
  });  

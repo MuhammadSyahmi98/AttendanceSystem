@@ -123,6 +123,7 @@ if ($loggedIn!=893247348) {
 
                     
                     <input type="email" name="admin_email" class="form-control" value="<?php echo $row['admin_email']; ?>">
+                    <input type="hidden" name="admin_email1" value="<?php echo $row['admin_email']; ?>">
 
                   </div>
 
@@ -223,6 +224,7 @@ if (isset($_POST['updateAdmin'])) {
   $name = $_POST['admin_name'];
   $admin_contact = $_POST['admin_contact'];
   $email = $_POST['admin_email'];
+  $admin_email1 = $_POST['admin_email1'];
 
 
 
@@ -239,11 +241,48 @@ if (isset($_POST['updateAdmin'])) {
                   window.location.href='editAdmin.php';
                   </script>";
           }else {
+
+            if ($email === $admin_email1) {
             updateAdmin($admin_id, $name, $email, $admin_contact);
+          } else {
+            $result = checkEmailAdmin($email);
+            if (!$row = mysqli_fetch_assoc($result)) {
+              updateAdmin($admin_id, $name, $email, $admin_contact);
+            } else {
+               echo "<script>alert('Email Already Registered');
+                  window.location.href='editParent.php';
+                  </script>";
+              
+          }
+            }
+
+
+
+
+
+
+
+
+
+
+            
           }
 
       } else {
-        updateAdmin($admin_id, $name, $email, $admin_contact);
+        if ($email === $admin_email1) {
+            updateAdmin($admin_id, $name, $email, $admin_contact);
+          } else {
+            $result = checkEmailAdmin($email);
+            if (!$row = mysqli_fetch_assoc($result)) {
+              updateAdmin($admin_id, $name, $email, $admin_contact);
+            } else {
+               echo "<script>alert('Email Already Registered');
+                  window.location.href='editAdmin.php';
+                  </script>";
+              
+          }
+            }
+        
       }
 
    }

@@ -178,7 +178,7 @@ if (isset($_POST['addTeacher'])) {
       } else {
             if ($password_1 === $password_2) {
             addTeacher($teacher_name, $teacher_email, $teacher_contact, $password_1, $class_id);
-            send_emailTeacher($teacher_email, $password_1);
+            // send_emailTeacher($teacher_email, $password_1);
             if (!empty($class_id)) {
 
               $result2 = getTeacherID($class_id);
@@ -197,7 +197,7 @@ if (isset($_POST['addTeacher'])) {
     } else {
         if ($password_1 === $password_2) {
         addTeacher($teacher_name, $teacher_email, $teacher_contact, $password_1, $class_id);
-        send_emailTeacher($teacher_email, $password_1);
+        // send_emailTeacher($teacher_email, $password_1);
         if (!empty($class_id)) {
 
           $result2 = getTeacherID($class_id);

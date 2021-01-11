@@ -75,6 +75,7 @@ if ($loggedIn!=893247348) {
                   <div class="form-group">
                     <label for="exampleInputEmail1">Email</label>
                     <input type="email" name="teacher_email" class="form-control" value="<?php echo $row['teacher_email']; ?>"  placeholder="Enter Teacher Email">
+                    <input type="hidden" name="teacher_email1" class="form-control" value="<?php echo $row['teacher_email']; ?>"  placeholder="Enter Teacher Email">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Contact Number</label>
@@ -177,6 +178,9 @@ if (isset($_POST['updateTeacher'])) {
   $current_classId = $_POST['current_classId'];
 
 
+  $teacher_email1 = $_POST['teacher_email1'];
+
+
   if(preg_match("/^[A-Z][a-zA-Z - ']+$/", $teacher_name) === 0) {
   echo "<script>alert('Name must be from letters, dashes, spaces and must not start with dash');
              window.location.href='editTeacher.php';
@@ -190,31 +194,93 @@ if (isset($_POST['updateTeacher'])) {
                   window.location.href='editTeacher.php';
                   </script>";
       } else {
-            if ($class_id === "") {
-              updateTeacherEmpty($teacher_id, $teacher_name, $teacher_email, $teacher_contact);
-            } else {
-              updateTeacher($teacher_id, $teacher_name, $teacher_email, $teacher_contact, $class_id);
-              if ($class_id!=$current_classId) {
-                if (!empty($class_id)) {
-                  $d = date("Y-m-d");
-                  addClasHistory($class_id, $teacher_id, $d);
+
+
+            if ($teacher_email === $teacher_email1) {
+            
+                if ($class_id === "") {
+                  updateTeacherEmpty($teacher_id, $teacher_name, $teacher_email, $teacher_contact);
+                } else {
+                  updateTeacher($teacher_id, $teacher_name, $teacher_email, $teacher_contact, $class_id);
+                  if ($class_id!=$current_classId) {
+                    if (!empty($class_id)) {
+                      $d = date("Y-m-d");
+                      addClasHistory($class_id, $teacher_id, $d);
+                    }
+                  }
                 }
-              }
+
+          } else {
+            $result = checkEmailTeacher($parent_email);
+            if (!$row = mysqli_fetch_assoc($result)) {
+              if ($class_id === "") {
+                  updateTeacherEmpty($teacher_id, $teacher_name, $teacher_email, $teacher_contact);
+                } else {
+                  updateTeacher($teacher_id, $teacher_name, $teacher_email, $teacher_contact, $class_id);
+                  if ($class_id!=$current_classId) {
+                    if (!empty($class_id)) {
+                      $d = date("Y-m-d");
+                      addClasHistory($class_id, $teacher_id, $d);
+                    }
+                  }
+                }
+              
+            } else {
+               echo "<script>alert('Email Already Registered');
+                  window.location.href='editTeacher.php';
+                  </script>";
+              
+          }
             }
+
+
+
+
+
+
+
+
+
+            
         }
 
     } else {
-        if ($class_id === "") {
-          updateTeacherEmpty($teacher_id, $teacher_name, $teacher_email, $teacher_contact);
-        } else {
-          updateTeacher($teacher_id, $teacher_name, $teacher_email, $teacher_contact, $class_id);
-          if ($class_id!=$current_classId) {
-            if (!empty($class_id)) {
-              $d = date("Y-m-d");
-              addClasHistory($class_id, $teacher_id, $d);
-            }
+        if ($teacher_email === $teacher_email1) {
+            
+                if ($class_id === "") {
+                  updateTeacherEmpty($teacher_id, $teacher_name, $teacher_email, $teacher_contact);
+                } else {
+                  updateTeacher($teacher_id, $teacher_name, $teacher_email, $teacher_contact, $class_id);
+                  if ($class_id!=$current_classId) {
+                    if (!empty($class_id)) {
+                      $d = date("Y-m-d");
+                      addClasHistory($class_id, $teacher_id, $d);
+                    }
+                  }
+                }
+
+          } else {
+            $result = checkEmailTeacher($teacher_email);
+            if (!$row = mysqli_fetch_assoc($result)) {
+              if ($class_id === "") {
+                  updateTeacherEmpty($teacher_id, $teacher_name, $teacher_email, $teacher_contact);
+                } else {
+                  updateTeacher($teacher_id, $teacher_name, $teacher_email, $teacher_contact, $class_id);
+                  if ($class_id!=$current_classId) {
+                    if (!empty($class_id)) {
+                      $d = date("Y-m-d");
+                      addClasHistory($class_id, $teacher_id, $d);
+                    }
+                  }
+                }
+              
+            } else {
+               echo "<script>alert('Email Already Registered');
+                  window.location.href='editTeacher.php';
+                  </script>";
+              
           }
-        }
+            }
     }
     
   }

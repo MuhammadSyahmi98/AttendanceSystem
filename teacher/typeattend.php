@@ -173,7 +173,7 @@ $(document).ready(function () {
  $(document).ready(function(){  
       $('#insert').click(function(){
         var option = $('#option').val();
-           if (option == 'Medical Leave' || $option==="Other") {
+           if (option == 'Medical Leave' || option==="Other") {
               var image_name = $('#image').val();  
            if(image_name == '')  
            {  

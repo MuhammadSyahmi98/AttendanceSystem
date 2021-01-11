@@ -10,7 +10,7 @@
 <?php
 $loggedIn = $_SESSION['loggedIn'];
 
-if ($loggedIn!=893247348) {
+if ($loggedIn!=9999) {
   echo "<script>alert('PLEASE TRY AGAIN');
               window.location.href='../index.php';
               </script>";
@@ -43,7 +43,7 @@ if ($loggedIn!=893247348) {
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <!-- Site wrapper -->
 <div class="wrapper">
-  <?php  include "navAdmin.php"; ?>
+  <?php  include "navTeacher.php"; ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -85,7 +85,7 @@ if ($loggedIn!=893247348) {
                   <div class="form-group">
                     <label for="exampleInputName">Email</label>
                     <input type="email" name="parent_email" class="form-control" value="<?php echo $row['parent_email']; ?>"  placeholder="Enter Email" required>
-                    <input type="hidden" name="parent_email1" value="<?php echo $row['parent_email']; ?>">
+                    <input type="hidden" name="parent_email1" class="form-control" value="<?php echo $row['parent_email']; ?>"  placeholder="Enter Email" required>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputICNumber">Contact Number</label>
@@ -132,6 +132,14 @@ if ($loggedIn!=893247348) {
 
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
+<script>  
+ $(document).ready(function(){  
+      $('#cancel').click(function(){
+        window.location.assign('parentListTeacher.php'); 
+            
+      });  
+ });  
+ </script> 
 
 </body>
 </html>
@@ -144,9 +152,8 @@ if (isset($_POST['updateParent'])) {
   $parent_name = $_POST['parent_name'];
   $parent_email = $_POST['parent_email'];
   $parent_contact = $_POST['parent_contact'];
+
   $parent_email1 = $_POST['parent_email1'];
-
-
 
 
 
@@ -166,11 +173,11 @@ if (isset($_POST['updateParent'])) {
                   </script>";
       } else {
           if ($parent_email === $parent_email1) {
-            updateParent($parent_id, $parent_name, $parent_email, $parent_contact);
+            updateParent3($parent_id, $parent_name, $parent_email, $parent_contact);
           } else {
             $result = checkEmailParent($parent_email);
             if (!$row = mysqli_fetch_assoc($result)) {
-              updateParent($parent_id, $parent_name, $parent_email, $parent_contact);
+              updateParent3($parent_id, $parent_name, $parent_email, $parent_contact);
             } else {
                echo "<script>alert('Email Already Registered');
                   window.location.href='editParent.php';
@@ -178,6 +185,8 @@ if (isset($_POST['updateParent'])) {
               
           }
             }
+
+          
         }   
 
 
@@ -185,11 +194,11 @@ if (isset($_POST['updateParent'])) {
 
      else {
         if ($parent_email === $parent_email1) {
-            updateParent($parent_id, $parent_name, $parent_email, $parent_contact);
+            updateParent3($parent_id, $parent_name, $parent_email, $parent_contact);
           } else {
             $result = checkEmailParent($parent_email);
             if (!$row = mysqli_fetch_assoc($result)) {
-              updateParent($parent_id, $parent_name, $parent_email, $parent_contact);
+              updateParent3($parent_id, $parent_name, $parent_email, $parent_contact);
             } else {
                echo "<script>alert('Email Already Registered');
                   window.location.href='editParent.php';
@@ -202,28 +211,16 @@ if (isset($_POST['updateParent'])) {
         
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  
-
 }
 
+
+?>
+
+<?php 
+if (isset($_POST['cancel'])) {
+  echo "<script>
+             window.location.href='parentListTeacher.php';
+              </script>";
+}
 
 ?>
