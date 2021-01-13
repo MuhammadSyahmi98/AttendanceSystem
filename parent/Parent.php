@@ -2,8 +2,11 @@
 <?php session_start();
 
 $parent_id= $_SESSION['parent_id'];
-
 ?>
+
+<?php $date = date("Y-m-d"); ?>
+<?php $dates = date("d-m-Y"); ?>
+<?php $day = date("l"); ?>
 
 <!DOCTYPE html>
 <html>
@@ -45,9 +48,15 @@ $parent_id= $_SESSION['parent_id'];
       <div class="row">
           <div class="col-12">
             <div class="card" >
-             
+             <div class="card-header">
+                <h3 class="card-title"><b>Daily Log:  <?php echo $day." ".$dates; ?> </b></h3>
+
+
+                
+              </div>
               <div class="card-body table-responsive p-0" style="height: 500px;" >
-                <table class="table table-head-fixed text-nowrap">
+               <table class="table table-head-fixed text-nowrap">
+                
                   <thead>
                       <tr>
                       <th>
@@ -61,6 +70,9 @@ $parent_id= $_SESSION['parent_id'];
                       </th>
                       <th>
                           Class
+                      </th>
+                      <th>
+                          Address
                       </th>
                       <th>
                           Teacher Name
@@ -89,6 +101,7 @@ $parent_id= $_SESSION['parent_id'];
                       <td><?php echo $row['student_name']; ?></td>
                       <td><?php echo $row['student_ic']; ?></td>
                       <td><?php echo $row['class_name']; ?></td>
+                      <td><?php echo $row['student_address']; ?></td>
                       <td><?php echo $row['teacher_name']; ?></td>
                       <td><?php echo $row['teacher_contact']; ?></td>
                       <td><?php echo $row['teacher_email']; ?></td>

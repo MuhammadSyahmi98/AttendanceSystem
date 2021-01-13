@@ -147,6 +147,7 @@ if ($loggedIn!=893247348) {
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Report   By Day</h1>
+            <h4>Class: All</h4>
             <form method="POST" style="margin-top: 10px;" autocomplete="off">
               <div class="form-group">
               <div class="form-group">

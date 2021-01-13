@@ -7,12 +7,12 @@ if(isset($_POST['submit_password']))
 
 
   // Validate password strength
-  $uppercase = preg_match('@[A-Z]@', $password);
-  $lowercase = preg_match('@[a-z]@', $password);
-  $number    = preg_match('@[0-9]@', $password);
-  $specialChars = preg_match('@[^\_w]@', $password);
+  $uppercase = preg_match('@[A-Z]@', $pass);
+  $lowercase = preg_match('@[a-z]@', $pass);
+  $number    = preg_match('@[0-9]@', $pass);
+  $specialChars = preg_match('@[^\w]@', $pass);
 
-  if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+  if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($pass) < 8) {
       // echo 'Password should be at least 8 characters in length and should include at least one uletter, one number, and one special character.';
       echo "<script>alert('Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.');
         window.location.href = 'http://localhost/AttendanceSystem/reEnterPassword.php';

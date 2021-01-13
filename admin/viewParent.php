@@ -104,6 +104,14 @@ if ($loggedIn!=893247348) {
 
                 <hr>
 
+                <strong style="font-size: 110%;"><i class="fas fa-pencil-alt mr-1"></i>Address</strong>
+
+                <p class="text-muted" style="font-size: 120%;">
+                   <?php echo $row['parent_address']; ?>
+                </p>
+
+                <hr>
+
                 <strong style="font-size: 110%;"><i class="fas fa-user-tie"></i> Type</strong>
 
                 <p class="text-muted" style="font-size: 120%;">Parent</p>
@@ -122,7 +130,7 @@ if ($loggedIn!=893247348) {
                   
                   while ($row2 = mysqli_fetch_assoc($result2)) {
 
-                    ?><p class="text-muted" style="font-size: 120%;"><?php echo $i.". ".$row2['student_name']; ?></p><?php 
+                    ?><p class="text-muted" style="font-size: 120%;"><?php echo $i.". ".$row2['student_name']."\n\n(".$row2['class_name'].")"; ?></p><?php 
                   $i=$i+1;}
 
                  

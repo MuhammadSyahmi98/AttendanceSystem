@@ -91,7 +91,8 @@ if ($loggedIn!=893247348) {
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <?php $_SESSION['date'] = date('Y-m-d'); ?>
+              <a href="AllAttendanceStudentList.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->

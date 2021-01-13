@@ -209,7 +209,7 @@ if (isset($_POST['editDate'])) {
 
    $date = date('d-m-Y');
 
-   if (strtotime($currentDate) > strtotime($date)) {
+   if (strtotime($currentDate) >= strtotime($date)) {
      echo "<script>window.location.assign('editDate.php')</script>";
    } else {
     echo "<script>alert('Cant Edit');

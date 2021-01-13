@@ -189,6 +189,12 @@ if (empty($row2['student_name'])) { ?>
                 </table>
               </div>
               <!-- /.card-body -->
+
+              <form method="POST">
+               <div class="card-footer">
+                    <button type="submit" id="cancel" name="cancel" class="btn btn-primary">Back</button>
+                </div>
+              </form>
             </div>
             <!-- /.card -->
           </div>
@@ -361,4 +367,10 @@ if (isset($_POST['searchNewDate'])) {
 
 ?>
 
+<?php 
+if (isset($_POST['cancel'])) {
+   echo "<script>window.location.assign('ajaxindex.php')</script>";
+}
+
+?>
 

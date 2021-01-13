@@ -94,6 +94,15 @@ if ($loggedIn!=1111) {
 
                 <hr>
 
+
+                <strong><i class="nav-icon fas fa-home"></i> Address</strong>
+
+                <p class="text-muted">
+                   <?php echo $row['parent_address']; ?>
+                </p>
+
+                <hr>
+
                 <strong><i class="fas fa-user-tie"></i> Type</strong>
 
                 <p class="text-muted">Parent</p>

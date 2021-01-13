@@ -23,17 +23,33 @@ if (isset($_POST['addDate'])) {
 
   
 
-  $date_start = $startDate;
-  $date_end = $endDate;
+  if (empty($startDate) || empty($endDate)) {
+    echo "<script>alert('Empty Detail Date');
+              window.location.href='registerDate.php';
+              </script>";
+  } else {
+    $date_start = $startDate;
+    $date_end = $endDate;
 
-  $new_date_start1 = strtotime($date_start);
-  $new_date_start = date("Y-m-d", $new_date_start1);
+    $new_date_start1 = strtotime($date_start);
+    $new_date_start = date("Y-m-d", $new_date_start1);
 
 
-  $new_date_end1 = strtotime($date_end);
-  $new_date_end = date("Y-m-d", $new_date_end1);
+    $new_date_end1 = strtotime($date_end);
+    $new_date_end = date("Y-m-d", $new_date_end1);
 
-  addDate($type, $description, $new_date_start, $new_date_end);
+    if ($new_date_start > $new_date_end) {
+      echo "<script>alert('Start Date Cant More Than End Date');
+              window.location.href='registerDate.php';
+              </script>";  
+    } else {
+      addDate($type, $description, $new_date_start, $new_date_end);
+    }
+  }
+
+
+
+  
 
 
 

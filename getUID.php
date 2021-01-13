@@ -119,7 +119,7 @@ if (isset($_POST["UIDresult"])) {
                                         
                                         $time_in = $t;
                                         
-                                        $setTime = "20:00:00";
+                                        $setTime = "08:00:00";
                                         // Check if the time 
                                         if ($t>$setTime) {
                                             $attend_status = "Attend Late";
@@ -150,7 +150,7 @@ if (isset($_POST["UIDresult"])) {
                                             // Store student information into attendance table
                                             mysqli_stmt_bind_param($result, 'ssss' , $time_in, $attend_status, $dates, $student_id);
                                             mysqli_stmt_execute($result);
-                                            sendEmail($parentEmail,$parentName, $student_name, $student_class, $dates, $time_in);
+                                            // sendEmail($parentEmail,$parentName, $student_name, $student_class, $dates, $time_in);
                                             exit();
                                         }
 
@@ -188,7 +188,7 @@ if (isset($_POST["UIDresult"])) {
 
 <?php 
     
-    $sql = "SELECT * FROM student";
+    $sql = "SELECT * FROM student WHERE student_status = 'Active'";
     // Connection to database
     $result4 = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($result4, $sql)) {

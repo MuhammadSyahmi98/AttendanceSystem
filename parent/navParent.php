@@ -25,6 +25,9 @@
         <a href="Parent.php" class="nav-link">HOME</a>
       </li>
     </ul>
+    <p class="navbar-nav ml-auto" style="margin-right: -70%;"><b>
+      <?php echo date('l')."   ".date('d-m-Y'); ?></b>
+    </p>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
@@ -57,8 +60,19 @@
         <div class="image">
           <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
+        <?php 
+          $parent_id = $_SESSION['parent_id'];
+          $result = displayParentByID($parent_id);
+          $row = mysqli_fetch_assoc($result);
+
+          $parent_name = $row['parent_name'];
+          $parent_name1 = explode(" ", $parent_name);
+          $parent_name = $parent_name1[0];
+
+        ?>
+
         <div class="info">
-          <a href="Parent.php" class="d-block"><?php echo $_SESSION['parent_name'];?></a>
+          <a href="Parent.php" class="d-block"><p><?php echo $parent_name." (Parent)"; ?></p></a>
         </div>
       </div>
 

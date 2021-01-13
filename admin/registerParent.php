@@ -79,7 +79,11 @@ if ($loggedIn!=893247348) {
                   </div>
                   <div class="form-group">
                     <label for="exampleInputICNumber">Contact Number</label>
-                    <input class="form-control" name="parent_contact"  placeholder="Enter Contact Number" required>
+                    <input class="form-control" name="parent_contact"  placeholder="Enter Contact Number: XXX-XXXXXXX Or XXX-XXXXXXXX" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputICNumber">Address</label>
+                    <input class="form-control" name="parent_address"  placeholder="Enter Address" required>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputICNumber">Password</label>
@@ -152,6 +156,7 @@ if (isset($_POST['addParent'])) {
   $parent_email = $_POST['parent_email'];
   $parent_contact = $_POST['parent_contact'];
   $parent_password = $_POST['parent_password'];
+  $parent_address = $_POST['parent_address'];
   $parent_rePassword = $_POST['parent_rePassword'];
 
 
@@ -185,7 +190,7 @@ if (isset($_POST['addParent'])) {
               $code = 23;
             }
 
-            $result = addParent($parent_name, $parent_email, $parent_contact, $parent_password,$code);
+            $result = addParent($parent_name, $parent_email, $parent_contact, $parent_password,$code, $parent_address);
             if ($result) {
               // send_emailParent($parent_email, $parent_password);
               if ($code === 12) {
@@ -232,9 +237,9 @@ if (isset($_POST['addParent'])) {
           $code = 23;
         }
 
-        $result = addParent($parent_name, $parent_email, $parent_contact, $parent_password,$code);
+        $result = addParent($parent_name, $parent_email, $parent_contact, $parent_password,$code, $parent_address);
         if ($result) {
-              // send_emailParent($parent_email, $parent_password);
+               // send_emailParent($parent_email, $parent_password);
               if ($code === 12) {
                 echo "<script>alert('Successfully Register Parent');
                 window.location.href='registerStudent2.php';

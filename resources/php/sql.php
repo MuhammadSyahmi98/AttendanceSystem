@@ -1,6 +1,9 @@
 <?php
 
 
+
+
+
 function checkEmailAdmin($admin_email){
 	require 'connectDB.php';
 
@@ -975,10 +978,10 @@ function updateParent($parent_id, $parent_name, $parent_email, $parent_contact){
 
 }
 
-function updateParent1($parent_id, $parent_name, $parent_email, $parent_contact){
+function updateParent1($parent_id, $parent_name, $parent_email, $parent_contact,$parent_address){
 	require 'connectDB.php';
 
-	$sql = "SELECT * FROM parent WHERE parent_name = ? AND parent_email = ? AND parent_contact = ?";
+	$sql = "SELECT * FROM parent WHERE parent_name = ? AND parent_email = ? AND parent_contact = ? AND parent_address = ?";
 
 	// Connection to database
 	$result = mysqli_stmt_init($conn);
@@ -988,12 +991,12 @@ function updateParent1($parent_id, $parent_name, $parent_email, $parent_contact)
 		       </script>";
     } else {
     
- 		mysqli_stmt_bind_param($result, "sss", $parent_name, $parent_email, $parent_contact);
+ 		mysqli_stmt_bind_param($result, "ssss", $parent_name, $parent_email, $parent_contact, $parent_address);
     	mysqli_stmt_execute($result);
     	$resultl = mysqli_stmt_get_result($result);
     	if (!$row = mysqli_fetch_assoc($resultl)) {
 
-    		$sql = "UPDATE parent SET parent_name = ? , parent_email = ?, parent_contact = ? WHERE parent_id = ?";
+    		$sql = "UPDATE parent SET parent_name = ? , parent_email = ?, parent_contact = ?, parent_address = ? WHERE parent_id = ?";
 
 	        // Connection to database
 			$result = mysqli_stmt_init($conn);
@@ -1003,7 +1006,7 @@ function updateParent1($parent_id, $parent_name, $parent_email, $parent_contact)
 				       </script>";
 		    } else {
 		    
-		 		mysqli_stmt_bind_param($result, "sssi", $parent_name, $parent_email, $parent_contact, $parent_id);
+		 		mysqli_stmt_bind_param($result, "ssssi", $parent_name, $parent_email, $parent_contact, $parent_address, $parent_id);
 		    	mysqli_stmt_execute($result);
 		    	$resultl = mysqli_stmt_get_result($result);
 		    	
@@ -1088,7 +1091,7 @@ function updateParent3($parent_id, $parent_name, $parent_email, $parent_contact)
 function displayStudentsByParent($parent_id){
 	require 'connectDB.php';
 
-	$sql = "SELECT * FROM student WHERE parent_id = ?";
+	$sql = "SELECT * FROM student INNER JOIN class ON student.class_id = class.class_id WHERE parent_id = ? ORDER BY class.class_name";
 
 	// Connection to database
 	$result = mysqli_stmt_init($conn);
@@ -1508,7 +1511,7 @@ function displayParent(){
 function addStudentNew($student_id, $student_name, $student_ic, $student_address, $parent_id, $class_id, $page){
 	require 'connectDB.php';
 
-	$sql = "SELECT * FROM student WHERE student_id = ? OR student_ic = ?";
+	$sql = "SELECT * FROM student WHERE student_id = ? OR student_ic = ? OR student_name";
 	$result = mysqli_stmt_init($conn);
 	if (!mysqli_stmt_prepare($result, $sql)) {
 		echo "<script>alert('SQL_Error_DISPLAY_ADMIN_DATA');
@@ -1567,7 +1570,7 @@ function addStudentNew($student_id, $student_name, $student_ic, $student_address
 
 
 
-function addParent($parent_name, $parent_email, $parent_contact, $parent_password, $code){
+function addParent($parent_name, $parent_email, $parent_contact, $parent_password, $code, $parent_address){
 	require 'connectDB.php';
 
 
@@ -1587,7 +1590,7 @@ function addParent($parent_name, $parent_email, $parent_contact, $parent_passwor
         // If the details not redundent
         if (!$row = mysqli_fetch_assoc($resultl)){
 
-        	$sql = "INSERT INTO parent (parent_name, parent_email, parent_password, parent_contact) VALUES (?,?,?,?)";
+        	$sql = "INSERT INTO parent (parent_name, parent_email, parent_password, parent_contact,parent_address) VALUES (?,?,?,?,?)";
 
 			$result = mysqli_stmt_init($conn);
 			if (!mysqli_stmt_prepare($result, $sql)) {
@@ -1595,7 +1598,7 @@ function addParent($parent_name, $parent_email, $parent_contact, $parent_passwor
 				        window.location.href='registerParent.php';
 				        </script>";
 		    } else { 
-				mysqli_stmt_bind_param($result, "ssss", $parent_name, $parent_email, $parent_password, $parent_contact);
+				mysqli_stmt_bind_param($result, "sssss", $parent_name, $parent_email, $parent_password, $parent_contact, $parent_address);
 		        mysqli_stmt_execute($result);
 		        if ($result) {
 		        	if ($code === 12) {
@@ -1762,7 +1765,7 @@ function addDate($type, $description, $new_date_start, $new_date_end){
 	require 'connectDB.php';
 
 	// Check database if the date or description already been added
-	$sql = "SELECT * FROM holiday_date WHERE (holiday_description = ? AND holiday_start = ? AND holiday_end = ?) AND holiday_type = ?";
+	$sql = "SELECT * FROM holiday_date WHERE holiday_start = ? AND holiday_end = ? AND holiday_type = ?";
 	// Connection to database
 	$result = mysqli_stmt_init($conn);
 	if (!mysqli_stmt_prepare($result, $sql)) {
@@ -1770,7 +1773,7 @@ function addDate($type, $description, $new_date_start, $new_date_end){
 		        window.location.href='date.php';
 		        </script>";
     } else { 
-		mysqli_stmt_bind_param($result, "ssss", $description, $new_date_start, $new_date_end, $type);
+		mysqli_stmt_bind_param($result, "sss", $new_date_start, $new_date_end, $type);
         mysqli_stmt_execute($result);
         $resultl = mysqli_stmt_get_result($result);
 
@@ -3107,7 +3110,8 @@ function updatePreviousTeacher($teacher_id_moke){
 function updateDate($holiday_id, $startDate, $endDate, $holiday_type, $holiday_description) {
 	require 'connectDB.php';
 
-	$sql = "UPDATE holiday_date SET holiday_start = ?, holiday_end = ?, holiday_type = ?, holiday_description = ? WHERE holiday_id = ?";
+
+	$sql = "SELECT * FROM holiday_date WHERE holiday_start = ? AND holiday_end = ? AND holiday_type = ?";
 
 	// Connection to database
 	$result = mysqli_stmt_init($conn);
@@ -3117,12 +3121,35 @@ function updateDate($holiday_id, $startDate, $endDate, $holiday_type, $holiday_d
 		       </script>";
     } else {
 
- 		mysqli_stmt_bind_param($result, "ssssi", $startDate, $endDate, $holiday_type, $holiday_description, $holiday_id);
-    	mysqli_stmt_execute($result);
-    	echo "<script>alert('Successfully Update');
-		       window.location.href='date.php';
-		       </script>";
+ 		mysqli_stmt_bind_param($result, "sss", $startDate, $endDate, $holiday_type);
+ 		mysqli_stmt_execute($result);
+    	$resultl = mysqli_stmt_get_result($result);
+
+    	
+   
+		if (!$row = mysqli_fetch_assoc($resultl)) {
+			$sql = "UPDATE holiday_date SET holiday_start = ?, holiday_end = ?, holiday_type = ?, holiday_description = ? WHERE holiday_id = ?";
+
+			// Connection to database
+			$result = mysqli_stmt_init($conn);
+			if (!mysqli_stmt_prepare($result, $sql)) {
+		        echo "<script>alert('SQL_UPDATE_DATE_DATA');
+				       window.location.href='editClass.php';
+				       </script>";
+		    } else {
+
+		 		mysqli_stmt_bind_param($result, "ssssi", $startDate, $endDate, $holiday_type, $holiday_description, $holiday_id);
+		    	mysqli_stmt_execute($result);
+		    	echo "<script>alert('Successfully Update');
+				       window.location.href='date.php';
+				       </script>";
+		    }
+
+		}
+    	
     }
+
+
 
 
 }

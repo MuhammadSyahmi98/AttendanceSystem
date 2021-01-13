@@ -1,3 +1,10 @@
+<?php
+  include "../resources/php/sql.php"; 
+
+
+  
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +32,9 @@
         <a href="admin.php" class="nav-link"></a>
       </li>
     </ul>
+    <p class="navbar-nav ml-auto" style="margin-right: -70%;"><b>
+      <?php echo date('l')."   ".date('d-m-Y'); ?></b>
+    </p>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
@@ -50,6 +60,20 @@
       <span class="brand-text font-weight-light" style="font-size: 97%;">MyAttendance</span>
     </a>
 
+
+    <?php 
+          $parent_id = $_SESSION['parent_id'];
+          $result = displayParentByID($parent_id);
+          $row = mysqli_fetch_assoc($result);
+
+          $parent_name = $row['parent_name'];
+          $parent_name1 = explode(" ", $parent_name);
+          $parent_name = $parent_name1[0];
+
+  ?>
+
+
+
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user (optional) -->
@@ -58,7 +82,7 @@
           <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a class="d-block"><?php echo $_SESSION['parent_name'];?></a>
+          <a class="d-block"><p><?php echo $parent_name." (Parent)"; ?></p></a>
         </div>
       </div>
 
@@ -92,14 +116,7 @@
             </a>
           </li>
           
-          <li class="nav-item has-treeview">
-            <a href="ajaxindex.php" class="nav-link <?php if(($url === "http://localhost/AttendanceSystem/parent/ajaxindex.php")) {echo "active";} ?> ">
-              <i class="nav-icon fas fa-users"></i><p>
-                STUDENT
-              </p></a>
-          </li>
-         
-
+     
            <li class="nav-item has-treeview">
             <a class="nav-link">
               <i class="nav-icon fas fa-chart-bar"></i>

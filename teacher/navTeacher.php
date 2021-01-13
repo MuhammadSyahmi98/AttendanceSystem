@@ -78,6 +78,9 @@
         <a href="contact.php" class="nav-link">CONTACT</a>
       </li>
     </ul>
+    <p class="navbar-nav ml-auto" style="margin-right: -70%;"><b>
+      <?php echo date('l')."   ".date('d-m-Y'); ?></b>
+    </p>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->

@@ -93,7 +93,7 @@ if ($loggedIn!=893247348) {
                   </div>
                   <div class="form-group">
                     <label for="exampleInputICNumber">IC NUMBER</label>
-                    <input class="form-control" name="student_ic"  placeholder="Enter Ic Number" required>
+                    <input class="form-control" name="student_ic"  placeholder="Enter IC Number: XXXXXX-XX-XXXX" required>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputName">Address</label>

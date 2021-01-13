@@ -144,12 +144,20 @@ if ($loggedIn!=893247348) {
 	
 	<div class="content-wrapper">
 
+    <?php 
+    $class_id = $_SESSION['class_id'];
+    $result0 = displayClassByID($class_id);
+    $row0 = mysqli_fetch_assoc($result0);
+
+    ?>
+
 
    <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Report   By Day</h1>
+            <h4>Class: <?php echo $row0['class_name']; ?></h4>
             <form method="POST" style="margin-top: 10px;" autocomplete="off">
               <div class="form-group">
               <div class="form-group">

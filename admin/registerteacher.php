@@ -70,7 +70,7 @@ if ($loggedIn!=893247348) {
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Contact Number</label>
-                    <input type="name" name="teacher_contact" class="form-control"  placeholder="Enter Phone Number" required>
+                    <input type="name" name="teacher_contact" class="form-control"  placeholder="Enter Contact Number: XXX-XXXXXXX Or XXX-XXXXXXXX" required>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>

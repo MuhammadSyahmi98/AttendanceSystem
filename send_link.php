@@ -343,6 +343,10 @@ if(isset($_POST['submit_email']) && $_POST['email'])
       echo "Mail Error - >".$mail->ErrorInfo;
     }
     
+  }else {
+    echo "<script>alert('Error');
+              window.location.href='index.php';
+              </script>";
   }
 
 

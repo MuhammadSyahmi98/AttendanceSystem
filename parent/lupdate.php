@@ -90,6 +90,10 @@ if ($loggedIn!=1111) {
                     <label for="exampleInputICNumber">Contact Number</label>
                     <input class="form-control" name="parent_contact" value="<?php echo $row['parent_contact']; ?>"  placeholder="Enter Contact Number" required>
                   </div>
+                  <div class="form-group">
+                    <label for="exampleInputICNumber">Address</label>
+                    <input class="form-control" name="parent_address" value="<?php echo $row['parent_address']; ?>"  placeholder="Enter Contact Number" required>
+                  </div>
                 </div>
                 <!-- /.card-body -->
 
@@ -143,6 +147,7 @@ if (isset($_POST['updateParent'])) {
   $parent_name = $_POST['parent_name'];
   $parent_email = $_POST['parent_email'];
   $parent_contact = $_POST['parent_contact'];
+  $parent_address = $_POST['parent_address'];
 
 
   if(preg_match("/^[A-Z][a-zA-Z - ' .]+$/", $parent_name) === 0) {
@@ -158,14 +163,14 @@ if (isset($_POST['updateParent'])) {
                   window.location.href='lupdate.php';
                   </script>";
       } else {
-          updateParent1($parent_id, $parent_name, $parent_email, $parent_contact);
+          updateParent1($parent_id, $parent_name, $parent_email, $parent_contact, $parent_address);
         }   
 
 
         }
 
      else {
-        updateParent1($parent_id, $parent_name, $parent_email, $parent_contact);
+        updateParent1($parent_id, $parent_name, $parent_email, $parent_contact, $parent_address);
       
     }
         
@@ -174,5 +179,12 @@ if (isset($_POST['updateParent'])) {
 
 }
 
+
+?>
+
+<?php 
+if (isset($_POST['cancel'])) {
+   echo "<script>window.location.assign('lprofile.php')</script>";
+}
 
 ?>

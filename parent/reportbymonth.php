@@ -39,7 +39,8 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Report By Month</h1>
+            <h1><b>Report By Month</h1>
+            <h4>Day: <?php echo date('l')." <br> Date: ".date('d-m-Y'); ?></h4>
             <form method="POST" style="margin-top: 10px;" autocomplete="off">
 
               <div class="form-group">
@@ -83,6 +84,11 @@
                   </div>
                 </div>
               </div>
+              <form method="POST">
+               <div class="card-footer">
+                    <button type="submit" id="cancel" name="cancel" class="btn btn-primary">Back</button>
+                </div>
+              </form>
             </section>
 
             <div id="txtHint"></div>
@@ -232,3 +238,9 @@ function showData(str) {
 
 </html>
 
+<?php 
+if (isset($_POST['cancel'])) {
+   echo "<script>window.location.assign('ajaxindex.php')</script>";
+}
+
+?>

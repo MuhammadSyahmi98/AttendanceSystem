@@ -105,11 +105,20 @@ if ($loggedIn!=9999) {
                 <?php 
                 $class_id = $_SESSION['class_id'];
                 $date = date('Y-m-d');
+                // Attend
                 $result = countAttendStudentByClassAttend($class_id, $date);
                 $row = mysqli_fetch_assoc($result);
                 $totalAttend = $row['totalAttend'];
 
-                $todayAttendPrecentage = ($totalAttend/$numberOfStudent)*100;
+
+                //AttendLate
+                $result2 = countAttendLateStudentByClassAttend($class_id, $date);
+                $row2 = mysqli_fetch_assoc($result2);
+                $totalAttendLate = $row2['totalAttendLate'];
+                $total = $totalAttend + $totalAttendLate;
+
+
+                $todayAttendPrecentage = ($total/$numberOfStudent)*100;
                 $todayAbsentPrecentage = 100 -  $todayAttendPrecentage;
 
                 ?>

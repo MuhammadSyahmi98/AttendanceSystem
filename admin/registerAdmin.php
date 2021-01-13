@@ -129,7 +129,7 @@ if ($loggedIn!=893247348) {
 
                     <label for="exampleInputName">Contact Number</label>
 
-                    <input type="name" name="admin_contact" class="form-control" placeholder="Enter Contact Number" required>
+                    <input type="name" name="admin_contact" class="form-control" placeholder="Enter Contact Number: XXX-XXXXXXX Or XXX-XXXXXXXX" required>
 
                   </div>
 

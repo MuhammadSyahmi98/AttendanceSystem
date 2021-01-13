@@ -208,12 +208,12 @@ if ($loggedIn!=893247348) {
 
     //Date range picker
     $('#reservationdate').datetimepicker({
-        format: 'DD-MM-YYYY',
-        minDate:new Date()
+        format: 'DD-MM-Y',
+        minDate:moment().millisecond(0).second(0).minute(0).hour(0)
     });
     $('#reservationdate1').datetimepicker({
-        format: 'DD-MM-YYYY',
-        minDate:new Date()
+        format: 'DD-MM-Y',
+        minDate:moment().millisecond(0).second(0).minute(0).hour(0)
 
     });
     //Date range picker
@@ -290,10 +290,34 @@ if (isset($_POST['updateDate'])) {
   $new_date_end1 = strtotime($endDate);
   $endDate = date("Y-m-d", $new_date_end1);
 
+  if (empty($endDate) || empty($startDate) ) {
+    echo "<script>alert('Empty Detail Date');
+              window.location.href='editDate.php';
+              </script>";
+  } else {
+    if ($startDate > $endDate) {
+      echo "<script>alert('Start Date Cant More Than End Date');
+              window.location.href='editDate.php';
+              </script>"; 
+    } else {
+      updateDate($holiday_id, $startDate, $endDate, $holiday_type, $holiday_description);
+    }
+  }
 
 
+  
 
-  updateDate($holiday_id, $startDate, $endDate, $holiday_type, $holiday_description);
+  
   
 }
+?>
+
+
+<?php 
+if (isset($_POST['cancel'])) {
+  echo "<script>
+            window.location.href='date.php';
+            </script>"; 
+}
+
 ?>

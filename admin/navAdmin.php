@@ -72,6 +72,10 @@
         <a href="admin.php" class="nav-link">HOME</a>
       </li>
     </ul>
+    <p class="navbar-nav ml-auto" style="margin-right: -70%;"><b>
+      <?php echo date('l')."   ".date('d-m-Y'); ?></b>
+    </p>
+    
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
