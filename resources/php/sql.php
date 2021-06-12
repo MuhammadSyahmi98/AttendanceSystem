@@ -2199,9 +2199,7 @@ function displayAdminByID($admin_id) {
 	// Connection to database
 	$result = mysqli_stmt_init($conn);
 	if (!mysqli_stmt_prepare($result, $sql)) {
-        echo "<script>alert('SQL_Error_DISPLAY_ADMIN_DATA');
-		        window.location.href='class.php';
-		        </script>";
+       
     } else {
 		mysqli_stmt_bind_param($result, 'i' , $admin_id);
     	mysqli_stmt_execute($result);
@@ -3376,7 +3374,7 @@ function verifyAdmin($admin_email, $admin_password) {
 	$result = mysqli_stmt_init($conn);
 	if (!mysqli_stmt_prepare($result, $sql)) {
         echo "<script>alert('SQL_Error_LOGIN_DATA');
-		        window.location.href='date.php';
+		        window.location.href='index.php';
 		        </script>";
     } else { 
 		mysqli_stmt_bind_param($result, "ss", $admin_email, $admin_password);
