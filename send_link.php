@@ -30,7 +30,7 @@ if(isset($_POST['submit_email']) && $_POST['email'])
     // GMAIL username
     $mail->Username = "attendancesystem.my@gmail.com";
     // GMAIL password
-    $mail->Password = "Qwerty@123";
+    $mail->Password = "Momokoz@12";
     $mail->SMTPSecure = "tls";  
     // sets GMAIL as the SMTP server
     $mail->Host = "smtp.gmail.com";
@@ -140,7 +140,7 @@ if(isset($_POST['submit_email']) && $_POST['email'])
     // GMAIL username
     $mail->Username = "attendancesystem.my@gmail.com";
     // GMAIL password
-    $mail->Password = "Qwerty@123";
+    $mail->Password = "Momokoz@12";
     $mail->SMTPSecure = "tls";  
     // sets GMAIL as the SMTP server
     $mail->Host = "smtp.gmail.com";
@@ -252,7 +252,7 @@ if(isset($_POST['submit_email']) && $_POST['email'])
     // GMAIL username
     $mail->Username = "attendancesystem.my@gmail.com";
     // GMAIL password
-    $mail->Password = "Qwerty@123";
+    $mail->Password = "Momokoz@12";
     $mail->SMTPSecure = "tls";  
     // sets GMAIL as the SMTP server
     $mail->Host = "smtp.gmail.com";
